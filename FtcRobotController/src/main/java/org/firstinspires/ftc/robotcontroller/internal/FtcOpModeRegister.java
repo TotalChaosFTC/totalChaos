@@ -41,6 +41,7 @@ import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.AutoVortex0;
 import org.firstinspires.ftc.robotcontroller.external.samples.AutoVortex0Blue;
+import org.firstinspires.ftc.robotcontroller.external.samples.AutoVortex1Red;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
 /**
@@ -83,7 +84,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         /**
          * Any manual OpMode class registrations should go here.
          */
-    //manager.register("TankRobotOp", TankRobotOp.class);
+    manager.register("TankRobot", TankRobotOp.class);
     //manager.register("ServoTestOp", ServoTestOp.class);
     //manager.register("TankServoOp", TankServoOp.class);
     //manager.register("TestEncoderOp", TestEncoder.class);
@@ -100,7 +101,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("LeagueTwoOp", LeagueTwoOp.class);
     //manager.register("LeagueTwoRedOp", LeagueTwoRedOp.class);
     manager.register("BlueNormal", AutoVortex0Blue.class);
-    manager.register("RedNormal", AutoVortex0.class);
+    manager.register("RedNormal", AutoVortex1Red.class);
+    //manager.register("RedNormal", AutoVortex0.class);
     //manager.register(“BeaconPractice", BeaconPracticeOp.class);
     //manager.register("RedMoveBack", RedAutoOpLeague2MoveBack.class);
     //manager.register("CornerRed", CornerRedAutoOpLeague2.class);

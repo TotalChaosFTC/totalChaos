@@ -32,12 +32,6 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -65,7 +59,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-public class AutoVortex0Blue extends AutoVortex1PID {
+public class BackForOp extends BackForward {
 
     /* Declare OpMode members. */
 
@@ -73,11 +67,14 @@ public class AutoVortex0Blue extends AutoVortex1PID {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-
+        while(1<2){
+            encoderDrive(0.25,0.25, 5, 5);
+            encoderDrive(-0.25,-0.25,-5,-5);
+        }
         //encoderDrive(0.25, 0.25, 45, 45);
 
-        encoderDrive( 0.25, 4);
-        encoderTurn(0.25, 45);
+        //encoderDrive(0.25, 0.25, 4, 4);
+        //encoderTurn(-0.25, 0.25, -9, 9);
         //encoderDrive(0.2, 0.2, 62, 62);
         //encoderTurn(-0.25, 0.25, -8.25, 8.25);
         //encoderDrive(0.25, 0.25, 7, 7);

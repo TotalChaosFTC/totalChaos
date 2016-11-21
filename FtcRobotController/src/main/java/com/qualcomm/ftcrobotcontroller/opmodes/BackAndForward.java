@@ -42,7 +42,7 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  *Enables control of the robot via the gamepad
  */
-public class TankRobotOp extends OpMode {
+public class BackAndForward extends OpMode {
     double armDelta = 0.01;
 
     boolean iSawDpadUpAlready = false;
@@ -93,96 +93,11 @@ public class TankRobotOp extends OpMode {
     @Override
     public void loop()
     {
-        // When dpad is pushed up increase one mode
-        //When dpad is pushed down decrease by one mode
-        if (gamepad1.dpad_up) {
-            if(!iSawDpadUpAlready) {
-                iSawDpadUpAlready = true;
-                mode = mode + 0.25;
-            }
-        }
-        else {
-            iSawDpadUpAlready = false;
-        }
+        leftFront.setPower(0.25);
+        leftBack.setPower(0.25);
+        rightFront.setPower(0.25);
+        rightBack.setPower(0.25);
 
-        if (gamepad1.dpad_down) {
-            if(!iSawDpadDownAlready) {
-                iSawDpadDownAlready = true;
-                mode = mode - 0.25;
-            }
-        }
-        else {
-            iSawDpadDownAlready = false;
-        }
-        mode = Range.clip(mode, 0.25, 1 );
-
-
-        if (gamepad2.dpad_up) {
-            if(!iSawDpadUpAlreadyArm) {
-                iSawDpadUpAlreadyArm = true;
-                armMode = armMode + 0.25;
-            }
-        }
-        else {
-            iSawDpadUpAlreadyArm = false;
-        }
-
-        if (gamepad2.dpad_down) {
-            if(!iSawDpadDownAlreadyArm) {
-                iSawDpadDownAlreadyArm = true;
-                armMode = armMode - 0.25;
-            }
-        }
-        else {
-            iSawDpadDownAlreadyArm = false;
-        }
-        armMode = Range.clip(mode, 0.25, 1 );
-
-
-        if (gamepad1.left_bumper){
-            ballCollect.setPower(1);
-        }
-        if (gamepad1.right_bumper){
-            ballCollect.setPower(0);
-        }
-
-        if(gamepad2.left_bumper){
-            flapPosition = flapPosition + armDelta;
-            shotControl.setPosition(flapPosition);
-        }
-        if(gamepad2.right_bumper){
-            flapPosition = flapPosition - armDelta;
-            shotControl.setPosition(flapPosition);
-        }
-
-
-        double left = gamepad1.left_stick_y;
-        double right= gamepad1.right_stick_y;
-
-        double up = 1;
-        up= Range.clip(up, -armMode,armMode);
-
-        if(gamepad2.right_trigger > 0){
-            rightShooter.setPower(up);
-            leftShooter.setPower(up);
-        }
-        else {
-            rightShooter.setPower(0);
-            leftShooter.setPower(0);
-        }
-
-
-        right = (double)scaleInput(right);
-        left =  (double)scaleInput(left);
-
-        right= Range.clip(right, -mode, mode);
-        left= Range.clip(left, -mode, mode);
-
-
-        leftFront.setPower(left);
-        leftBack.setPower(left);
-        rightFront.setPower(right);
-        rightBack.setPower(right);
 
 
     }

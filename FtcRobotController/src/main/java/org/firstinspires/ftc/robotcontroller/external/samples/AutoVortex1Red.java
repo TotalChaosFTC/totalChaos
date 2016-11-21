@@ -32,6 +32,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import android.util.Log;
+
+import com.kauailabs.navx.ftc.AHRS;
+import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -65,40 +69,30 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-public class AutoVortex0Blue extends AutoVortex1PID {
 
-    /* Declare OpMode members. */
+public class AutoVortex1Red extends AutoVortex1PID {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-
-        //encoderDrive(0.25, 0.25, 45, 45);
-
-        encoderDrive( 0.25, 4);
-        encoderTurn(0.25, 45);
-        //encoderDrive(0.2, 0.2, 62, 62);
-        //encoderTurn(-0.25, 0.25, -8.25, 8.25);
-        //encoderDrive(0.25, 0.25, 7, 7);
-        //colorSensorDrive(BLUE,0);
-        //encoderDrive(-0.25,-0.25,-25,-25);
-        //encoderTurn(0.25, -0.25, 13, -13);
-        //encoderDrive(0.25, 0.25, 25, 25);
-        //encoderTurn(0.25, -0.25, 13, -13);
-        //encoderDrive(0.25, 0.25, 13, 13);
-        //colorSensorDrive(BLUE, 0);
-
+        colorSensorDrive(RED);
+        /*encoderDrive(0.25, 8);
+        encoderTurn(0.15, 45);
+        encoderDrive(0.25, 57.5);
+        encoderTurn(0.15, 42);
+        encoderDrive(0.15, 14);
+        */
+        /*encoderDrive(0.2, 0.2, 59, 59);
+        encoderTurn(0.25, -0.25, 12, -12);
+        encoderDrive(0.25, 0.25, 20, 20);
+        colorSensorDrive(RED,0);
+        encoderDrive(-0.25,-0.25, -25, -25);
+        encoderTurn(-0.25, 0.25, -15, 15);
+        encoderDrive(0.25, 0.25, 25, 25);
+        encoderTurn(-0.25, 0.25, -13, 13);
+        encoderDrive(0.25, 0.25, 13, 13);
+        colorSensorDrive(RED, 0);
+*/
     }
 }
-
-
-
-    /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -27,7 +28,6 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class RoverBot
 {
-    /* Public OpMode members. */
     public DcMotor  frontLeft   = null;
     public DcMotor  frontRight  = null;
     public DcMotor  backLeft    = null;
@@ -35,22 +35,21 @@ public class RoverBot
     public CRServo pusherLeft   = null;
     public CRServo pusherRight   = null;
     public ColorSensor beaconColorSensor;
-    public ColorSensor bottomColorSensor;
+    public TouchSensor beaconTouchSensor = null;
+    //public ColorSensor bottomColorSensor;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
 
-    /* local OpMode members. */
+
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
-    /* Constructor */
     public RoverBot(){
 
     }
 
-    /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
         // Save reference to Hardware map
         hwMap = ahwMap;
@@ -69,17 +68,16 @@ public class RoverBot
         pusherLeft.setPower(0);
         pusherRight.setPower(0);
         beaconColorSensor = hwMap.colorSensor.get("beacon");
-        bottomColorSensor = hwMap.colorSensor.get("bottom");
-        // Set all motors to run without encoders.
-        // May want to use RUN_USING_ENCODERS if encoders are installed.
+        beaconTouchSensor = hwMap.touchSensor.get("touch");
+
+        //bottomColorSensor = hwMap.colorSensor.get("bottom");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         beaconColorSensor.enableLed(false);
-        bottomColorSensor.enableLed(true);
+        //bottomColorSensor.enableLed(true);
 
-        // Define and initialize ALL installed servos.
 
     }
     public void ResetEncoders(){
@@ -96,28 +94,10 @@ public class RoverBot
         backRight.setPower(rightPower);
         frontRight.setPower(rightPower);
     }
-    public void stopMotors(){
+    public void stopMotors() {
         setMotorPower(0,0);
     }
-    /***
-     *
-     * waitForTick implements a periodic delay. However, this acts like a metronome with a regular
-     * periodic tick.  This is used to compensate for varying processing times for each cycle.
-     * The function looks at the elapsed cycle time, and sleeps for the remaining time interval.
-     *
-     * @param periodMs  Length of wait cycle in mSec.
-     * @throws InterruptedException
-     */
-    public void waitForTick(long periodMs) throws InterruptedException {
 
-        long  remaining = periodMs - (long)period.milliseconds();
 
-        // sleep for the remaining portion of the regular cycle period.
-        if (remaining > 0)
-            Thread.sleep(remaining);
-
-        // Reset the cycle clock for the next pass.
-        period.reset();
-    }
 }
 

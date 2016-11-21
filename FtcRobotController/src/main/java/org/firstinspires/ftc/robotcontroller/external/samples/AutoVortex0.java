@@ -67,53 +67,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
 @Disabled
-public class AutoVortex0 extends LinearOpMode {
-
-    /* Declare OpMode members. */
-    RoverBot         robot   = new RoverBot();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
-
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.8 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    double RED;
-    double BLUE;
-    long waitTime = 1000;
+public class AutoVortex0 extends AutoVortex1 {
     @Override
     public void runOpMode() throws InterruptedException {
-
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
-        telemetry.update();
-
-        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
-        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
-                robot.frontLeft.getCurrentPosition(),
-                robot.frontRight.getCurrentPosition());
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
+        initialize();
         encoderDrive(0.25, 0.25, 4, 4);
         encoderDrive(0.25, -0.25, 7, -7);
         encoderDrive(0.25,0.25, 51.5, 51.5);
@@ -130,122 +87,7 @@ public class AutoVortex0 extends LinearOpMode {
 
 
 
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-    }
-
-
-
-    /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
-
-    public void encoderDrive(double leftSpeed, double rightSpeed,
-                             double leftInches, double rightInches
-    ) throws InterruptedException {
-
-        int newLeftTarget;
-        int newRightTarget;
-
-
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.frontLeft.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.frontRight.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            robot.frontLeft.setTargetPosition(newLeftTarget);
-            robot.backLeft.setTargetPosition(newLeftTarget);
-            robot.frontRight.setTargetPosition(newRightTarget);
-            robot.backRight.setTargetPosition(newRightTarget);
-
-
-            // Turn On RUN_TO_POSITION
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // reset the timeout time and start motion.
-            runtime.reset();
-            robot.frontLeft.setPower(leftSpeed);
-            robot.backLeft.setPower(leftSpeed);
-            robot.frontRight.setPower(rightSpeed);
-            robot.backRight.setPower(rightSpeed);
-
-            // keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-
-                    (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Left Power",  "Right Power",
-                        leftSpeed,
-                        rightSpeed);
-
-                telemetry.update();
-
-
-                idle();
-            }
-
-            // Stop all motion;
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            //  sleep(250);   // optional pause after each move
-        }
-    }
-    public void colorSensorDrive(double color, double colorSpeed) throws InterruptedException {
-        robot.frontLeft.setPower(colorSpeed);
-        robot.frontRight.setPower(colorSpeed);
-        robot.backLeft.setPower(colorSpeed);
-        robot.backRight.setPower(colorSpeed);
-        if (color == RED) {
-            if (robot.beaconColorSensor.red() == 2);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-            robot.pusherRight.setPower(1);
-            sleep(1000);
-            robot.pusherRight.setPower(-1);
-            sleep(1000);
-            robot.pusherRight.setPower(0);
-            telemetry.addData("Red Value", robot.beaconColorSensor.red());
-            telemetry.update();
-        }
-
-        else{
-            if (robot.beaconColorSensor.blue() == 2);
-            robot.frontLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backLeft.setPower(0);
-            robot.backRight.setPower(0);
-            robot.pusherLeft.setPower(1);
-            sleep(1000);
-            robot.pusherLeft.setPower(-1);
-            sleep(1000);
-            robot.pusherLeft.setPower(0);
-            telemetry.addData("Blue Value", robot.beaconColorSensor.blue());
-            telemetry.update();
-
-        }
 
     }
-
 }
+

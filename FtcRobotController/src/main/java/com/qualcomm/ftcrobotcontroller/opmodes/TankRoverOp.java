@@ -31,11 +31,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import com.qualcomm.hardware.ams.AMSColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -62,9 +64,10 @@ public class TankRoverOp extends OpMode {
     double mode = FAST;
     CRServo pusherLeft;
     CRServo pusherRight;
+
     double pusherposition = 0.5;
     ColorSensor beaconColorSensor;
-    ColorSensor bottomColorSensor;
+    ExtraColorSensor bottomColorSensor;
 
 
 
@@ -81,9 +84,11 @@ public class TankRoverOp extends OpMode {
         rightBack.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.REVERSE);
         beaconColorSensor = hardwareMap.colorSensor.get("beacon");
-        bottomColorSensor = hardwareMap.colorSensor.get("bottom");
+        //bottomColorSensor = hardwareMap.colorSensor.get("bottom");
+        //bottomColorSensor = new ExtraColorSensor(hardwareMap.deviceInterfaceModule.get("dim"), 3);
         pusherLeft = hardwareMap.crservo.get("pusherLeft");
         pusherRight = hardwareMap.crservo.get("pusherRight");
+
         pusherLeft.setPower(0);
         pusherRight.setPower(0);
     }
@@ -91,8 +96,9 @@ public class TankRoverOp extends OpMode {
     @Override
     public void loop()
     {
-        // When dpad is pushed up increase one mode
-        //When dpad is pushed down decrease by one mode
+        telemetry.addData("Red", beaconColorSensor.red());
+        telemetry.update();
+
         if (gamepad1.dpad_up) {
             if(!iSawDpadUpAlready) {
                 iSawDpadUpAlready = true;
@@ -118,7 +124,6 @@ public class TankRoverOp extends OpMode {
         //when rightstick is pushed down move backwards
         double left = -gamepad1.left_stick_y;
         double right= -gamepad1.right_stick_y;
-
 
 
 
