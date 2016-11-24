@@ -136,19 +136,19 @@ public abstract class AutoVortex1PID extends LinearOpMode {
 
 
         // Wait for the game to start (driver presses PLAY)
-        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
+        /*navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
                 NAVX_DIM_I2C_PORT,
                 AHRS.DeviceDataType.kProcessedData,
                 NAVX_DEVICE_UPDATE_RATE_HZ);
-
+        */
 
         /* Create a PID Controller which uses the Yaw Angle as input. */
-        yawPIDController = new navXPIDController( navx_device,
+        /*yawPIDController = new navXPIDController( navx_device,
                 navXPIDController.navXTimestampedDataSource.YAW);
-
+                */
 
         /* Configure the PID controller */
-        yawPIDController.setContinuous(true);
+        /*yawPIDController.setContinuous(true);
         yawPIDController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE, MAX_MOTOR_OUTPUT_VALUE);
         yawPIDController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, TOLERANCE_DEGREES);
         yawPIDController.setPID(YAW_PID_P, YAW_PID_I, YAW_PID_D);
@@ -182,6 +182,7 @@ public abstract class AutoVortex1PID extends LinearOpMode {
         navx_device.zeroYaw();
         telemetry.addData("Step5","");
         telemetry.update();
+        */
     }
 
     /*
@@ -193,8 +194,9 @@ public abstract class AutoVortex1PID extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderTurn(double power,  double angle) throws InterruptedException{
-        navx_device.zeroYaw();
+        /*navx_device.zeroYaw();
         yawPIDController.setSetpoint(angle);
+        */
 
         /* Wait for new Yaw PID output values, then update the motors
            with the new PID value with each new output value.
@@ -226,7 +228,7 @@ public abstract class AutoVortex1PID extends LinearOpMode {
         int DEVICE_TIMEOUT_MS = 500;
         navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
 
-        while (opModeIsActive() &&
+        /*while (opModeIsActive() &&
                 (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
             if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
                 if (yawPIDResult.isOnTarget()) {
@@ -239,9 +241,11 @@ public abstract class AutoVortex1PID extends LinearOpMode {
 
                 }
             } else {
-			    /* A timeout occurred */
+			    /* A timeout occurred
             }
+
         }
+*/
 
         robot.stopMotors();
         robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -255,8 +259,8 @@ public abstract class AutoVortex1PID extends LinearOpMode {
         int newLeftTarget;
         int newRightTarget;
         int DEVICE_TIMEOUT_MS = 500;
-        navx_device.zeroYaw();
-        yawPIDController.setSetpoint(0.0);
+        //navx_device.zeroYaw();
+        //yawPIDController.setSetpoint(0.0);
         navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
 
         // Ensure that the opmode is still active
@@ -284,7 +288,7 @@ public abstract class AutoVortex1PID extends LinearOpMode {
             robot.setMotorPower(leftSpeed, rightSpeed);
             // keep looping while we are still active, and there is time left, and both motors are running.
 
-            yawPIDController.enable(true);
+            /*yawPIDController.enable(true);
             while (opModeIsActive() &&
                     (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
 
@@ -301,10 +305,10 @@ public abstract class AutoVortex1PID extends LinearOpMode {
                     }
 
                 } else {
-			        /* A timeout occurred */
+			        /* A timeout occurred
                 }
             }
-
+    */
             // Stop all motion;
             robot.stopMotors();
 

@@ -70,19 +70,24 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-public class AutoVortex1Red extends AutoVortex1PID {
+public class AutoVortex1Red extends AutoVortex1Touch {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
+        encoderDrive(0.15, 8);
+        encoderTurn(0.10, 45);
+        encoderDrive(0.15, 57.5);
+        encoderTurn(0.10, 45);
+        touchSensorDrive(0.15);
         colorSensorDrive(RED);
-        /*encoderDrive(0.25, 8);
-        encoderTurn(0.15, 45);
-        encoderDrive(0.25, 57.5);
-        encoderTurn(0.15, 42);
-        encoderDrive(0.15, 14);
-        */
+        encoderDrive(-0.15, -12);
+        encoderTurn(0.10, -90);
+        encoderDrive(0.15, 43);
+        encoderTurn(0.10, 90);
+        touchSensorDrive(0.15);
+        colorSensorDrive(RED);
         /*encoderDrive(0.2, 0.2, 59, 59);
         encoderTurn(0.25, -0.25, 12, -12);
         encoderDrive(0.25, 0.25, 20, 20);

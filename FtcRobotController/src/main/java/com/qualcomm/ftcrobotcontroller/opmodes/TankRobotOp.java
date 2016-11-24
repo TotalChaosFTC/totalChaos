@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -60,11 +61,13 @@ public class TankRobotOp extends OpMode {
     DcMotor ballCollect;
     DcMotor vortexSpinner;
     Servo shotControl;
+    CRServo pusherRight;
+    CRServo pusherLeft;
     final static double FAST = 1.0;
     final static double MED_FAST = 0.75;
     final static double MEDIUM = 0.5;
     final static double SLOW = 0.25;
-    double armMode = FAST;
+    double armMode = SLOW;
     double mode = FAST;
     double winchMode = FAST;
     double flapPosition = 0;
@@ -73,15 +76,17 @@ public class TankRobotOp extends OpMode {
     {
 
 
-        leftFront = hardwareMap.dcMotor.get("motor_1");
-        rightFront = hardwareMap.dcMotor.get("motor_2");
-        leftBack = hardwareMap.dcMotor.get("motor_3");
-        rightBack = hardwareMap.dcMotor.get("motor_4");
-        leftShooter = hardwareMap.dcMotor.get("motor_5");
-        rightShooter = hardwareMap.dcMotor.get("motor_6");
-        ballCollect = hardwareMap.dcMotor.get("motor_7");
-        shotControl = hardwareMap.servo.get("servo1");
-        vortexSpinner = hardwareMap.dcMotor.get("motor_8");
+        leftFront = hardwareMap.dcMotor.get("lf");
+        rightFront = hardwareMap.dcMotor.get("rf");
+        leftBack = hardwareMap.dcMotor.get("lb");
+        rightBack = hardwareMap.dcMotor.get("rb");
+        leftShooter = hardwareMap.dcMotor.get("ls");
+        rightShooter = hardwareMap.dcMotor.get("rs");
+        ballCollect = hardwareMap.dcMotor.get("bc");
+        shotControl = hardwareMap.servo.get("sc");
+        vortexSpinner = hardwareMap.dcMotor.get("vtx");
+        pusherLeft = hardwareMap.crservo.get("left");
+        pusherRight =  hardwareMap.crservo.get("right");
         leftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -139,13 +144,24 @@ public class TankRobotOp extends OpMode {
         armMode = Range.clip(mode, 0.25, 1 );
 
 
-        if (gamepad1.left_bumper){
+        if (gamepad1.left_trigger > 0){
             ballCollect.setPower(1);
         }
-        if (gamepad1.right_bumper){
+        else{
             ballCollect.setPower(0);
         }
-
+        if (gamepad1.right_bumper){
+            ballCollect.setPower(-1);
+        }
+        else {
+            ballCollect.setPower(0);
+        }
+        if (gamepad2.y){
+           vortexSpinner.setPower(0.75);
+        }
+        if (gamepad2.a){
+            vortexSpinner.setPower(-0.75);
+        }
         if(gamepad2.left_bumper){
             flapPosition = flapPosition + armDelta;
             shotControl.setPosition(flapPosition);
@@ -154,6 +170,12 @@ public class TankRobotOp extends OpMode {
             flapPosition = flapPosition - armDelta;
             shotControl.setPosition(flapPosition);
         }
+
+        double pushLeftPower = gamepad2.left_stick_y;
+        double pushRightPower = gamepad2.right_stick_y;
+
+        pusherLeft.setPower(pushLeftPower);
+        pusherRight.setPower(pushRightPower);
 
 
         double left = gamepad1.left_stick_y;

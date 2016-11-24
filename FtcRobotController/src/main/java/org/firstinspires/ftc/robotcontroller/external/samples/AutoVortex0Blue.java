@@ -65,7 +65,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-public class AutoVortex0Blue extends AutoVortex1PID {
+public class AutoVortex0Blue extends AutoVortex1Touch {
 
     /* Declare OpMode members. */
 
@@ -74,10 +74,22 @@ public class AutoVortex0Blue extends AutoVortex1PID {
 
         initialize();
 
-        //encoderDrive(0.25, 0.25, 45, 45);
 
-        encoderDrive( 0.25, 4);
-        encoderTurn(0.25, 45);
+        encoderDrive(0.25, 8);
+        encoderTurn(0.15, -45);
+        encoderDrive(0.25, 57.5);
+        encoderTurn(0.15, -45);
+        touchSensorDrive(0.25);
+        colorSensorDrive(BLUE);
+        encoderDrive(-0.25, -12);
+        encoderTurn(0.15, 90);
+        encoderDrive(0.25, 43);
+        encoderTurn(0.15, -90);
+        touchSensorDrive(0.25);
+        colorSensorDrive(BLUE);
+
+        //encoderDrive( 0.25, 4);
+        //encoderTurn(0.25, 45);
         //encoderDrive(0.2, 0.2, 62, 62);
         //encoderTurn(-0.25, 0.25, -8.25, 8.25);
         //encoderDrive(0.25, 0.25, 7, 7);

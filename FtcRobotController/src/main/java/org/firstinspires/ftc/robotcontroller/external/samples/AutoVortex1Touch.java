@@ -74,11 +74,11 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
     /* Declare OpMode members. */
         RoverBot robot = new RoverBot();   // Use a Pushbot's hardware
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    //Andy Mark Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.8 ;     // For figuring circumference
+    static final double     WHEEL_DIAMETER_INCHES   = 3.875 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
+            (WHEEL_DIAMETER_INCHES * Math.PI);
     static final int RED = 0;
     static final int BLUE = 1;
 
@@ -197,7 +197,7 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
          */
         int newLeftTurn;
         int newRightTurn;
-        double radius = Math.sqrt(120.25);
+        double radius = 9.77;
         double inches = angle * 2 * Math.PI * radius / 360;
         newLeftTurn = robot.frontLeft.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
         newRightTurn = robot.frontRight.getCurrentPosition() - (int)(inches * COUNTS_PER_INCH);
@@ -205,6 +205,8 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
         robot.backLeft.setTargetPosition(newLeftTurn);
         robot.frontRight.setTargetPosition(newRightTurn);
         robot.backRight.setTargetPosition(newRightTurn);
+
+        telemetry.addData("Target turn", newRightTurn);
 
         double leftPower = (angle > 0.0) ? power : -1.0*power;
         double rightPower = (angle < 0.0) ? power : -1.0*power;
@@ -230,8 +232,7 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
 
                 } else {
                     double output = yawPIDResult.getOutput();
-                    robot.frontLeft.setPower(output);
-                    robot.frontRight.setPower(-output);
+                    robot.setMotorPower(output, -output);
 
                 }
             } else {
@@ -305,30 +306,16 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
 
 
         public void touchSensorDrive(double power) throws InterruptedException {
-            // Ensure that the opmode is still active
-            if (opModeIsActive()) {
-                runtime.reset();
-                double leftSpeed = power;
-                double rightSpeed = power;
-                robot.setMotorPower(leftSpeed, rightSpeed);
-                // keep looping while we are still active, and there is time left, and both motors are running.
 
-
-                while (opModeIsActive() &&
-                        (robot.frontLeft.isBusy() && robot.frontRight.isBusy())&& !robot.beaconTouchSensor.isPressed()) {
-                    idle();
-
-                }
+            robot.setMotorPower(power, power);
+            while (!robot.beaconTouchSensor.isPressed()){
+                idle();
             }
 
             // Stop all motion;
             robot.stopMotors();
 
-            // Turn off RUN_TO_POSITION
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         }
 
 
@@ -344,6 +331,7 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
                 robot.pusherRight.setPower(-1);
                 sleep(1000);
                 robot.pusherRight.setPower(0);
+                 telemetry.addData("YAY!","IT FOUND BLUE!");
 
             }
             else if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
@@ -352,6 +340,8 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
                 robot.pusherLeft.setPower(-1);
                 sleep(1000);
                 robot.pusherLeft.setPower(0);
+                telemetry.addData("YAY!","IT FOUND RED!");
+                telemetry.update();
 
             }
             else {
@@ -366,6 +356,8 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
                 robot.pusherLeft.setPower(-1);
                 sleep(1000);
                 robot.pusherLeft.setPower(0);
+                telemetry.addData("YAY!","IT FOUND RED!");
+                telemetry.update();
 
             }
             else if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
@@ -374,10 +366,12 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
                 robot.pusherRight.setPower(-1);
                 sleep(1000);
                 robot.pusherRight.setPower(0);
+                telemetry.addData("YAY!","IT FOUND BLUE!");
+                telemetry.update();
 
             }
             else {
-                telemetry.addData("LOL PROGRAMMING SUCKS YOU CAN'T EVEN GET A COLOR SENSOR TO WORK", "HAHAHAHA");
+                telemetry.addData("The color sensor is not getting any readings", "");
 
             }
         }
