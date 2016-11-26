@@ -63,24 +63,16 @@ public class ServoTestOp extends OpMode {
   public void loop() {
 
     if (gamepad1.y){
-      pusherposition = 1;
-      pusherposition = Range.clip(pusherposition, -1, 1);
-      pusher.setPower(pusherposition);
+      pusher.setPower(1);
     }
     else{
-      pusherposition = 0 ;
-      pusherposition = Range.clip(pusherposition, -1, 1);
-      pusher.setPower(pusherposition);
+      pusher.setPower(0);
     }
     if (gamepad1.a) {
-      pusherposition = -1;
-      pusherposition = Range.clip(pusherposition, -1, 1);
-      pusher.setPower(pusherposition);
+      pusher.setPower(-1);
     }
     else{
-      pusherposition = 0 ;
-      pusherposition = Range.clip(pusherposition, -1, 1);
-      pusher.setPower(pusherposition);
+      pusher.setPower(0);
     }
   }
 }

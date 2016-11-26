@@ -190,14 +190,14 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
      */
     public void encoderTurn(double power,  double angle) throws InterruptedException{
         navx_device.zeroYaw();
-        yawPIDController.setSetpoint(angle);
+        yawPIDController.setSetpoint(-angle);
 
         /* Wait for new Yaw PID output values, then update the motors
            with the new PID value with each new output value.
          */
         int newLeftTurn;
         int newRightTurn;
-        double radius = 9.77;
+        double radius = 12.6;
         double inches = angle * 2 * Math.PI * radius / 360;
         newLeftTurn = robot.frontLeft.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
         newRightTurn = robot.frontRight.getCurrentPosition() - (int)(inches * COUNTS_PER_INCH);
@@ -220,31 +220,47 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
         // reset the timeout time and start motion.
         runtime.reset();
         robot.setMotorPower(leftPower, rightPower);
+        while (opModeIsActive() &&
+                (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
+            idle();
+        }
         final double TOTAL_RUN_TIME_SECONDS = 30.0;
         int DEVICE_TIMEOUT_MS = 500;
         navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
-
-        while (opModeIsActive() &&
-                (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
-            if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-                if (yawPIDResult.isOnTarget()) {
-                    robot.setMotorPower(leftPower, rightPower);
-
-                } else {
-                    double output = yawPIDResult.getOutput();
-                    robot.setMotorPower(output, -output);
-
-                }
-            } else {
-			    /* A timeout occurred */
-            }
-        }
 
         robot.stopMotors();
         robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
+            double output = yawPIDResult.getOutput();
+            while (opModeIsActive() &&
+                    output != 0) {
+                if (output > 0) {
+                    robot.setMotorPower(-0.075, 0.075);
+                    telemetry.addData("Output", output);
+
+                    telemetry.update();
+
+                } else {
+                    robot.setMotorPower(0.075, -0.075);
+                    telemetry.addData("Output", output);
+                    telemetry.update();
+                }
+                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
+                    output = yawPIDResult.getOutput();
+
+                } else {
+			    /* A timeout occurred */
+                    break;
+                }
+            }
+        }
+
+        robot.stopMotors();
+
     }
 
     public void encoderDrive(double power, double inches) throws InterruptedException {
@@ -314,6 +330,7 @@ public abstract class AutoVortex1Touch extends LinearOpMode {
 
             // Stop all motion;
             robot.stopMotors();
+
 
 
         }

@@ -78,26 +78,18 @@ public class AutoVortex1Red extends AutoVortex1Touch {
         initialize();
         encoderDrive(0.15, 8);
         encoderTurn(0.10, 45);
-        encoderDrive(0.15, 57.5);
-        encoderTurn(0.10, 45);
+        encoderDrive(0.15, 58.5);
+        encoderTurn(0.10, 44);
         touchSensorDrive(0.15);
         colorSensorDrive(RED);
         encoderDrive(-0.15, -12);
         encoderTurn(0.10, -90);
-        encoderDrive(0.15, 43);
+        encoderDrive(0.15, 47.5);
         encoderTurn(0.10, 90);
         touchSensorDrive(0.15);
         colorSensorDrive(RED);
-        /*encoderDrive(0.2, 0.2, 59, 59);
-        encoderTurn(0.25, -0.25, 12, -12);
-        encoderDrive(0.25, 0.25, 20, 20);
-        colorSensorDrive(RED,0);
-        encoderDrive(-0.25,-0.25, -25, -25);
-        encoderTurn(-0.25, 0.25, -15, 15);
-        encoderDrive(0.25, 0.25, 25, 25);
-        encoderTurn(-0.25, 0.25, -13, 13);
-        encoderDrive(0.25, 0.25, 13, 13);
-        colorSensorDrive(RED, 0);
-*/
+        encoderTurn(0.10 , 135);
+        encoderDrive(0.10, 20);
+        
     }
 }
