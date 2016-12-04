@@ -355,6 +355,7 @@ public class navXPIDController implements IDataArrivalSubscriber {
 	* this function was called, otherwise returns false.  If true, the result
 	* will updated to reflect the newly-calculated controller values.
 	*/
+
     public boolean isNewUpdateAvailable(PIDResult result) {
         boolean new_data_available;
         if (enabled &&

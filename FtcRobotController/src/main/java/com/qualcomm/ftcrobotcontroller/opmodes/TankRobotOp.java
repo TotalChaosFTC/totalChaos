@@ -67,10 +67,10 @@ public class TankRobotOp extends OpMode {
     final static double MED_FAST = 0.75;
     final static double MEDIUM = 0.5;
     final static double SLOW = 0.25;
-    double armMode = SLOW;
+    double armMode = MEDIUM;
     double mode = FAST;
     double winchMode = FAST;
-    double flapPosition = 0;
+    double flapPosition = 1;
 
     public void init()
     {
@@ -83,15 +83,14 @@ public class TankRobotOp extends OpMode {
         leftShooter = hardwareMap.dcMotor.get("ls");
         rightShooter = hardwareMap.dcMotor.get("rs");
         ballCollect = hardwareMap.dcMotor.get("bc");
-        shotControl = hardwareMap.servo.get("sc");
         vortexSpinner = hardwareMap.dcMotor.get("vtx");
+        shotControl = hardwareMap.servo.get("sc");
         pusherLeft = hardwareMap.crservo.get("left");
         pusherRight =  hardwareMap.crservo.get("right");
         leftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        shotControl.setPosition(0.75);
 
     }
 
@@ -119,13 +118,13 @@ public class TankRobotOp extends OpMode {
         else {
             iSawDpadDownAlready = false;
         }
-        mode = Range.clip(mode, 0.25, 1 );
+        mode = Range.clip(mode, 0.25, 0.75 );
 
 
         if (gamepad2.dpad_up) {
             if(!iSawDpadUpAlreadyArm) {
                 iSawDpadUpAlreadyArm = true;
-                armMode = armMode + 0.25;
+                armMode = armMode + 0.05;
             }
         }
         else {
@@ -135,23 +134,19 @@ public class TankRobotOp extends OpMode {
         if (gamepad2.dpad_down) {
             if(!iSawDpadDownAlreadyArm) {
                 iSawDpadDownAlreadyArm = true;
-                armMode = armMode - 0.25;
+                armMode = armMode - 0.05;
             }
         }
         else {
             iSawDpadDownAlreadyArm = false;
         }
-        armMode = Range.clip(mode, 0.25, 1 );
+        armMode = Range.clip(armMode, 0.1, 1 );
 
-
-        if (gamepad1.left_trigger > 0){
-            ballCollect.setPower(1);
+        if (gamepad1.right_trigger > 0){
+            ballCollect.setPower(0.5);
         }
-        else{
-            ballCollect.setPower(0);
-        }
-        if (gamepad1.right_bumper){
-            ballCollect.setPower(-1);
+        else if (gamepad1.left_trigger > 0){
+            ballCollect.setPower(-0.5);
         }
         else {
             ballCollect.setPower(0);
@@ -159,40 +154,54 @@ public class TankRobotOp extends OpMode {
         if (gamepad2.y){
            vortexSpinner.setPower(0.75);
         }
-        if (gamepad2.a){
+        else if (gamepad2.a){
             vortexSpinner.setPower(-0.75);
         }
+        else {
+            vortexSpinner.setPower(0);
+        }
+
         if(gamepad2.left_bumper){
             flapPosition = flapPosition + armDelta;
             shotControl.setPosition(flapPosition);
+
         }
+
         if(gamepad2.right_bumper){
             flapPosition = flapPosition - armDelta;
             shotControl.setPosition(flapPosition);
         }
+        if(gamepad2.x){
+            flapPosition = 0.47;
+            shotControl.setPosition(flapPosition);
+            armMode = 0.65;
+        }
+
+        if(gamepad2.b){
+            flapPosition = 0.42;
+            shotControl.setPosition(flapPosition);
+            armMode = 0.75;
+        }
+        telemetry.addData("Flap Position", "%f, BS Power %f", flapPosition, armMode);
+        telemetry.update();
 
         double pushLeftPower = gamepad2.left_stick_y;
         double pushRightPower = gamepad2.right_stick_y;
 
-        pusherLeft.setPower(pushLeftPower);
+        pusherLeft.setPower(-pushLeftPower);
         pusherRight.setPower(pushRightPower);
-
 
         double left = gamepad1.left_stick_y;
         double right= gamepad1.right_stick_y;
 
-        double up = 1;
-        up= Range.clip(up, -armMode,armMode);
-
         if(gamepad2.right_trigger > 0){
-            rightShooter.setPower(up);
-            leftShooter.setPower(up);
+            rightShooter.setPower(armMode);
+            leftShooter.setPower(armMode);
         }
         else {
             rightShooter.setPower(0);
             leftShooter.setPower(0);
         }
-
 
         right = (double)scaleInput(right);
         left =  (double)scaleInput(left);
@@ -205,7 +214,6 @@ public class TankRobotOp extends OpMode {
         leftBack.setPower(left);
         rightFront.setPower(right);
         rightBack.setPower(right);
-
 
     }
 

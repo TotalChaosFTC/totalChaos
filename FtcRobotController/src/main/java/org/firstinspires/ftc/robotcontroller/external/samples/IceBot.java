@@ -3,12 +3,9 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This is NOT an opmode.
@@ -26,27 +23,27 @@ import com.qualcomm.robotcore.util.Range;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class RoverBot
+public class IceBot
 {
     public DcMotor  frontLeft   = null;
     public DcMotor  frontRight  = null;
     public DcMotor  backLeft    = null;
     public DcMotor  backRight    = null;
     public CRServo pusherLeft   = null;
-    public CRServo pusherRight   = null;
+    public CRServo pusherRight = null;
     public ColorSensor beaconColorSensor;
     public TouchSensor beaconTouchSensor = null;
-    public ColorSensor bottomColorSensor;
+    //public ColorSensor bottomColorSensor;
 
-    //public static final double MID_SERVO       =  0.5 ;
-    //public static final double ARM_UP_POWER    =  0.45 ;
-    //public static final double ARM_DOWN_POWER  = -0.45 ;
+    public static final double MID_SERVO       =  0.5 ;
+    public static final double ARM_UP_POWER    =  0.45 ;
+    public static final double ARM_DOWN_POWER  = -0.45 ;
 
 
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
-    public RoverBot(){
+    public IceBot(){
 
     }
 
@@ -63,8 +60,8 @@ public class RoverBot
         backLeft.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
-        pusherLeft = hwMap.crservo.get("left");
-        pusherRight = hwMap.crservo.get("right");
+        pusherLeft = hwMap.crservo.get("pusherLeft");
+        pusherRight = hwMap.crservo.get("pusherRight");
         pusherLeft.setPower(0);
         pusherRight.setPower(0);
         beaconColorSensor = hwMap.colorSensor.get("beacon");

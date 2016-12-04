@@ -32,16 +32,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
-import com.qualcomm.ftcrobotcontroller.opmodes.ServoTestOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.MechTestOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.MechWheelsOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.TankRobotOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.TankRoverOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.AutoVortex0;
-import org.firstinspires.ftc.robotcontroller.external.samples.AutoVortex0Blue;
-import org.firstinspires.ftc.robotcontroller.external.samples.AutoVortex1Red;
+import org.firstinspires.ftc.robotcontroller.external.samples.AutoBlue1;
+import org.firstinspires.ftc.robotcontroller.external.samples.AutoRed1;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
 /**
@@ -84,7 +84,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         /**
          * Any manual OpMode class registrations should go here.
          */
-    manager.register("TankRobot", TankRobotOp.class);
+    manager.register("IceTeleOp", TankRobotOp.class);
     //manager.register("ServoTestOp", ServoTestOp.class);
     //manager.register("TankServoOp", TankServoOp.class);
     //manager.register("TestEncoderOp", TestEncoder.class);
@@ -99,16 +99,16 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("League0FloorGoalOp", League0FloorGoalOp.class);
     //manager.register("AutoOp", AutoOp.class);
     //manager.register("LeagueTwoOp", LeagueTwoOp.class);
-    //manager.register("LeagueTwoRedOp", LeagueTwoRedOp.class);
-    manager.register("BlueNormal", AutoVortex0Blue.class);
-    manager.register("RedNormal", AutoVortex1Red.class);
-    //manager.register("RedNormal", AutoVortex0.class);
+    manager.register("LeagueTwoRedOp", MechTestOp.class);
+    manager.register("MechWheels", MechWheelsOp.class);
+    manager.register("BlueNormal1", AutoBlue1.class);
+    manager.register("RedNormal1", AutoRed1.class);
     //manager.register(“BeaconPractice", BeaconPracticeOp.class);
     //manager.register("RedMoveBack", RedAutoOpLeague2MoveBack.class);
     //manager.register("CornerRed", CornerRedAutoOpLeague2.class);
     //manager.register("CornerBlue", CornerAutoOpLeague2.class);
     //manager.register("ColorSensorTest", ColorSensorOp.class);
-    manager.register("TankRoverOp", TankRoverOp.class);
+    manager.register("BlehBot :(", TankRoverOp.class);
     //manager.register("TouchSensorTest", TouchSensorTest.class);
     //manager.register("ArmBlue", ArmAutoOpLeague2.class);
     //manager.register("ArmRed", RedArmAutoOpLeague2.class);

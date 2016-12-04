@@ -32,16 +32,6 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import android.util.Log;
-
-import com.kauailabs.navx.ftc.AHRS;
-import com.kauailabs.navx.ftc.navXPIDController;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -70,26 +60,27 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 
-public class AutoVortex1Red extends AutoVortex1Touch {
+public class AutoRed1 extends NavXTestOp {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(0.15, 8);
-        encoderTurn(0.10, 45);
-        encoderDrive(0.15, 58.5);
-        encoderTurn(0.10, 44);
-        touchSensorDrive(0.15);
+        navXTurn(45);
+        //encoderTurn(0.2, -45);
+        /*encoderDrive(0.2, 58.5);
+        encoderTurn(0.2, -44);
+        touchSensorDrive(0.2);
         colorSensorDrive(RED);
-        encoderDrive(-0.15, -12);
-        encoderTurn(0.10, -90);
-        encoderDrive(0.15, 47.5);
-        encoderTurn(0.10, 90);
-        touchSensorDrive(0.15);
+        encoderDrive(-0.2, -12);
+        encoderTurn(0.2, 90);
+        encoderDrive(0.2, 47.5);
+        encoderTurn(0.2, -90);
+        touchSensorDrive(0.2);
         colorSensorDrive(RED);
-        encoderTurn(0.10 , 135);
-        encoderDrive(0.10, 20);
+        encoderTurn(0.2, -135);
+        encoderDrive(0.2, 20);
+        */
         
     }
 }

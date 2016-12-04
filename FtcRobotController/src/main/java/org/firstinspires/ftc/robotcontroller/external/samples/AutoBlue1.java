@@ -32,12 +32,6 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -65,90 +59,33 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
-@Disabled
-public class AutoBlue1 extends AutoVortex0Blue {
+public class AutoBlue1 extends AutoBase {
 
     /* Declare OpMode members. */
-    RoverBot         robot   = new RoverBot();   // Use a Pushbot's hardware
-    private ElapsedTime     runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 3.8 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double RED = 0;
-    double BLUE;
-    double WHITE;
-    double BLACK;
-    long waitTime = 1000;
     @Override
     public void runOpMode() throws InterruptedException {
 
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");    //
-        telemetry.update();
-
-        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        initialize();
 
 
-        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Path0",  "Starting at %7d :%7d",
-                robot.frontLeft.getCurrentPosition(),
-                robot.frontRight.getCurrentPosition());
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        /*encoderDrive(0.25, 0.25, 5, 5);
-        encoderDrive(-0.25, 0.25, -7, 7);
-        encoderDrive(0.25,0.25, 51.5, 51.5);
-        encoderDrive(0.25,-0.25, -7.5, 7.5);
-        encoderDrive(0.25,0.25, 24, 24);
-        colorSensorDrive(BLUE,0);
-        encoderDrive(-0.25,-0.25, -32, -32);
-        encoderDrive(0.25,-0.25, 17, -17);
-        encoderDrive(0.25,0.25, 46,46);
-        encoderDrive(-0.25,0.25, -16.5, 16.5);
-        encoderDrive(0.25,0.25,30, 30);
-        colorSensorDrive(BLUE,0);
-        sleep(1000)
-
-        encoderDrive(0.25, 0.25, 2, 2);
-        encoderDrive(0.25, -0.25, 7, -7);
-        encoderDrive(0.25,0.25, 55, 55);
-        encoderDrive(-0.25,0.25, 7.5, -7.5);
-        encoderDrive(0.25,0.25, 22, 22);
-        colorSensorDrive(BLUE,0);
-        encoderDrive(-0.25,-0.25, -32, -32);
-        encoderDrive(-0.25,0.25, -17, 17);
-        encoderDrive(0.25,0.25, 46,46);
-        encoderDrive(0.25,-0.25, 16.5, -16.5);
-        encoderDrive(0.25,0.25,30, 30);
-        colorSensorDrive(BLUE,0);
-        sleep(1000); */
+        encoderDrive(0.15, 8);
+        encoderTurn(0.10, -45);
+        encoderDrive(0.15, 58.5);
+        encoderTurn(0.10, -44);
+        touchSensorDrive(0.15);
+        colorSensorDrive(RED);
+        encoderDrive(-0.15, -12);
+        encoderTurn(0.10, 90);
+        encoderDrive(0.15, 47.5);
+        encoderTurn(0.10, -90);
+        touchSensorDrive(0.15);
+        colorSensorDrive(RED);
+        encoderTurn(0.10 , -135);
+        encoderDrive(0.10, 20);
 
 
 
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
     }
 }
 
