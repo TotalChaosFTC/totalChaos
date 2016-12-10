@@ -59,10 +59,10 @@ public class RoverBot
         frontRight = hwMap.dcMotor.get("rf");
         backLeft = hwMap.dcMotor.get("lb");
         backRight = hwMap.dcMotor.get("rb");
-        frontLeft.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.REVERSE);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
         pusherLeft = hwMap.crservo.get("left");
         pusherRight = hwMap.crservo.get("right");
         pusherLeft.setPower(0);

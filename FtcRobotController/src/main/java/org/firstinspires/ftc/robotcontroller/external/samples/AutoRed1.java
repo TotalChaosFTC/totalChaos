@@ -60,27 +60,27 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  */
 
 
-public class AutoRed1 extends NavXTestOp {
+public class AutoRed1 extends AutoBasewNavx {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        navXTurn(45);
-        //encoderTurn(0.2, -45);
-        /*encoderDrive(0.2, 58.5);
-        encoderTurn(0.2, -44);
+        encoderDrive(0.2, 8);
+        encoderTurn(0.2, -45);
+        encoderDrive(0.2, 58.5);
+        encoderTurn(0.2, -45);
         touchSensorDrive(0.2);
-        colorSensorDrive(RED);
-        encoderDrive(-0.2, -12);
-        encoderTurn(0.2, 90);
-        encoderDrive(0.2, 47.5);
-        encoderTurn(0.2, -90);
-        touchSensorDrive(0.2);
-        colorSensorDrive(RED);
-        encoderTurn(0.2, -135);
-        encoderDrive(0.2, 20);
-        */
+        //colorSensorDrive(RED);
+        //encoderDrive(-0.2, -12);
+        //encoderTurn(0.2, 90);
+        //encoderDrive(0.2, 47.5);
+        //encoderTurn(0.2, -90);
+        //touchSensorDrive(0.2);
+        //colorSensorDrive(RED);
+        //encoderTurn(0.2, -135);
+        //encoderDrive(0.2, 20);
+
         
     }
 }

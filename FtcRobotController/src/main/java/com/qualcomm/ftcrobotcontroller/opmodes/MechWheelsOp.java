@@ -56,6 +56,7 @@ public class MechWheelsOp extends OpMode {
     DcMotor rightFront;
     DcMotor leftBack;
     DcMotor rightBack;
+    DcMotor Sweeper;
     final static double FAST = 1.0;
     final static double MED_FAST = 0.75;
     final static double MEDIUM = 0.5;
@@ -73,6 +74,7 @@ public class MechWheelsOp extends OpMode {
         rightFront = hardwareMap.dcMotor.get("rf");
         leftBack = hardwareMap.dcMotor.get("lb");
         rightBack = hardwareMap.dcMotor.get("rb");
+        Sweeper = hardwareMap.dcMotor.get("swp");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -131,8 +133,8 @@ public class MechWheelsOp extends OpMode {
 
         double forward = gamepad1.left_stick_y;
         double side = gamepad1.left_stick_x;
-    if (side == 0 || forward == 0) {
-        if (Math.abs(forward) > Math.abs(side)) {
+        if (side == 0 || forward == 0) {
+            if (Math.abs(forward) > Math.abs(side)) {
             leftFront.setPower(forward);
             leftBack.setPower(forward);
             rightFront.setPower(forward);
@@ -148,15 +150,17 @@ public class MechWheelsOp extends OpMode {
             rightBack.setPower(0);
             rightFront.setPower(0);
         }
-    }
+        }
 
-        else if (side < 0.7 && side > 0.3 && forward > 0.3 && forward < 0.7) {
+        if ((side < 0.7) && (side > 0.3) && (forward > 0.3) && (forward < 0.7)) {
             leftBack.setPower(0);
             leftFront.setPower(1);
             rightBack.setPower(1);
             rightFront.setPower(0);
             telemetry.addLine("test1");
-        } else if (side < -0.7 && side > -0.3 && forward > 0.3 && forward < 0.7) {  //side is negative
+        }
+
+        if (side < -0.7 && side > -0.3 && forward > 0.3 && forward < 0.7) {  //side is negative
             leftBack.setPower(0);
             leftFront.setPower(-1);
             rightBack.setPower(-1);
@@ -164,7 +168,7 @@ public class MechWheelsOp extends OpMode {
             telemetry.addLine("test2");
 
         }
-        else if (side < 0.7 && side > 0.3 && forward > -0.3 && forward < -0.7) { //side is pos forward is neg
+        if (side < 0.7 && side > 0.3 && forward > -0.3 && forward < -0.7) { //side is pos forward is neg
             leftBack.setPower(1);
             leftFront.setPower(0);
             rightBack.setPower(0);
@@ -172,13 +176,22 @@ public class MechWheelsOp extends OpMode {
             telemetry.addLine("test3");
 
         }
-        else if (side < -0.7 && side > -0.3 && forward > -0.3 && forward < -0.7) { // side is neg for is neg
+        if (side < -0.7 && side > -0.3 && forward > -0.3 && forward < -0.7) { // side is neg for is neg
             leftBack.setPower(-1);
             leftFront.setPower(0);
             rightBack.setPower(0);
             rightFront.setPower(-1);
             telemetry.addLine("test4");
 
+        }
+        if (gamepad1.right_trigger > 0){
+            Sweeper.setPower(1);
+        }
+        else if(gamepad1.left_trigger > 0){
+           Sweeper.setPower(-1);
+        }
+        else{
+            Sweeper.setPower(0);
         }
     }
 
