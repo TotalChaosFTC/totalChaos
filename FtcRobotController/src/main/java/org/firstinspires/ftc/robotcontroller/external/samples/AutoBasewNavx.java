@@ -32,6 +32,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import android.sax.TextElementListener;
+
 import com.kauailabs.navx.ftc.AHRS;
 import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -39,6 +41,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import com.qualcomm.ftccommon.DbgLog;
+
 
 /**
  * This file illusttes the concept of driving a path based on encoder counts.
@@ -204,7 +210,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
          */
         int newLeftTurn;
         int newRightTurn;
-        double radius = 9.7;
+        double radius = 9.3;
         double inches = angle * 2 * Math.PI * radius / 360;
         newLeftTurn = robot.frontLeft.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
         newRightTurn = robot.frontRight.getCurrentPosition() - (int)(inches * COUNTS_PER_INCH);
@@ -235,9 +241,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         telemetry.addData("Turn", "1");
         telemetry.update();
 
-        final double TOTAL_RUN_TIME_SECONDS = 30.0;
-        int DEVICE_TIMEOUT_MS = 5000; //TBD Change to 1000
-        //navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
 
         robot.stopMotors();
         robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -253,15 +256,15 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         double yaw = navx_device.getYaw();
         telemetry.addData("Yaw", yaw);
         telemetry.update();
-        while ((yaw - angle) > 0.5) {
+        while (Math.abs(yaw - angle) > 0.2) {
             telemetry.addData("Yaw", yaw);
             telemetry.update();
             if (yaw < angle) {
                 if(first || !wasPos) {
                     first = false;
                     wasPos = true;
-                    double lp = (angle > 0.0) ? 0.1 : -0.1;
-                    double rp = (angle < 0.0) ? 0.1 : -0.1;
+                    double lp = (yaw - angle > 0.0) ? 0.1 : -0.1;
+                    double rp = (yaw - angle < 0.0) ? 0.1 : -0.1;
                     robot.setMotorPower(lp, rp);
                 }
             }
@@ -269,8 +272,8 @@ public abstract class AutoBasewNavx extends LinearOpMode {
                 if( first || wasPos ) {
                     first = false;
                     wasPos = false;
-                    double rp = (angle > 0.0) ? 0.1 : -0.1;
-                    double lp = (angle < 0.0) ? 0.1 : -0.1;
+                    double rp = (yaw - angle > 0.0) ? 0.1 : -0.1;
+                    double lp = (yaw - angle < 0.0) ? 0.1 : -0.1;
                     robot.setMotorPower(lp, rp);
                 }
             }
@@ -372,20 +375,24 @@ public abstract class AutoBasewNavx extends LinearOpMode {
             while (opModeIsActive() &&
                 (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
                 yawForward = navx_device.getYaw();
-                if (yawForward == 0) {
+                if (Math.abs(yawForward) > 2) {
                     robot.setMotorPower(leftSpeed, rightSpeed);
                 } else {
                     yawForward = navx_device.getYaw();
                     double correction = yawForward * 0.01;
-                    robot.setMotorPower(leftSpeed + correction, rightSpeed + correction);
-                    leftSpeed = leftSpeed + correction;
+                    robot.setMotorPower(leftSpeed - correction, rightSpeed + correction);
+                    leftSpeed = leftSpeed - correction;
                     rightSpeed = rightSpeed + correction;
+                    telemetry.addData("Corection", "%f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
+                    telemetry.update();
+                    DbgLog.msg("Corection %f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
                 }
-                idle();
+                for (int i = 0 ; i < 4; i++)
+                    idle();
             }
         }
     }
-    
+
 
         public void touchSensorDrive(double power) throws InterruptedException {
 

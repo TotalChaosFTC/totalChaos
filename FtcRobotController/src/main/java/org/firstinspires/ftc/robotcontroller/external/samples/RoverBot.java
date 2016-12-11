@@ -31,11 +31,15 @@ public class RoverBot
     public DcMotor  frontLeft   = null;
     public DcMotor  frontRight  = null;
     public DcMotor  backLeft    = null;
-    public DcMotor  backRight    = null;
-    public CRServo pusherLeft   = null;
-    public CRServo pusherRight   = null;
+    public DcMotor  backRight   = null;
+    public DcMotor  leftShooter = null;
+    public DcMotor  rightShooter = null;
+    public CRServo  pusherLeft   = null;
+    public CRServo  pusherRight  = null;
     public ColorSensor beaconColorSensor;
     public TouchSensor beaconTouchSensor = null;
+    public Servo shotControl = null;
+    public DcMotor  ballCollect  = null;
     public ColorSensor bottomColorSensor;
 
     //public static final double MID_SERVO       =  0.5 ;
@@ -59,6 +63,11 @@ public class RoverBot
         frontRight = hwMap.dcMotor.get("rf");
         backLeft = hwMap.dcMotor.get("lb");
         backRight = hwMap.dcMotor.get("rb");
+        leftShooter = hwMap.dcMotor.get("ls");
+        rightShooter = hwMap.dcMotor.get("rs");
+        ballCollect = hwMap.dcMotor.get("bc");
+        shotControl = hwMap.servo.get("sc");
+        leftShooter.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
