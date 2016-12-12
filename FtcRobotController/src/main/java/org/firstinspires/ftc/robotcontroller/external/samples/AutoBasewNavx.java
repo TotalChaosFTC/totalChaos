@@ -33,6 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import android.sax.TextElementListener;
+import android.util.Log;
 
 import com.kauailabs.navx.ftc.AHRS;
 import com.kauailabs.navx.ftc.navXPIDController;
@@ -93,7 +94,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
     /* depending upon which I2C port you are using.               */
     private final int NAVX_DIM_I2C_PORT = 0;
     private AHRS navx_device;
-    //private navXPIDController yawPIDController;
+    private navXPIDController yawPIDController;
     private ElapsedTime runtime = new ElapsedTime();
 
     private final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
@@ -146,16 +147,16 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
 
         /* Create a PID Controller which uses the Yaw Angle as input. */
-        /*yawPIDController = new navXPIDController( navx_device,
+        yawPIDController = new navXPIDController( navx_device,
                 navXPIDController.navXTimestampedDataSource.YAW);
-        */
+
 
         /* Configure the PID controller */
-        //yawPIDController.setContinuous(true);
-        //yawPIDController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE, MAX_MOTOR_OUTPUT_VALUE);
-        //yawPIDController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, TOLERANCE_DEGREES);
-        //yawPIDController.setPID(YAW_PID_P, YAW_PID_I, YAW_PID_D);
-        //yawPIDController.enable(true);
+        yawPIDController.setContinuous(true);
+        yawPIDController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE, MAX_MOTOR_OUTPUT_VALUE);
+        yawPIDController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, TOLERANCE_DEGREES);
+        yawPIDController.setPID(YAW_PID_P, YAW_PID_I, YAW_PID_D);
+        yawPIDController.enable(true);
 
         waitForStart();
 
@@ -185,6 +186,8 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         navx_device.zeroYaw();
         telemetry.addData("Step5","");
         telemetry.update();
+
+
     }
 
     /*
@@ -337,8 +340,8 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
         navx_device.zeroYaw();
 
-        //yawPIDController.setSetpoint(0.0);
-        //navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
+        yawPIDController.setSetpoint(0.0);
+        navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
 
         // Ensure that the opmode is still active
 
@@ -368,7 +371,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
             robot.setMotorPower(leftSpeed, rightSpeed);
             // keep looping while we are still active, and there is time left, and both motors are running.
 
-            while (opModeIsActive() &&
+            /*while (opModeIsActive() &&
                 (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
                 yawForward = navx_device.getYaw();
                 if (Math.abs(yawForward) > 2) {
@@ -384,6 +387,27 @@ public abstract class AutoBasewNavx extends LinearOpMode {
                 }
                 for (int i = 0 ; i < 4; i++){
                     idle();
+                }
+            }
+            */
+
+
+            while (opModeIsActive() &&
+                    (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
+                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
+                    if (yawPIDResult.isOnTarget()) {
+                        telemetry.addData("Going straight","");
+                    } else {
+                        double output = yawPIDResult.getOutput();
+                        robot.setMotorPower(leftSpeed - output, rightSpeed + output);
+                        telemetry.addData("Output", output);
+
+                    }
+                    telemetry.addData("Yaw", navx_device.getYaw());
+                    telemetry.update();
+                } else{
+                    telemetry.addData("A timeout occured","");
+                    telemetry.update();
                 }
             }
         }

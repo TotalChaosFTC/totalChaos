@@ -66,7 +66,7 @@ public class AutoRed1 extends AutoBasewNavx {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(0.25, 28);
+        encoderDrive(0.35, 28);
         robot.shotControl.setPosition(0.42);
         robot.leftShooter.setPower(0.15);
         robot.rightShooter.setPower(0.10);
@@ -79,7 +79,7 @@ public class AutoRed1 extends AutoBasewNavx {
         sleep(500);
         robot.leftShooter.setPower(0.75);
         robot.rightShooter.setPower(0.70);
-        sleep(500);
+        sleep(750);
         robot.ballCollect.setPower(0.5);
         sleep(1500);
         robot.shotControl.setPosition(0.42);
@@ -92,8 +92,10 @@ public class AutoRed1 extends AutoBasewNavx {
         robot.ballCollect.setPower(0);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderTurn(-0.15, -70);
-        encoderDrive(0.25, 40);
+        encoderTurn(-0.15, -50);
+        encoderDrive(0.35, 45);
+        encoderTurn(0.15, -40);
+        touchSensorDrive(0.15);
         //colorSensorDrive(RED);
         //encoderDrive(-0.2, -12);
         //encoderTurn(0.2, 90);
