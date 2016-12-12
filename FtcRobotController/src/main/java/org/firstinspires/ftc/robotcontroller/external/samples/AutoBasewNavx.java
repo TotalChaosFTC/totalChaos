@@ -256,25 +256,21 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         double yaw = navx_device.getYaw();
         telemetry.addData("Yaw", yaw);
         telemetry.update();
-        while (Math.abs(yaw - angle) > 0.2) {
+        while (Math.abs(yaw - angle) > 1.0) {
             telemetry.addData("Yaw", yaw);
             telemetry.update();
             if (yaw < angle) {
                 if(first || !wasPos) {
                     first = false;
                     wasPos = true;
-                    double lp = (yaw - angle > 0.0) ? 0.1 : -0.1;
-                    double rp = (yaw - angle < 0.0) ? 0.1 : -0.1;
-                    robot.setMotorPower(lp, rp);
+                    robot.setMotorPower(0.1, -0.1);
                 }
             }
             else if (yaw > angle) {
                 if( first || wasPos ) {
                     first = false;
                     wasPos = false;
-                    double rp = (yaw - angle > 0.0) ? 0.1 : -0.1;
-                    double lp = (yaw - angle < 0.0) ? 0.1 : -0.1;
-                    robot.setMotorPower(lp, rp);
+                    robot.setMotorPower(-0.1, 0.1);
                 }
             }
             idle();
@@ -378,8 +374,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
                 if (Math.abs(yawForward) > 2) {
                     robot.setMotorPower(leftSpeed, rightSpeed);
                 } else {
-                    yawForward = navx_device.getYaw();
-                    double correction = yawForward * 0.01;
+                    double correction = yawForward * 0.001;
                     robot.setMotorPower(leftSpeed - correction, rightSpeed + correction);
                     leftSpeed = leftSpeed - correction;
                     rightSpeed = rightSpeed + correction;
@@ -387,8 +382,9 @@ public abstract class AutoBasewNavx extends LinearOpMode {
                     telemetry.update();
                     DbgLog.msg("Corection %f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
                 }
-                for (int i = 0 ; i < 4; i++)
+                for (int i = 0 ; i < 4; i++){
                     idle();
+                }
             }
         }
     }
