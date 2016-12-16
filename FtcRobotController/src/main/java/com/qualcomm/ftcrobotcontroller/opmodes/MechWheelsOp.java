@@ -133,56 +133,39 @@ public class MechWheelsOp extends OpMode {
 
         double forward = gamepad1.left_stick_y;
         double side = gamepad1.left_stick_x;
-        if (side == 0 || forward == 0) {
+        double turn = gamepad1.right_stick_x;
+
+        if (side == 0 || forward == 0 || turn == 0) {
             if (Math.abs(forward) > Math.abs(side)) {
-            leftFront.setPower(forward);
-            leftBack.setPower(forward);
-            rightFront.setPower(forward);
-            rightBack.setPower(forward);
-        } else if (Math.abs(side) > Math.abs(forward)) {
-            rightFront.setPower(side);
-            leftFront.setPower(-side);
-            rightBack.setPower(-side);
-            leftBack.setPower(side);
-        } else if (side == 0 && forward == 0) {
-            leftBack.setPower(0);
-            leftFront.setPower(0);
-            rightBack.setPower(0);
-            rightFront.setPower(0);
-        }
-        }
-
-        if ((side < 0.7) && (side > 0.3) && (forward > 0.3) && (forward < 0.7)) {
-            leftBack.setPower(0);
-            leftFront.setPower(1);
-            rightBack.setPower(1);
-            rightFront.setPower(0);
-            telemetry.addLine("test1");
-        }
-
-        if (side < -0.7 && side > -0.3 && forward > 0.3 && forward < 0.7) {  //side is negative
-            leftBack.setPower(0);
-            leftFront.setPower(-1);
-            rightBack.setPower(-1);
-            rightFront.setPower(0);
-            telemetry.addLine("test2");
-
-        }
-        if (side < 0.7 && side > 0.3 && forward > -0.3 && forward < -0.7) { //side is pos forward is neg
-            leftBack.setPower(1);
-            leftFront.setPower(0);
-            rightBack.setPower(0);
-            rightFront.setPower(1);
-            telemetry.addLine("test3");
-
-        }
-        if (side < -0.7 && side > -0.3 && forward > -0.3 && forward < -0.7) { // side is neg for is neg
-            leftBack.setPower(-1);
-            leftFront.setPower(0);
-            rightBack.setPower(0);
-            rightFront.setPower(-1);
-            telemetry.addLine("test4");
-
+                leftFront.setPower(forward);
+                leftBack.setPower(forward);
+                rightFront.setPower(forward);
+                rightBack.setPower(forward);
+            }
+            else if (Math.abs(side) > Math.abs(forward)) {
+                rightFront.setPower(side);
+                leftFront.setPower(-side);
+                rightBack.setPower(-side);
+                leftBack.setPower(side);
+            }
+            if (turn > 0) {
+                leftFront.setPower(turn);
+                leftBack.setPower(turn);
+                rightBack.setPower(-turn);
+                rightFront.setPower(-turn);
+            }
+            else if (turn < 0){
+                leftFront.setPower(turn);
+                leftBack.setPower(turn);
+                rightBack.setPower(-turn);
+                rightFront.setPower(-turn);
+            }
+            else if (side == 0 && forward == 0 && turn == 0) {
+                leftBack.setPower(0);
+                leftFront.setPower(0);
+                 rightBack.setPower(0);
+                rightFront.setPower(0);
+            }
         }
         if (gamepad1.right_trigger > 0){
             Sweeper.setPower(1);
@@ -192,6 +175,9 @@ public class MechWheelsOp extends OpMode {
         }
         else{
             Sweeper.setPower(0);
+        }
+        if (gamepad2.right_trigger > 0){
+
         }
     }
 

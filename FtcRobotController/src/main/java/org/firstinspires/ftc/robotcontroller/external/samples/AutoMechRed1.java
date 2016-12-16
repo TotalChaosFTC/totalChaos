@@ -60,59 +60,13 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  */
 
 
-public class AutoRed1 extends AutoBasewNavx {
+public class AutoMechRed1 extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(0.35, 28);
-        robot.shotControl.setPosition(0.42);
-        robot.leftShooter.setPower(0.15);
-        robot.rightShooter.setPower(0.10);
-        sleep(500);
-        robot.leftShooter.setPower(0.35);
-        robot.rightShooter.setPower(0.30);
-        sleep(500);
-        robot.leftShooter.setPower(0.55);
-        robot.rightShooter.setPower(0.50);
-        sleep(500);
-        robot.leftShooter.setPower(0.75);
-        robot.rightShooter.setPower(0.70);
-        sleep(750);
-        robot.ballCollect.setPower(0.5);
-        sleep(1500);
-        robot.shotControl.setPosition(0.42);
-        robot.leftShooter.setPower(0.75);
-        robot.rightShooter.setPower(0.70);
-        robot.ballCollect.setPower(0);
-        sleep(500);
-        robot.ballCollect.setPower(0.5);
-        sleep(1500);
-        robot.leftShooter.setPower(0.55);
-        robot.rightShooter.setPower(0.50);
-        sleep(250);
-        robot.leftShooter.setPower(0.35);
-        robot.rightShooter.setPower(0.30);
-        sleep(250);
-        robot.ballCollect.setPower(0);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        sleep(500);
-        encoderTurn(-0.15, -50);
-        encoderDrive(0.35, 42);
-        encoderTurn(0.15, -37);
-        touchSensorDrive(0.15);
-        colorSensorDrive(RED);
-        //encoderDrive(-0.2, -12);
-        //encoderTurn(0.2, 90);
-        //encoderDrive(0.2, 47.5);
-        //encoderTurn(0.2, -90);
-        //touchSensorDrive(0.2);
-        //colorSensorDrive(RED);
-        //encoderTurn(0.2, -135);
-        //encoderDrive(0.2, 20);
-
-        
+        encoderSide(RIGHT ,0.25, 5);
+        encoderSide(LEFT, 0.25, 5);
     }
 }

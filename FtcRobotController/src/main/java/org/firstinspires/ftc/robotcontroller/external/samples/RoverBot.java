@@ -103,6 +103,18 @@ public class RoverBot
         backRight.setPower(rightPower);
         frontRight.setPower(rightPower);
     }
+    public void setMechleft (double power){
+        backLeft.setPower(-power);
+        frontLeft.setPower(power);
+        backRight.setPower(power);
+        frontRight.setPower(-power);
+    }
+    public void setMechRight (double power){
+        backLeft.setPower(power);
+        frontLeft.setPower(-power);
+        backRight.setPower(-power);
+        frontRight.setPower(power);
+    }
     public void stopMotors() {
         setMotorPower(0,0);
     }

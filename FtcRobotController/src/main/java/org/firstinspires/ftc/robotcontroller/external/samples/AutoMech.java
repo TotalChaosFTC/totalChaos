@@ -32,20 +32,10 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
-import android.sax.TextElementListener;
-import android.util.Log;
-
-import com.kauailabs.navx.ftc.AHRS;
-import com.kauailabs.navx.ftc.navXPIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import com.qualcomm.ftccommon.DbgLog;
-
 
 /**
  * This file illusttes the concept of driving a path based on encoder counts.
@@ -76,28 +66,22 @@ import com.qualcomm.ftccommon.DbgLog;
 
 @Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
 @Disabled
-public abstract class AutoBasewNavx extends LinearOpMode {
+public abstract class AutoMech extends LinearOpMode {
 
     /* Declare OpMode members. */
         RoverBot robot = new RoverBot();   // Use a Pushbot's hardware
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    //Andy Mark Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 3.0 / (43.0 / 16.0);     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     WHEEL_DIAMETER_INCHES   = 3.7 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * Math.PI);
     static final int RED = 0;
     static final int BLUE = 1;
 
-    /* This is the port on the Core Device Interface Module        */
-    /* in which the navX-Model Device is connected.  Modify this  */
-    /* depending upon which I2C port you are using.               */
-    private final int NAVX_DIM_I2C_PORT = 0;
-    private AHRS navx_device;
-    private navXPIDController yawPIDController;
-    private ElapsedTime runtime = new ElapsedTime();
+    static final int RIGHT = 0;
+    static final int LEFT = 1;
 
-    private final byte NAVX_DEVICE_UPDATE_RATE_HZ = 50;
 
     private final double TOLERANCE_DEGREES = 2.0;
     private final double MIN_MOTOR_OUTPUT_VALUE = -1.0;
@@ -135,60 +119,10 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        // Send telemetry message to indicate successful Encoder reset
-
-
-        // Wait for the game to start (driver presses PLAY)
-        navx_device = AHRS.getInstance(hardwareMap.deviceInterfaceModule.get("dim"),
-                NAVX_DIM_I2C_PORT,
-                AHRS.DeviceDataType.kProcessedData,
-                NAVX_DEVICE_UPDATE_RATE_HZ);
-
-
-
-        /* Create a PID Controller which uses the Yaw Angle as input. */
-        yawPIDController = new navXPIDController( navx_device,
-                navXPIDController.navXTimestampedDataSource.YAW);
-
-
-        /* Configure the PID controller */
-        yawPIDController.setContinuous(true);
-        yawPIDController.setOutputRange(MIN_MOTOR_OUTPUT_VALUE, MAX_MOTOR_OUTPUT_VALUE);
-        yawPIDController.setTolerance(navXPIDController.ToleranceType.ABSOLUTE, TOLERANCE_DEGREES);
-        yawPIDController.setPID(YAW_PID_P, YAW_PID_I, YAW_PID_D);
-        yawPIDController.enable(true);
 
         waitForStart();
-
-        boolean calibration_complete = false;
-
-        while ( !calibration_complete ) {
-            // navX-Micro Calibration completes automatically ~15 seconds after it is
-            // powered on, as long as the device is still.  To handle the case where the
-            // navX-Micro has not been able to calibrate successfully, hold off using
-            // the navX-Micro Yaw value until calibration is complete.
-
-            telemetry.addData("Step4a","");
-            telemetry.update();
-
-            calibration_complete = !navx_device.isCalibrating();
-
-            telemetry.addData("Step4b","");
-            telemetry.update();
-
-            if (!calibration_complete) {
-                telemetry.addData("navX-Micro", "Startup Calibration in Progress");
-            }
-        }
-        telemetry.addData("Step4c","");
-        telemetry.update();
-
-        navx_device.zeroYaw();
-        telemetry.addData("Step5","");
-        telemetry.update();
-
-
     }
+
 
     /*
      *  Method to perfmorm a relative move, based on encoder counts.
@@ -205,15 +139,10 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         idle();
 
-        navx_device.zeroYaw();
-        //yawPIDController.setSetpoint(-angle);
 
-        /* Wait for new Yaw PID output values, then update the motors
-           with the new PID value with each new output value.
-         */
         int newLeftTurn;
         int newRightTurn;
-        double radius = 9.3;
+        double radius = 8.25;
         double inches = angle * 2 * Math.PI * radius / 360;
         newLeftTurn = robot.frontLeft.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
         newRightTurn = robot.frontRight.getCurrentPosition() - (int)(inches * COUNTS_PER_INCH);
@@ -235,7 +164,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // reset the timeout time and start motion.
-        runtime.reset();
         robot.setMotorPower(leftPower, rightPower);
         while (opModeIsActive() &&
                 (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
@@ -251,78 +179,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        boolean first = true;
-        boolean wasPos = false;
-        int counter = 0;
-        telemetry.addData("Turn", "2");
-        telemetry.update();
-        double yaw = navx_device.getYaw();
-        telemetry.addData("Yaw", yaw);
-        telemetry.update();
-        while (Math.abs(yaw - angle) > 1.0) {
-            telemetry.addData("Yaw", yaw);
-            telemetry.update();
-            if (yaw < angle) {
-                if(first || !wasPos) {
-                    first = false;
-                    wasPos = true;
-                    robot.setMotorPower(0.1, -0.1);
-                }
-            }
-            else if (yaw > angle) {
-                if( first || wasPos ) {
-                    first = false;
-                    wasPos = false;
-                    robot.setMotorPower(-0.1, 0.1);
-                }
-            }
-            idle();
-            yaw = navx_device.getYaw();
-
-        }
-        robot.stopMotors();
-
-        /*
-        if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-            double output = yawPIDResult.getOutput();
-            telemetry.addData("Turn", "3 %f", output);
-            telemetry.update();
-            idle();
-            while (opModeIsActive() &&
-                    Math.abs(output) > 0.05 && counter < 5) {
-                if (output > 0 ) {
-                    robot.setMotorPower(-0.075, 0.075);
-                    telemetry.addData("Output", output);
-                    telemetry.update();
-                    wasPos = true;
-
-                } else {
-                    robot.setMotorPower(0.075, -0.075);
-                    telemetry.addData("Output", output);
-                    telemetry.update();
-                    wasPos = false;
-
-                }
-                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-                    output = yawPIDResult.getOutput();
-                    if (output > 0 && !wasPos){
-                        counter++;
-                    }
-                    else if (output < 0 && wasPos){
-                        counter++;
-                    }
-                } else {
-			    //A timeout occurred
-                    break;
-                }
-            }
-        }
-        */
-        telemetry.addData("Turn", "4");
-        telemetry.update();
-
-        robot.stopMotors();
-
     }
 
     public void encoderDrive(double power, double inches) throws InterruptedException {
@@ -330,7 +186,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         int newLeftTarget;
         int newRightTarget;
         int DEVICE_TIMEOUT_MS = 500;
-        double yawForward = navx_device.getYaw();
 
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -338,20 +193,12 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         idle();
 
-        navx_device.zeroYaw();
-
-        yawPIDController.setSetpoint(0.0);
-        navXPIDController.PIDResult yawPIDResult = new navXPIDController.PIDResult();
-
         // Ensure that the opmode is still active
-
-
-
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.backLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
-            newRightTarget = robot.backRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newLeftTarget = robot.frontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newRightTarget = robot.frontRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
             robot.frontLeft.setTargetPosition(newLeftTarget);
             robot.backLeft.setTargetPosition(newLeftTarget);
             robot.frontRight.setTargetPosition(newRightTarget);
@@ -359,66 +206,66 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
 
             // Turn On RUN_TO_POSITION
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
-            runtime.reset();
             double leftSpeed = power;
             double rightSpeed = power;
             robot.setMotorPower(leftSpeed, rightSpeed);
-            // keep looping while we are still active, and there is time left, and both motors are running.
-
-            /*while (opModeIsActive() &&
-                (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
-                yawForward = navx_device.getYaw();
-                if (Math.abs(yawForward) > 2) {
-                    robot.setMotorPower(leftSpeed, rightSpeed);
-                } else {
-                    double correction = yawForward * 0.001;
-                    robot.setMotorPower(leftSpeed - correction, rightSpeed + correction);
-                    leftSpeed = leftSpeed - correction;
-                    rightSpeed = rightSpeed + correction;
-                    telemetry.addData("Corection", "%f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
-                    telemetry.update();
-                    DbgLog.msg("Corection %f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
-                }
-                for (int i = 0 ; i < 4; i++){
-                    idle();
-                }
-            }
-            */
-
-
             while (opModeIsActive() &&
-                    (robot.backLeft.isBusy() && robot.backRight.isBusy())) {
-                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-                    if (yawPIDResult.isOnTarget()) {
-                        telemetry.addData("Going straight","");
-                    } else {
-                        double output = yawPIDResult.getOutput();
-                        robot.setMotorPower(leftSpeed - output, rightSpeed + output);
-                        telemetry.addData("Output", output);
-
-                    }
-                    telemetry.addData("Yaw", navx_device.getYaw());
-                    telemetry.update();
-                } else{
-                    telemetry.addData("A timeout occured","");
-                    telemetry.update();
-                }
+                    (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
+                idle();
             }
-            robot.stopMotors();
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-
     }
+    public void encoderSide(double direction, double power, double inches) throws InterruptedException {
 
+        int newLeftTarget;
+        int newRightTarget;
+        int DEVICE_TIMEOUT_MS = 500;
+
+        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newLeftTarget = robot.frontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            newRightTarget = robot.frontRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            robot.frontLeft.setTargetPosition(newLeftTarget);
+            robot.backLeft.setTargetPosition(newLeftTarget);
+            robot.frontRight.setTargetPosition(newRightTarget);
+            robot.backRight.setTargetPosition(newRightTarget);
+
+
+            // Turn On RUN_TO_POSITION
+            robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            double leftSpeed = power;
+            double rightSpeed = power;
+            if (direction == LEFT) {
+                robot.setMechleft(power);
+            }
+            else if (direction == RIGHT){
+                robot.setMechRight(power);
+            }
+            while (opModeIsActive() &&
+                    (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
+                idle();
+            }
+        }
+    }
 
         public void touchSensorDrive(double power) throws InterruptedException {
 
@@ -429,9 +276,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
             // Stop all motion;
             robot.stopMotors();
-
-
-
         }
 
 
