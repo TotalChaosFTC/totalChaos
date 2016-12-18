@@ -75,8 +75,8 @@ public class MechWheelsOp extends OpMode {
         leftBack = hardwareMap.dcMotor.get("lb");
         rightBack = hardwareMap.dcMotor.get("rb");
         Sweeper = hardwareMap.dcMotor.get("swp");
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
     }

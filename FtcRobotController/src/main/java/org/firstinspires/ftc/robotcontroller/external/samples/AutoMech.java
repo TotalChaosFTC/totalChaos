@@ -69,7 +69,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public abstract class AutoMech extends LinearOpMode {
 
     /* Declare OpMode members. */
-        RoverBot robot = new RoverBot();   // Use a Pushbot's hardware
+        MechBot robot = new MechBot();   // Use a Pushbot's hardware
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    //Andy Mark Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 3.0 / (43.0 / 16.0);     // This is < 1.0 if geared UP

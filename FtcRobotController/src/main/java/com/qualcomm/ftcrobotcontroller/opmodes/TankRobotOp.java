@@ -121,8 +121,6 @@ public class TankRobotOp extends OpMode {
             iSawDpadDownAlready = false;
         }
         mode = Range.clip(mode, 0.25, 0.75 );
-
-
         if (gamepad2.dpad_up) {
             if(!iSawDpadUpAlreadyArm) {
                 iSawDpadUpAlreadyArm = true;

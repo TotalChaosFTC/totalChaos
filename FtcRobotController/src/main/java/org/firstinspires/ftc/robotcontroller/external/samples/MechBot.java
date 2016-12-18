@@ -3,12 +3,10 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This is NOT an opmode.
@@ -26,7 +24,7 @@ import com.qualcomm.robotcore.util.Range;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class RoverBot
+public class MechBot
 {
     public DcMotor  frontLeft   = null;
     public DcMotor  frontRight  = null;
@@ -36,11 +34,11 @@ public class RoverBot
     public DcMotor  rightShooter = null;
     public CRServo  pusherLeft   = null;
     public CRServo  pusherRight  = null;
-    public ColorSensor beaconColorSensor = null;
+    public ColorSensor beaconColorSensor;
     public TouchSensor beaconTouchSensor = null;
     public Servo shotControl = null;
     public DcMotor  ballCollect  = null;
-    //public ColorSensor bottomColorSensor;
+    public ColorSensor bottomColorSensor;
 
     //public static final double MID_SERVO       =  0.5 ;
     //public static final double ARM_UP_POWER    =  0.45 ;
@@ -50,7 +48,7 @@ public class RoverBot
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
-    public RoverBot(){
+    public MechBot(){
 
     }
 
@@ -63,28 +61,28 @@ public class RoverBot
         frontRight = hwMap.dcMotor.get("rf");
         backLeft = hwMap.dcMotor.get("lb");
         backRight = hwMap.dcMotor.get("rb");
-        leftShooter = hwMap.dcMotor.get("ls");
-        rightShooter = hwMap.dcMotor.get("rs");
-        ballCollect = hwMap.dcMotor.get("bc");
-        shotControl = hwMap.servo.get("sc");
-        leftShooter.setDirection(DcMotor.Direction.REVERSE);
+        //leftShooter = hwMap.dcMotor.get("ls");
+        //rightShooter = hwMap.dcMotor.get("rs");
+        ballCollect = hwMap.dcMotor.get("swp");
+        //shotControl = hwMap.servo.get("sc");
+        //leftShooter.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
-        pusherLeft = hwMap.crservo.get("left");
-        pusherRight = hwMap.crservo.get("right");
-        pusherLeft.setPower(0);
-        pusherRight.setPower(0);
-        beaconColorSensor = hwMap.colorSensor.get("beacon");
-        beaconTouchSensor = hwMap.touchSensor.get("touch");
+        //pusherLeft = hwMap.crservo.get("left");
+        //pusherRight = hwMap.crservo.get("right");
+        //pusherLeft.setPower(0);
+        //pusherRight.setPower(0);
+        //beaconColorSensor = hwMap.colorSensor.get("beacon");
+        //beaconTouchSensor = hwMap.touchSensor.get("touch");
 
         //bottomColorSensor = hwMap.colorSensor.get("bottom");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        beaconColorSensor.enableLed(false);
+        //beaconColorSensor.enableLed(false);
         //bottomColorSensor.enableLed(true);
 
 

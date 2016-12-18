@@ -41,6 +41,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.AutoBlue1;
+import org.firstinspires.ftc.robotcontroller.external.samples.AutoMechRed1;
 import org.firstinspires.ftc.robotcontroller.external.samples.AutoRed1;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
@@ -99,7 +100,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("League0FloorGoalOp", League0FloorGoalOp.class);
     //manager.register("AutoOp", AutoOp.class);
     //manager.register("LeagueTwoOp", LeagueTwoOp.class);
-    manager.register("LeagueTwoRedOp", MechTestOp.class);
+    manager.register("MechWheelsAuto", AutoMechRed1.class);
+    //manager.register("LeagueTwoRedOp", MechTestOp.class);
     manager.register("MechWheels", MechWheelsOp.class);
     manager.register("BlueNormal1", AutoBlue1.class);
     manager.register("RedNormal1", AutoRed1.class);

@@ -121,14 +121,10 @@ public abstract class AutoBasewNavx extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        // Send telemetry message to signify robot waiting;
-
-
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
 
         robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -415,6 +411,11 @@ public abstract class AutoBasewNavx extends LinearOpMode {
             robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            double yaw = navx_device.getYaw();
+            if (Math.abs(yaw) > 0.5){
+             encoderTurn(0.25, -yaw);
+
+            }
         }
 
     }
