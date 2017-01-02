@@ -78,7 +78,6 @@ public class RoverBot
         pusherRight.setPower(0);
         beaconColorSensor = hwMap.colorSensor.get("beacon");
         beaconTouchSensor = hwMap.touchSensor.get("touch");
-
         //bottomColorSensor = hwMap.colorSensor.get("bottom");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -94,6 +93,25 @@ public class RoverBot
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    }
+    public void runUsingEncoders(){
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void runToPosition(double inches, double COUNTS_PER_INCH){
+        int newLeftTarget = backLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        int newRightTarget = backRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+        frontLeft.setTargetPosition(newLeftTarget);
+        backLeft.setTargetPosition(newLeftTarget);
+        frontRight.setTargetPosition(newRightTarget);
+        backRight.setTargetPosition(newRightTarget);
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
 

@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
+import com.qualcomm.ftcrobotcontroller.opmodes.ColorSensorTestOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.MechTestOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.MechWheelsOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.TankRobotOp;
@@ -105,6 +106,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("MechWheels", MechWheelsOp.class);
     manager.register("BlueNormal1", AutoBlue1.class);
     manager.register("RedNormal1", AutoRed1.class);
+        manager.register("ColorSensorTest", ColorSensorTestOp.class);
     //manager.register(“BeaconPractice", BeaconPracticeOp.class);
     //manager.register("RedMoveBack", RedAutoOpLeague2MoveBack.class);
     //manager.register("CornerRed", CornerRedAutoOpLeague2.class);

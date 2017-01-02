@@ -82,7 +82,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         RoverBot robot = new RoverBot();   // Use a Pushbot's hardware
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    //Andy Mark Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 3.0 / (43.0 / 16.0);     // This is < 1.0 if geared UP
+    static final double     DRIVE_GEAR_REDUCTION    = 3.0 / (43.0 / 16.0);
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * Math.PI);
@@ -121,15 +121,11 @@ public abstract class AutoBasewNavx extends LinearOpMode {
          */
         robot.init(hardwareMap);
 
-        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.ResetEncoders();
+        idle();
 
-        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.runUsingEncoders();
+        idle();
 
         // Send telemetry message to indicate successful Encoder reset
 
@@ -168,6 +164,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
             telemetry.update();
 
             calibration_complete = !navx_device.isCalibrating();
+            navx_device.isConnected();
 
             telemetry.addData("Step4b","");
             telemetry.update();
@@ -195,10 +192,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderTurn(double power,  double angle) throws InterruptedException{
-        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.ResetEncoders();
         idle();
 
         navx_device.zeroYaw();
@@ -242,10 +236,8 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
 
         robot.stopMotors();
-        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.runUsingEncoders();
+        idle();
 
         boolean first = true;
         boolean wasPos = false;
@@ -318,7 +310,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         telemetry.update();
 
         robot.stopMotors();
-
+        idle();
     }
 
     public void encoderDrive(double power, double inches) throws InterruptedException {
@@ -328,10 +320,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         int DEVICE_TIMEOUT_MS = 500;
         double yawForward = navx_device.getYaw();
 
-        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.ResetEncoders();
         idle();
 
         navx_device.zeroYaw();
@@ -341,55 +330,23 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
         // Ensure that the opmode is still active
 
-
-
         if (opModeIsActive()) {
 
-            // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.backLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
-            newRightTarget = robot.backRight.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
-            robot.frontLeft.setTargetPosition(newLeftTarget);
-            robot.backLeft.setTargetPosition(newLeftTarget);
-            robot.frontRight.setTargetPosition(newRightTarget);
-            robot.backRight.setTargetPosition(newRightTarget);
-
-
-            // Turn On RUN_TO_POSITION
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            // Turn On RUN_TO_POSITION, determine new target position, and pass to motor controller
+            robot.runToPosition(inches, COUNTS_PER_INCH);
 
             // reset the timeout time and start motion.
             runtime.reset();
             double leftSpeed = power;
-            double rightSpeed = power;
+            //*0.45 to even out drift
+            double rightDelta = 1;
+            double rightSpeed = power * rightDelta;
             robot.setMotorPower(leftSpeed, rightSpeed);
+
             // keep looping while we are still active, and there is time left, and both motors are running.
-
-            /*while (opModeIsActive() &&
-                (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
-                yawForward = navx_device.getYaw();
-                if (Math.abs(yawForward) > 2) {
-                    robot.setMotorPower(leftSpeed, rightSpeed);
-                } else {
-                    double correction = yawForward * 0.001;
-                    robot.setMotorPower(leftSpeed - correction, rightSpeed + correction);
-                    leftSpeed = leftSpeed - correction;
-                    rightSpeed = rightSpeed + correction;
-                    telemetry.addData("Corection", "%f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
-                    telemetry.update();
-                    DbgLog.msg("Corection %f, Left %f, Right %f, Yaw Value %f", correction, leftSpeed, rightSpeed, yawForward);
-                }
-                for (int i = 0 ; i < 4; i++){
-                    idle();
-                }
-            }
-            */
-
-
             while (opModeIsActive() &&
                     (robot.backLeft.isBusy() && robot.backRight.isBusy())) {
+                /*
                 if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
                     if (yawPIDResult.isOnTarget()) {
                         telemetry.addData("Going straight","");
@@ -397,7 +354,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
                         double output = yawPIDResult.getOutput();
                         robot.setMotorPower(leftSpeed - output, rightSpeed + output);
                         telemetry.addData("Output", output);
-
                     }
                     telemetry.addData("Yaw", navx_device.getYaw());
                     telemetry.update();
@@ -405,91 +361,138 @@ public abstract class AutoBasewNavx extends LinearOpMode {
                     telemetry.addData("A timeout occured","");
                     telemetry.update();
                 }
+                */
+                idle();
             }
             robot.stopMotors();
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.runUsingEncoders();
+            idle();
+
+            // Final correction to straighten out the robot
             double yaw = navx_device.getYaw();
             if (Math.abs(yaw) > 0.5){
-             encoderTurn(0.25, -yaw);
-
+                encoderTurn(0.35, -yaw);
             }
         }
 
     }
 
+    public void touchSensorDrive(double power, double inches) throws InterruptedException {
 
-        public void touchSensorDrive(double power) throws InterruptedException {
+        if (opModeIsActive()) {
 
-            robot.setMotorPower(power, power);
-            while (!robot.beaconTouchSensor.isPressed()){
+            robot.ResetEncoders();
+            idle();
+
+            navx_device.zeroYaw();
+
+            // Turn On RUN_TO_POSITION, determine new target position, and pass to motor controller
+            robot.runToPosition(inches, COUNTS_PER_INCH);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            double leftSpeed = power;
+            //*0.45 to even out drift
+            double rightDelta = 1;
+            double rightSpeed = power * rightDelta;
+            robot.setMotorPower(leftSpeed, rightSpeed);
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            while (opModeIsActive() &&
+                    (robot.backLeft.isBusy() && robot.backRight.isBusy()) &&  !robot.beaconTouchSensor.isPressed()) {
+                /*
+                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
+                    if (yawPIDResult.isOnTarget()) {
+                        telemetry.addData("Going straight","");
+                    } else {
+                        double output = yawPIDResult.getOutput();
+                        robot.setMotorPower(leftSpeed - output, rightSpeed + output);
+                        telemetry.addData("Output", output);
+                    }
+                    telemetry.addData("Yaw", navx_device.getYaw());
+                    telemetry.update();
+                } else{
+                    telemetry.addData("A timeout occured","");
+                    telemetry.update();
+                }
+                */
                 idle();
             }
-
-            // Stop all motion;
             robot.stopMotors();
+            robot.runUsingEncoders();
+            idle();
 
-
-
+            // Final correction to straighten out the robot
+            double yaw = navx_device.getYaw();
+            if (Math.abs(yaw) > 0.5){
+                encoderTurn(0.35, -yaw);
+            }
         }
 
-
-
+    }
 
     public void colorSensorDrive(int color) throws InterruptedException {
-
+        telemetry.addData("Getting in the Loop", "");
+        telemetry.update();
+        int blueValue = robot.beaconColorSensor.blue();
+        int redValue = robot.beaconColorSensor.red();
         if (color == BLUE) {
-
-            if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
-                robot.pusherRight.setPower(1);
-                sleep(1000);
-                robot.pusherRight.setPower(-1);
-                sleep(1000);
-                robot.pusherRight.setPower(0);
-                 telemetry.addData("YAY!","IT FOUND BLUE!");
-
-            }
-            else if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
+            telemetry.addData("Step 1" , "");
+            telemetry.update();
+            if (blueValue > redValue) {
+                telemetry.addData("Step 2" , "");
+                telemetry.update();
                 robot.pusherLeft.setPower(1);
                 sleep(1000);
                 robot.pusherLeft.setPower(-1);
                 sleep(1000);
                 robot.pusherLeft.setPower(0);
-                telemetry.addData("YAY!","IT FOUND RED!");
+                telemetry.addData("Found Blue. Blue, Red Values", "%d, %d", blueValue, redValue);
+            }
+            else if (redValue > blueValue) {
+                telemetry.addData("Step 3" , "");
                 telemetry.update();
-
-            }
-            else {
-
-            }
-
-        }
-        else if (color == RED){
-            if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
-                robot.pusherLeft.setPower(1);
-                sleep(1000);
-                robot.pusherLeft.setPower(-1);
-                sleep(1000);
-                robot.pusherLeft.setPower(0);
-                telemetry.addData("YAY!","IT FOUND RED!");
-                telemetry.update();
-
-            }
-            else if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
                 robot.pusherRight.setPower(1);
                 sleep(1000);
                 robot.pusherRight.setPower(-1);
                 sleep(1000);
                 robot.pusherRight.setPower(0);
-                telemetry.addData("YAY!","IT FOUND BLUE!");
+                telemetry.addData("Found Red. Blue, Red Values", "%d, %d", blueValue, redValue);
                 telemetry.update();
-
             }
             else {
                 telemetry.addData("The color sensor is not getting any readings", "");
-
+                telemetry.update();
+            }
+        }
+        else if (color == RED){
+            telemetry.addData("Step 1" , "");
+            telemetry.update();
+            if (redValue > blueValue) {
+                telemetry.addData("Step 2" , "");
+                telemetry.update();
+                robot.pusherLeft.setPower(1);
+                sleep(1000);
+                robot.pusherLeft.setPower(-1);
+                sleep(1000);
+                robot.pusherLeft.setPower(0);
+                telemetry.addData("Found Red. Blue, Red Values", "%d, %d", blueValue, redValue);
+                telemetry.update();
+            }
+            else if (blueValue > redValue) {
+                telemetry.addData("Step 3" , "");
+                telemetry.update();
+                robot.pusherRight.setPower(1);
+                sleep(1000);
+                robot.pusherRight.setPower(-1);
+                sleep(1000);
+                robot.pusherRight.setPower(0);
+                telemetry.addData("Found Blue. Blue, Red Values", "%d, %d", blueValue, redValue);
+                telemetry.update();
+            }
+            else {
+                telemetry.addData("The color sensor is not getting any readings", "");
+                telemetry.update();
             }
         }
     }

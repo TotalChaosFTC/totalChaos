@@ -96,8 +96,6 @@ public class TankRoverOp extends OpMode {
     @Override
     public void loop()
     {
-        telemetry.addData("Red", beaconColorSensor.red());
-        telemetry.update();
 
         if (gamepad1.dpad_up) {
             if(!iSawDpadUpAlready) {
@@ -140,57 +138,41 @@ public class TankRoverOp extends OpMode {
 
 
         if (gamepad1.y){
-            vortex.setPower(50);
+            vortex.setPower(0.50);
         }
         else {
             vortex.setPower(0);
         }
 
         if (gamepad1.a){
-            vortex.setPower(-50);
+            vortex.setPower(-0.50);
         }
         else{
             vortex.setPower(0);
         }
         if (gamepad2.x){
-            pusherposition = 1;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherLeft.setPower(1);
         }
         else{
-            pusherposition = 0 ;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherLeft.setPower(0);
         }
         if (gamepad2.b) {
-            pusherposition = -1;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherLeft.setPower(-1);
         }
         else{
-            pusherposition = 0;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherLeft.setPower(0);
         }
 
         if (gamepad2.y){
-            pusherposition = 1;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherRight.setPower(1);
         }
         else{
-            pusherposition = 0 ;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherRight.setPower(0);
         }
         if (gamepad2.a) {
-            pusherposition = -1;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherRight.setPower(-1);
         }
         else{
-            pusherposition = 0;
-            pusherposition = Range.clip(pusherposition, -1, 1);
             pusherRight.setPower(0);
         }
 
