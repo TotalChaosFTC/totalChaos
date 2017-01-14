@@ -59,9 +59,8 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-public class AutoBlue1 extends AutoBasewNavx {
 
-    /* Declare OpMode members. */
+public class AutoRed2 extends AutoBasewNavx {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -102,29 +101,23 @@ public class AutoBlue1 extends AutoBasewNavx {
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         sleep(1000);
-        encoderTurn(0.2, 60);
+        encoderTurn(-0.2, -60);
         encoderDrive(0.35, 15);
         encoderDrive(0.35, 14);
         encoderDrive(0.35, 14);
-        encoderTurn(0.2, 32.5);
+        encoderTurn(0.2, -32.5);
         touchSensorDrive(0.15, 19.5);
-        colorSensorDrive(BLUE);
+        colorSensorDrive(RED);
         encoderDrive(-0.75, -50);
         encoderTurn(-0.75, -90);
+        //encoderTurn(0.2, 90);
+        //encoderDrive(0.2, 47.5);
+        //encoderTurn(0.2, -90);
+        //touchSensorDrive(0.2);
+        //colorSensorDrive(RED);
+        //encoderTurn(0.2, -135);
+        //encoderDrive(0.2, 20);
 
-
-
-
+        
     }
 }
-
-
-
-    /*
-     *  Method to perfmorm a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */

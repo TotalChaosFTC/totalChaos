@@ -270,42 +270,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         }
         robot.stopMotors();
 
-        /*
-        if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-            double output = yawPIDResult.getOutput();
-            telemetry.addData("Turn", "3 %f", output);
-            telemetry.update();
-            idle();
-            while (opModeIsActive() &&
-                    Math.abs(output) > 0.05 && counter < 5) {
-                if (output > 0 ) {
-                    robot.setMotorPower(-0.075, 0.075);
-                    telemetry.addData("Output", output);
-                    telemetry.update();
-                    wasPos = true;
 
-                } else {
-                    robot.setMotorPower(0.075, -0.075);
-                    telemetry.addData("Output", output);
-                    telemetry.update();
-                    wasPos = false;
-
-                }
-                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-                    output = yawPIDResult.getOutput();
-                    if (output > 0 && !wasPos){
-                        counter++;
-                    }
-                    else if (output < 0 && wasPos){
-                        counter++;
-                    }
-                } else {
-			    //A timeout occurred
-                    break;
-                }
-            }
-        }
-        */
         telemetry.addData("Turn", "4");
         telemetry.update();
 
@@ -432,8 +397,6 @@ public abstract class AutoBasewNavx extends LinearOpMode {
     }
 
     public void colorSensorDrive(int color) throws InterruptedException {
-        telemetry.addData("Getting in the Loop", "");
-        telemetry.update();
         int blueValue = robot.beaconColorSensor.blue();
         int redValue = robot.beaconColorSensor.red();
         if (color == BLUE) {

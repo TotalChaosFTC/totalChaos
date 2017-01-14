@@ -59,7 +59,7 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-public class AutoBlue1 extends AutoBasewNavx {
+public class AutoBlue2 extends AutoBasewNavx {
 
     /* Declare OpMode members. */
 
@@ -71,27 +71,14 @@ public class AutoBlue1 extends AutoBasewNavx {
         encoderDrive(0.35, 28);
 
         robot.shotControl.setPosition(0.42);
-        robot.leftShooter.setPower(0.15);
-        robot.rightShooter.setPower(0.10);
-        sleep(250);
         robot.leftShooter.setPower(0.35);
         robot.rightShooter.setPower(0.30);
         sleep(250);
-        robot.leftShooter.setPower(0.55);
-        robot.rightShooter.setPower(0.50);
-        sleep(250);
         robot.leftShooter.setPower(0.75);
         robot.rightShooter.setPower(0.70);
         sleep(250);
         robot.ballCollect.setPower(0.5);
-        sleep(1500);
-        robot.shotControl.setPosition(0.42);
-        robot.leftShooter.setPower(0.75);
-        robot.rightShooter.setPower(0.70);
-        robot.ballCollect.setPower(0);
-        sleep(250);
-        robot.ballCollect.setPower(0.5);
-        sleep(1500);
+        sleep(2000);
         robot.leftShooter.setPower(0.55);
         robot.rightShooter.setPower(0.50);
         sleep(250);
@@ -101,17 +88,14 @@ public class AutoBlue1 extends AutoBasewNavx {
         robot.ballCollect.setPower(0);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        sleep(1000);
+        sleep(250);
         encoderTurn(0.2, 60);
-        encoderDrive(0.35, 15);
-        encoderDrive(0.35, 14);
-        encoderDrive(0.35, 14);
+        encoderDrive(0.5, 15);
+        encoderDrive(0.5, 14);
+        encoderDrive(0.5, 14);
         encoderTurn(0.2, 32.5);
-        touchSensorDrive(0.15, 19.5);
+        touchSensorDrive(0.4    , 19.5);
         colorSensorDrive(BLUE);
-        encoderDrive(-0.75, -50);
-        encoderTurn(-0.75, -90);
-
 
 
 

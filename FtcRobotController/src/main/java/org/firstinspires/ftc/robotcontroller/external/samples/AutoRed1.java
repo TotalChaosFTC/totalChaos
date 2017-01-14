@@ -106,9 +106,10 @@ public class AutoRed1 extends AutoBasewNavx {
         encoderDrive(0.35, 14);
         encoderDrive(0.35, 14);
         encoderTurn(0.2, -32.5);
-        touchSensorDrive(0.15, 17.5);
+        touchSensorDrive(0.15, 19.5);
         colorSensorDrive(RED);
-        encoderDrive(-0.2, -30);
+        encoderDrive(-0.75, -50);
+        encoderTurn(-0.75, -90);
         //encoderTurn(0.2, 90);
         //encoderDrive(0.2, 47.5);
         //encoderTurn(0.2, -90);

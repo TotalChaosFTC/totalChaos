@@ -45,7 +45,6 @@ import com.qualcomm.robotcore.util.Range;
  */
 public class TankRobotOp extends OpMode {
     double armDelta = 0.01;
-
     boolean iSawDpadUpAlready = false;
     boolean iSawDpadDownAlready = false;
     boolean iSawDpadUpAlreadyArm = false;
