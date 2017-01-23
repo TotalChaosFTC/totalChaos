@@ -204,7 +204,7 @@ public abstract class AutoBasewNavx extends LinearOpMode {
         int newLeftTurn;
         int newRightTurn;
         double radius = 9.3;
-        double inches = angle * 2 * Math.PI * radius / 360;
+        double inches  = angle * 2 * Math.PI * radius / 360;
         newLeftTurn = robot.frontLeft.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
         newRightTurn = robot.frontRight.getCurrentPosition() - (int)(inches * COUNTS_PER_INCH);
         robot.frontLeft.setTargetPosition(newLeftTurn);
@@ -226,7 +226,9 @@ public abstract class AutoBasewNavx extends LinearOpMode {
 
         // reset the timeout time and start motion.
         runtime.reset();
+        idle();
         robot.setMotorPower(leftPower, rightPower);
+        idle();
         while (opModeIsActive() &&
                 (robot.frontLeft.isBusy() && robot.frontRight.isBusy())) {
             idle();
@@ -306,27 +308,14 @@ public abstract class AutoBasewNavx extends LinearOpMode {
             //*0.45 to even out drift
             double rightDelta = 1;
             double rightSpeed = power * rightDelta;
+            idle();
             robot.setMotorPower(leftSpeed, rightSpeed);
+            idle();
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (robot.backLeft.isBusy() && robot.backRight.isBusy())) {
-                /*
-                if (yawPIDController.waitForNewUpdate(yawPIDResult, DEVICE_TIMEOUT_MS)) {
-                    if (yawPIDResult.isOnTarget()) {
-                        telemetry.addData("Going straight","");
-                    } else {
-                        double output = yawPIDResult.getOutput();
-                        robot.setMotorPower(leftSpeed - output, rightSpeed + output);
-                        telemetry.addData("Output", output);
-                    }
-                    telemetry.addData("Yaw", navx_device.getYaw());
-                    telemetry.update();
-                } else{
-                    telemetry.addData("A timeout occured","");
-                    telemetry.update();
-                }
-                */
+
                 idle();
             }
             robot.stopMotors();
@@ -360,7 +349,9 @@ public abstract class AutoBasewNavx extends LinearOpMode {
             //*0.45 to even out drift
             double rightDelta = 1;
             double rightSpeed = power * rightDelta;
+            idle();
             robot.setMotorPower(leftSpeed, rightSpeed);
+            idle();
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&

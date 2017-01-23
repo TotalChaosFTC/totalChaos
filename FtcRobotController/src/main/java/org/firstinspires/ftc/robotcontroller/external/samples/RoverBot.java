@@ -40,6 +40,7 @@ public class RoverBot
     public TouchSensor beaconTouchSensor = null;
     public Servo shotControl = null;
     public DcMotor  ballCollect  = null;
+    public DcMotor vortexSpinner = null;
     //public ColorSensor bottomColorSensor;
 
     //public static final double MID_SERVO       =  0.5 ;
@@ -67,6 +68,7 @@ public class RoverBot
         rightShooter = hwMap.dcMotor.get("rs");
         ballCollect = hwMap.dcMotor.get("bc");
         shotControl = hwMap.servo.get("sc");
+        vortexSpinner = hwMap.dcMotor.get("vtx");
         leftShooter.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
@@ -114,12 +116,25 @@ public class RoverBot
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
-
     public void setMotorPower (double leftPower, double rightPower){
-        backLeft.setPower(leftPower);
-        frontLeft.setPower(leftPower);
-        backRight.setPower(rightPower);
-        frontRight.setPower(rightPower);
+            backLeft.setPower(leftPower);
+            frontLeft.setPower(leftPower);
+            backRight.setPower(rightPower);
+            frontRight.setPower(rightPower);
+
+    }
+
+    public void setMotorPowerx (double leftPower, double rightPower){
+        int counter = 0;
+        boolean nullFlag = true;
+        while (counter < 3 && nullFlag) {
+            try {
+                //setMotorPowerInternal(leftPower, rightPower);
+                nullFlag = false;
+            } catch (NullPointerException e) {
+                counter++;
+            }
+        }
     }
     public void setMechleft (double power){
         backLeft.setPower(-power);

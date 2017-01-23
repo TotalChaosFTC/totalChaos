@@ -66,9 +66,8 @@ public class AutoRed2 extends AutoBasewNavx {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-
-        encoderDrive(0.35, 28);
-
+        sleep(10000);
+        encoderDrive(0.35, 45);
         robot.shotControl.setPosition(0.42);
         robot.leftShooter.setPower(0.15);
         robot.rightShooter.setPower(0.10);
@@ -79,14 +78,11 @@ public class AutoRed2 extends AutoBasewNavx {
         robot.leftShooter.setPower(0.55);
         robot.rightShooter.setPower(0.50);
         sleep(250);
-        robot.leftShooter.setPower(0.75);
-        robot.rightShooter.setPower(0.70);
-        sleep(250);
         robot.ballCollect.setPower(0.5);
         sleep(1500);
         robot.shotControl.setPosition(0.42);
-        robot.leftShooter.setPower(0.75);
-        robot.rightShooter.setPower(0.70);
+        robot.leftShooter.setPower(0.55);
+        robot.rightShooter.setPower(0.50);
         robot.ballCollect.setPower(0);
         sleep(250);
         robot.ballCollect.setPower(0.5);
@@ -97,26 +93,15 @@ public class AutoRed2 extends AutoBasewNavx {
         robot.leftShooter.setPower(0.35);
         robot.rightShooter.setPower(0.30);
         sleep(250);
+        robot.leftShooter.setPower(0.15);
+        robot.rightShooter.setPower(0.10);
+        sleep(250);
         robot.ballCollect.setPower(0);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         sleep(1000);
-        encoderTurn(-0.2, -60);
-        encoderDrive(0.35, 15);
-        encoderDrive(0.35, 14);
-        encoderDrive(0.35, 14);
-        encoderTurn(0.2, -32.5);
-        touchSensorDrive(0.15, 19.5);
-        colorSensorDrive(RED);
-        encoderDrive(-0.75, -50);
-        encoderTurn(-0.75, -90);
-        //encoderTurn(0.2, 90);
-        //encoderDrive(0.2, 47.5);
-        //encoderTurn(0.2, -90);
-        //touchSensorDrive(0.2);
-        //colorSensorDrive(RED);
-        //encoderTurn(0.2, -135);
-        //encoderDrive(0.2, 20);
+        encoderDrive(0.5, 20);
+
 
         
     }

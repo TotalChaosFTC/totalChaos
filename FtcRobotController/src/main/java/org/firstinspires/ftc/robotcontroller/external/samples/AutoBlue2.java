@@ -67,35 +67,42 @@ public class AutoBlue2 extends AutoBasewNavx {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-
-        encoderDrive(0.35, 28);
-
+        sleep(10000);
+        encoderDrive(0.35, 45);
         robot.shotControl.setPosition(0.42);
+        robot.leftShooter.setPower(0.15);
+        robot.rightShooter.setPower(0.10);
+        sleep(250);
         robot.leftShooter.setPower(0.35);
         robot.rightShooter.setPower(0.30);
         sleep(250);
-        robot.leftShooter.setPower(0.75);
-        robot.rightShooter.setPower(0.70);
+        robot.leftShooter.setPower(0.55);
+        robot.rightShooter.setPower(0.50);
         sleep(250);
         robot.ballCollect.setPower(0.5);
-        sleep(2000);
+        sleep(1500);
+        robot.shotControl.setPosition(0.42);
+        robot.leftShooter.setPower(0.55);
+        robot.rightShooter.setPower(0.50);
+        robot.ballCollect.setPower(0);
+        sleep(250);
+        robot.ballCollect.setPower(0.5);
+        sleep(1500);
         robot.leftShooter.setPower(0.55);
         robot.rightShooter.setPower(0.50);
         sleep(250);
         robot.leftShooter.setPower(0.35);
         robot.rightShooter.setPower(0.30);
         sleep(250);
+        robot.leftShooter.setPower(0.15);
+        robot.rightShooter.setPower(0.10);
+        sleep(250);
         robot.ballCollect.setPower(0);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        sleep(250);
-        encoderTurn(0.2, 60);
-        encoderDrive(0.5, 15);
-        encoderDrive(0.5, 14);
-        encoderDrive(0.5, 14);
-        encoderTurn(0.2, 32.5);
-        touchSensorDrive(0.4    , 19.5);
-        colorSensorDrive(BLUE);
+        sleep(1000);
+        encoderDrive(0.5, 20);
+
 
 
 

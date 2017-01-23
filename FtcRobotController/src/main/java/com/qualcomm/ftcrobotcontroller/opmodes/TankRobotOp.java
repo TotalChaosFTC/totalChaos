@@ -173,7 +173,7 @@ public class TankRobotOp extends OpMode {
         if(gamepad2.x){
             flapPosition = 0.47;
             shotControl.setPosition(flapPosition);
-            armMode = 0.65;
+            armMode = 0.55;
         }
 
         if(gamepad2.b){

@@ -32,6 +32,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -59,15 +61,64 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-
+@Autonomous
 public class AutoRed1 extends AutoBasewNavx {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        initialize();
+        /*initialize();
 
         encoderDrive(0.35, 28);
+        robot.shotControl.setPosition(0.42);
+        robot.leftShooter.setPower(0.15);
+        robot.rightShooter.setPower(0.10);
+        sleep(250);
+        robot.leftShooter.setPower(0.35);
+        robot.rightShooter.setPower(0.30);
+        sleep(250);
+        robot.leftShooter.setPower(0.55);
+        robot.rightShooter.setPower(0.50);
+        sleep(250);
+        robot.leftShooter.setPower(0.75);
+        robot.rightShooter.setPower(0.70);
+        sleep(250);
+        robot.ballCollect.setPower(0.5);
+        sleep(1500);
+        robot.shotControl.setPosition(0.42);
+        robot.leftShooter.setPower(0.75);
+        robot.rightShooter.setPower(0.70);
+        robot.ballCollect.setPower(0);
+        sleep(250);
+        robot.ballCollect.setPower(0.5);
+        sleep(1500);
+        robot.leftShooter.setPower(0.55);
+        robot.rightShooter.setPower(0.50);
+        sleep(250);
+        robot.leftShooter.setPower(0.35);
+        robot.rightShooter.setPower(0.30);
+        sleep(250);
+        robot.leftShooter.setPower(0.15);
+        robot.rightShooter.setPower(0.10);
+        sleep(250);
+        robot.ballCollect.setPower(0);
+        robot.leftShooter.setPower(0);
+        robot.rightShooter.setPower(0);
+        sleep(1000);
+        encoderTurn(-0.2, -60);
+        encoderDrive(0.35, 15);
+        encoderDrive(0.35, 14);
+        encoderDrive(0.35, 14);
+        encoderTurn(0.2, -32.5);
+        touchSensorDrive(0.15, 19.5);
+        colorSensorDrive(RED);
+        encoderDrive(-0.75, -50);
+        robot.vortexSpinner.setPower(0.50);
+        sleep(500);
+        encoderDrive(-0.75, 5);*/
+        initialize();
+
+        encoderDrive(0.35, 25);
 
         robot.shotControl.setPosition(0.42);
         robot.leftShooter.setPower(0.15);
@@ -97,19 +148,25 @@ public class AutoRed1 extends AutoBasewNavx {
         robot.leftShooter.setPower(0.35);
         robot.rightShooter.setPower(0.30);
         sleep(250);
+        robot.leftShooter.setPower(0.15);
+        robot.rightShooter.setPower(0.10);
+        sleep(500);
         robot.ballCollect.setPower(0);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        sleep(1000);
-        encoderTurn(-0.2, -60);
-        encoderDrive(0.35, 15);
-        encoderDrive(0.35, 14);
-        encoderDrive(0.35, 14);
-        encoderTurn(0.2, -32.5);
-        touchSensorDrive(0.15, 19.5);
+        sleep(500);
+        encoderTurn(0.35, -60);
+        encoderDrive(0.45, 14);
+        encoderDrive(0.45, 14);
+        encoderDrive(0.45, 14);
+        encoderTurn(0.35, -34);
+        touchSensorDrive(0.25, 19.5);
         colorSensorDrive(RED);
-        encoderDrive(-0.75, -50);
-        encoderTurn(-0.75, -90);
+        encoderDrive(-0.75, -75);
+        //robot.vortexSpinner.setPower(0.50);
+        sleep(500);
+        encoderDrive(-0.75, 5);
+
         //encoderTurn(0.2, 90);
         //encoderDrive(0.2, 47.5);
         //encoderTurn(0.2, -90);
