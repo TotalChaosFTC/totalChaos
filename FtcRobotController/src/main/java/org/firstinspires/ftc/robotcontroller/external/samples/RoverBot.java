@@ -116,7 +116,7 @@ public class RoverBot
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }
-    public void setMotorPower (double leftPower, double rightPower){
+    public void setMotorPowerInternal (double leftPower, double rightPower){
             backLeft.setPower(leftPower);
             frontLeft.setPower(leftPower);
             backRight.setPower(rightPower);
@@ -124,12 +124,12 @@ public class RoverBot
 
     }
 
-    public void setMotorPowerx (double leftPower, double rightPower){
+    public void setMotorPower (double leftPower, double rightPower){
         int counter = 0;
         boolean nullFlag = true;
         while (counter < 3 && nullFlag) {
             try {
-                //setMotorPowerInternal(leftPower, rightPower);
+                setMotorPowerInternal(leftPower, rightPower);
                 nullFlag = false;
             } catch (NullPointerException e) {
                 counter++;

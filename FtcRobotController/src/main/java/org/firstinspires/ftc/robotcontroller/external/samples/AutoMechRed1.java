@@ -66,7 +66,31 @@ public class AutoMechRed1 extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderSide(RIGHT ,0.25, 5);
-        encoderSide(LEFT, 0.25, 5);
+        encoderDrive(-0.25, -16);
+        //robot.popper.setPosition(0.5);
+        sleep(500);
+        robot.leftShooter.setPower(1);
+        robot.rightShooter.setPower(1);
+        sleep(750 );
+        //robot.popper.setPosition(0);
+        sleep(1000);
+        //robot.popper.setPosition(0.5);
+        sleep(2000);
+        //robot.popper.setPosition(0);
+        sleep(1000);
+        robot.leftShooter.setPower(0);
+        robot.rightShooter.setPower(0);
+        encoderDrive(-0.25,-16);
+        encoderRight(0.25,51);
+        stoponBeaconColor(-0.15, RED);
+        //touchSensorDrive(RIGHT, 0.25);
+         colorSensorDrive(RED);
+        //encoderSide(LEFT, 0.25, 5);
+        //encoderDrive(0.25, 36);
+        //touchSensorDrive(RIGHT, 0.25);
+        //colorSensorDrive(RED);
+        //encoderSide(RIGHT, 0.25, 5);
+        //encoderTurn(0.25, -45);
+        //encoderDrive(0.25,60);
     }
 }

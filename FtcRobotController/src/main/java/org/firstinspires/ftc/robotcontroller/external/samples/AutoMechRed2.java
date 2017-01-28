@@ -60,31 +60,32 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  */
 
 
-public class AutoMechRed1 extends AutoMech {
+public class AutoMechRed2 extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(-0.25, -16);
-        robot.popper.setPosition(0.5);
+        sleep(10000);
+        encoderDrive(-0.25, -32);
+        //robot.popper.setPosition(0.5);
         sleep(500);
         robot.leftShooter.setPower(1);
         robot.rightShooter.setPower(1);
         sleep(750 );
-        robot.popper.setPosition(0);
+        //robot.popper.setPosition(0);
         sleep(1000);
-        robot.popper.setPosition(0.5);
+        //robot.popper.setPosition(0.5);
         sleep(2000);
-        robot.popper.setPosition(0);
+        //robot.popper.setPosition(0);
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDrive(-0.25,-16);
-        encoderRight(0.25,51);
-        stoponBeaconColor(-0.15, RED);
+        encoderDrive(-0.75,-16);
+        //encoderRight(0.25,51);
+        //stoponBeaconColor(-0.15, RED);
         //touchSensorDrive(RIGHT, 0.25);
-         colorSensorDrive(RED);
+        //colorSensorDrive(RED);
         //encoderSide(LEFT, 0.25, 5);
         //encoderDrive(0.25, 36);
         //touchSensorDrive(RIGHT, 0.25);

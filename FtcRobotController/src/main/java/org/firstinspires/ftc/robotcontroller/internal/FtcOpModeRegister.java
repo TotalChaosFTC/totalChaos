@@ -95,7 +95,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("LinearTestOp", LinearTestOp.class);
     //manager.register("PulleyArmOp", PulleyArmOp.class);
     //manager.register("ContinuousServoOp", ContinuousServoOp.class);
-    //manager.register("MeasureEncoder", MeasureEncoder.class);
+    manager.register("MechWheels", MechWheelsOp.class);
     //manager.register("AutoTestOp", AutoTestOp.class);
     //manager.register("FourMotorMeasureEncoder", FourMotorMeasureEncoder.class);
     //manager.register("League0MountainOp", League0AutoOp.class);
