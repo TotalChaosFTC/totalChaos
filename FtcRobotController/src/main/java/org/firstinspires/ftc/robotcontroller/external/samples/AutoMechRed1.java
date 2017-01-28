@@ -66,31 +66,29 @@ public class AutoMechRed1 extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(-0.25, -16);
-        //robot.popper.setPosition(0.5);
+        encoderDrive(-0.25, -12);
+        robot.popper.setPosition(0.5);
         sleep(500);
-        robot.leftShooter.setPower(1);
-        robot.rightShooter.setPower(1);
-        sleep(750 );
-        //robot.popper.setPosition(0);
+        robot.leftShooter.setPower(0.8);
+        robot.rightShooter.setPower(0.8);
+        sleep(750);
+        robot.popper.setPosition(0);
         sleep(1000);
-        //robot.popper.setPosition(0.5);
+        robot.popper.setPosition(0.5);
         sleep(2000);
-        //robot.popper.setPosition(0);
+        robot.popper.setPosition(0);
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDrive(-0.25,-16);
-        encoderRight(0.25,51);
-        stoponBeaconColor(-0.15, RED);
-        //touchSensorDrive(RIGHT, 0.25);
-         colorSensorDrive(RED);
-        //encoderSide(LEFT, 0.25, 5);
-        //encoderDrive(0.25, 36);
-        //touchSensorDrive(RIGHT, 0.25);
-        //colorSensorDrive(RED);
-        //encoderSide(RIGHT, 0.25, 5);
-        //encoderTurn(0.25, -45);
-        //encoderDrive(0.25,60);
+        encoderDrive(-0.25,-20);
+        encoderRight(0.25, 34);
+        encoderDrive(-0.25, -50);
+        touchSensorDrive(RIGHT,0.25,30);
+        stoponBeaconColor(0.15,15, RED);
+        colorSensorDrive(RED);
+        stoponBeaconColor(0.15,60, RED);
+        colorSensorDrive(RED);
+        encoderLeft(0.25, 7);
+        encoderDrive(0.25,25);
     }
 }

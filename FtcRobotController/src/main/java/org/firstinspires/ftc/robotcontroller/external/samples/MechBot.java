@@ -34,10 +34,11 @@ public class MechBot
     public DcMotor  rightShooter = null;
     public CRServo  pusherLeft   = null;
     public CRServo  pusherRight  = null;
-    public ColorSensor beaconColorSensor;
-    public TouchSensor beaconTouchSensor = null;
-    public Servo shotControl = null;
-    public DcMotor  ballCollect  = null;
+    public ColorSensor beaconColorSensor = null;
+    public TouchSensor frontTouchSensor = null;
+    public TouchSensor backTouchSensor = null;
+    public Servo popper = null;
+    public DcMotor  sweeper  = null;
     public ColorSensor bottomColorSensor;
 
     //public static final double MID_SERVO       =  0.5 ;
@@ -61,28 +62,29 @@ public class MechBot
         frontRight = hwMap.dcMotor.get("rf");
         backLeft = hwMap.dcMotor.get("lb");
         backRight = hwMap.dcMotor.get("rb");
-        //leftShooter = hwMap.dcMotor.get("ls");
-        //rightShooter = hwMap.dcMotor.get("rs");
-        ballCollect = hwMap.dcMotor.get("swp");
-        //shotControl = hwMap.servo.get("sc");
-        //leftShooter.setDirection(DcMotor.Direction.REVERSE);
+        leftShooter = hwMap.dcMotor.get("ls");
+        rightShooter = hwMap.dcMotor.get("rs");
+        sweeper = hwMap.dcMotor.get("swp");
+        popper = hwMap.servo.get("pop");
+        leftShooter.setDirection(DcMotor.Direction.REVERSE);
         frontRight.setDirection(DcMotor.Direction.REVERSE);
         backRight.setDirection(DcMotor.Direction.REVERSE);
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
-        //pusherLeft = hwMap.crservo.get("left");
-        //pusherRight = hwMap.crservo.get("right");
-        //pusherLeft.setPower(0);
-        //pusherRight.setPower(0);
-        //beaconColorSensor = hwMap.colorSensor.get("beacon");
-        //beaconTouchSensor = hwMap.touchSensor.get("touch");
+        pusherLeft = hwMap.crservo.get("left");
+        pusherRight = hwMap.crservo.get("right");
+        pusherLeft.setPower(0);
+        pusherRight.setPower(0);
+        beaconColorSensor = hwMap.colorSensor.get("beacon");
+        frontTouchSensor = hwMap.touchSensor.get("front");
+        backTouchSensor = hwMap.touchSensor.get("back");
 
         //bottomColorSensor = hwMap.colorSensor.get("bottom");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //beaconColorSensor.enableLed(false);
+        beaconColorSensor.enableLed(false);
         //bottomColorSensor.enableLed(true);
 
 
@@ -95,23 +97,65 @@ public class MechBot
 
     }
 
-    public void setMotorPower (double leftPower, double rightPower){
+    public void setMotorPowerInternal (double leftPower, double rightPower){
         backLeft.setPower(leftPower);
         frontLeft.setPower(leftPower);
         backRight.setPower(rightPower);
         frontRight.setPower(rightPower);
+
     }
-    public void setMechleft (double power){
-        backLeft.setPower(-power);
-        frontLeft.setPower(power);
-        backRight.setPower(power);
-        frontRight.setPower(-power);
+
+    public void setMotorPower (double leftPower, double rightPower){
+        int counter = 0;
+        boolean nullFlag = true;
+        while (counter < 3 && nullFlag) {
+            try {
+                setMotorPowerInternal(leftPower, rightPower);
+                nullFlag = false;
+            } catch (NullPointerException e) {
+                counter++;
+            }
+        }
     }
-    public void setMechRight (double power){
-        backLeft.setPower(power);
-        frontLeft.setPower(-power);
-        backRight.setPower(-power);
-        frontRight.setPower(power);
+    public void setMechleftInternal (double leftPower, double rightPower){
+        backLeft.setPower(-leftPower);
+        frontLeft.setPower(leftPower);
+        backRight.setPower(rightPower);
+        frontRight.setPower(-rightPower);
+
+    }
+
+    public void setMechleft (double leftPower, double rightPower){
+        int counter = 0;
+        boolean nullFlag = true;
+        while (counter < 3 && nullFlag) {
+            try {
+                setMechleftInternal(leftPower, rightPower);
+                nullFlag = false;
+            } catch (NullPointerException e) {
+                counter++;
+            }
+        }
+    }
+    public void setMechrightInternal (double leftPower, double rightPower){
+        backLeft.setPower(leftPower);
+        frontLeft.setPower(-leftPower);
+        backRight.setPower(-rightPower);
+        frontRight.setPower(rightPower);
+
+    }
+
+    public void setMechright (double leftPower, double rightPower){
+        int counter = 0;
+        boolean nullFlag = true;
+        while (counter < 3 && nullFlag) {
+            try {
+                setMechrightInternal(leftPower, rightPower);
+                nullFlag = false;
+            } catch (NullPointerException e) {
+                counter++;
+            }
+        }
     }
     public void stopMotors() {
         setMotorPower(0,0);

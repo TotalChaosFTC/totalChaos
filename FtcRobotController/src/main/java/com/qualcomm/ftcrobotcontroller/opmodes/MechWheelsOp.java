@@ -57,6 +57,12 @@ public class MechWheelsOp extends OpMode {
     DcMotor leftBack;
     DcMotor rightBack;
     DcMotor Sweeper;
+    DcMotor leftShooter;
+    DcMotor rightShooter;
+    DcMotor Vortex;
+    CRServo pusherLeft;
+    CRServo pusherRight;
+    Servo popper;
     final static double FAST = 1.0;
     final static double MED_FAST = 0.75;
     final static double MEDIUM = 0.5;
@@ -75,10 +81,15 @@ public class MechWheelsOp extends OpMode {
         leftBack = hardwareMap.dcMotor.get("lb");
         rightBack = hardwareMap.dcMotor.get("rb");
         Sweeper = hardwareMap.dcMotor.get("swp");
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
+        rightShooter = hardwareMap.dcMotor.get("rs");
+        leftShooter = hardwareMap.dcMotor.get("ls");
+        Vortex = hardwareMap.dcMotor.get("vtx");
+        pusherLeft = hardwareMap.crservo.get("left");
+        pusherRight = hardwareMap.crservo.get("right");
+        popper = hardwareMap.servo.get("pop");
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
@@ -149,16 +160,16 @@ public class MechWheelsOp extends OpMode {
                 leftBack.setPower(side);
             }
             if (turn > 0) {
-                leftFront.setPower(turn);
-                leftBack.setPower(turn);
-                rightBack.setPower(-turn);
-                rightFront.setPower(-turn);
+                leftFront.setPower(-turn);
+                leftBack.setPower(-turn);
+                rightBack.setPower(turn);
+                rightFront.setPower(turn);
             }
             else if (turn < 0){
-                leftFront.setPower(turn);
-                leftBack.setPower(turn);
-                rightBack.setPower(-turn);
-                rightFront.setPower(-turn);
+                leftFront.setPower(- turn);
+                leftBack.setPower(-turn);
+                rightBack.setPower(turn);
+                rightFront.setPower(turn);
             }
             else if (side == 0 && forward == 0 && turn == 0) {
                 leftBack.setPower(0);
@@ -176,9 +187,38 @@ public class MechWheelsOp extends OpMode {
         else{
             Sweeper.setPower(0);
         }
-        if (gamepad2.right_trigger > 0){
-
+        if(gamepad2.right_trigger > 0){
+            rightShooter.setPower(armMode);
+            leftShooter.setPower(armMode);
         }
+        else {
+            rightShooter.setPower(0);
+            leftShooter.setPower(0);
+        }
+        //popper
+        if (gamepad2.a){
+            popper.setPosition(0.5);
+        }
+        else if (gamepad2.y){
+            popper.setPosition(0);
+        }
+        if (gamepad2.x){
+            Vortex.setPower(100);
+        }
+        else if (gamepad2.b){
+            Vortex.setPower(0);
+        }
+        else{
+            Vortex.setPower(0);
+        }
+
+        //Right and Left Pushers
+        double pushLeftPower = gamepad2.left_stick_y;
+        double pushRightPower = gamepad2.right_stick_y;
+        pusherLeft.setPower(-pushLeftPower);
+        pusherRight.setPower(pushRightPower);
+        telemetry.addData("speed" , armMode);
+        telemetry.update();
     }
 
 

@@ -66,7 +66,7 @@ public class BeaconTestREd extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        stoponBeaconColor(0.25, RED);
+        stoponBeaconColor(0.25,12, RED);
         colorSensorDrive(RED);
     }
 }
