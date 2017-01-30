@@ -60,13 +60,14 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
  */
 
 
-public class CornerTKO extends AutoMech {
+public class JabRed extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(-0.25, -10);
+        sleep(1000);
+        encoderDrive(-0.25, -12);
         robot.popper.setPosition(0.5);
         sleep(500);
         robot.leftShooter.setPower(0.8);
@@ -81,14 +82,6 @@ public class CornerTKO extends AutoMech {
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         encoderDrive(-0.25,-20);
-        encoderRight(0.25, 34);
-        encoderDrive(-0.25, -28);
-        touchSensorDrive(RIGHT,0.25,30);
-        stoponBeaconColor(-0.15,30, RED);
-        colorSensorDrive(RED);
-        stoponBeaconColor(0.15,70, RED);
-        colorSensorDrive(RED);
-        encoderLeft(0.25, 15);
-        encoderDrive(-0.25, -25);
+
     }
 }

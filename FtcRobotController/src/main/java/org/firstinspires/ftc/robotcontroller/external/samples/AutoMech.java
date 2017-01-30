@@ -393,7 +393,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            while ((robot.backLeft.isBusy() && robot.backRight.isBusy()) || robot.beaconColorSensor.red() < 4  ) {
+            while ((robot.backLeft.isBusy() && robot.backRight.isBusy()) && robot.beaconColorSensor.red() >= 4  ) {
                 idle();
             }
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -408,7 +408,7 @@ public abstract class AutoMech extends LinearOpMode {
                 robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                while ((robot.backLeft.isBusy() && robot.backRight.isBusy()) || robot.beaconColorSensor.blue() < 4  ) {
+                while ((robot.backLeft.isBusy() && robot.backRight.isBusy()) && robot.beaconColorSensor.blue() >= 4  ) {
                     idle();
                 }
                 robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
