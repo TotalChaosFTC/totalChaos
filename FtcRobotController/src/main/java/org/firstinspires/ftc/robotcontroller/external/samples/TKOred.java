@@ -82,11 +82,11 @@ public class TKOred extends AutoMech {
         robot.rightShooter.setPower(0);
         encoderDrive(-0.25,-20);
         encoderRight(0.25, 34);
-        encoderDrive(-0.25, -65);
+        encoderDrive(-0.25, -28);
         touchSensorDrive(RIGHT,0.25,30);
-        stoponBeaconColor(0.15,15, RED);
+        stoponBeaconColor(-0.15,30, RED);
         colorSensorDrive(RED);
-        stoponBeaconColor(0.15,60, RED);
+        stoponBeaconColor(0.15,70, RED);
         colorSensorDrive(RED);
         encoderLeft(0.25, 50);
     }
