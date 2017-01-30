@@ -386,38 +386,32 @@ public abstract class AutoMech extends LinearOpMode {
         robot.backLeft.setTargetPosition(newLeftTarget);
         robot.frontRight.setTargetPosition(newRightTarget);
         robot.backRight.setTargetPosition(newRightTarget);
+        robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.setMotorPower(power,power);
 
         if (color == RED) {
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            while ((robot.backLeft.isBusy() && robot.backRight.isBusy()) && robot.beaconColorSensor.red() >= 4  ) {
+            while ((robot.backLeft.isBusy() && robot.backRight.isBusy())) {
+                if (robot.beaconColorSensor.red() >= 4 )
+                    break;
                 idle();
             }
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.stopMotors();
         }
 
-            if (color == BLUE) {
-                robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                while ((robot.backLeft.isBusy() && robot.backRight.isBusy()) && robot.beaconColorSensor.blue() >= 4  ) {
-                    idle();
-                }
-                robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                robot.stopMotors();
+        if (color == BLUE) {
+            while ((robot.backLeft.isBusy() && robot.backRight.isBusy())) {
+                if (robot.beaconColorSensor.blue() >= 4  )
+                    break;
+                idle();
             }
-
+        }
+        robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.stopMotors();
     }
     public void colorSensorDrive(int color) throws InterruptedException {
 
