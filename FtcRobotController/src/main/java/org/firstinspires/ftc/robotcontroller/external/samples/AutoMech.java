@@ -386,6 +386,7 @@ public abstract class AutoMech extends LinearOpMode {
         robot.backLeft.setTargetPosition(newLeftTarget);
         robot.frontRight.setTargetPosition(newRightTarget);
         robot.backRight.setTargetPosition(newRightTarget);
+        robot.setMotorPower(power,power);
 
         if (color == RED) {
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
