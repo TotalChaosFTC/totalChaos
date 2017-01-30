@@ -67,7 +67,7 @@ public class CornerTKO extends AutoMech {
 
         initialize();
         encoderDrive(-0.25, -10);
-        robot.popper.setPosition(0.5);
+        robot.popper.setPosition(0);
         sleep(500);
         robot.leftShooter.setPower(0.8);
         robot.rightShooter.setPower(0.8);
@@ -80,15 +80,17 @@ public class CornerTKO extends AutoMech {
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDrive(-0.25,-20);
+        encoderDiagonalLeft(-0.25,-40);
         encoderRight(0.25, 34);
         encoderDrive(-0.25, -28);
         touchSensorDrive(RIGHT,0.25,30);
         stoponBeaconColor(-0.15,- 30, RED);
         colorSensorDrive(RED);
+        encoderDrive(0.4, 25);
+        touchSensorDrive(RIGHT,0.25, 10);
         stoponBeaconColor(0.15,70, RED);
         colorSensorDrive(RED);
         encoderLeft(0.25, 15);
-        encoderDrive(-0.25, -25);
+        encoderDrive(0.25, 35);
     }
 }

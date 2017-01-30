@@ -271,6 +271,47 @@ public abstract class AutoMech extends LinearOpMode {
             robot.stopMotors();
         }
     }
+    public void encoderDiagonalLeft (double power, double inches) throws InterruptedException {
+
+        int newTarget;
+
+        robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newTarget = robot.frontLeft.getCurrentPosition() + (int) (inches * COUNTS_PER_INCH);
+            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.backLeft.setTargetPosition(newTarget);
+            robot.frontRight.setTargetPosition(newTarget);
+            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            // Turn On RUN_TO_POSITION
+            robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            robot.frontLeft.setPower(0);
+            robot.backLeft.setPower(power);
+            robot.frontRight.setPower(power);
+            robot.backRight.setPower(0);
+            while (robot.frontLeft.isBusy() && robot.frontRight.isBusy()) {
+                idle();
+            }
+            robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.stopMotors();
+        }
+    }
     public void encoderRight (double power, double inches) throws InterruptedException {
 
         int newNegativeTarget;
@@ -448,9 +489,9 @@ public abstract class AutoMech extends LinearOpMode {
         }
         else if (color == RED){
             if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
-                robot.pusherLeft.setPower(1);
-                sleep(1000);
                 robot.pusherLeft.setPower(-1);
+                sleep(1000);
+                robot.pusherLeft.setPower(1);
                 sleep(1000);
                 robot.pusherLeft.setPower(0);
                 telemetry.addData("YAY!","IT FOUND RED!");
@@ -458,9 +499,9 @@ public abstract class AutoMech extends LinearOpMode {
 
             }
             else if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
-                robot.pusherRight.setPower(1);
-                sleep(1000);
                 robot.pusherRight.setPower(-1);
+                sleep(1000);
+                robot.pusherRight.setPower(1);
                 sleep(1000);
                 robot.pusherRight.setPower(0);
                 telemetry.addData("YAY!","IT FOUND BLUE!");
