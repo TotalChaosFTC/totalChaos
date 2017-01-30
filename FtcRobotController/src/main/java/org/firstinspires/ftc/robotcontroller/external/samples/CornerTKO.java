@@ -84,7 +84,7 @@ public class CornerTKO extends AutoMech {
         encoderRight(0.25, 34);
         encoderDrive(-0.25, -28);
         touchSensorDrive(RIGHT,0.25,30);
-        stoponBeaconColor(-0.15,30, RED);
+        stoponBeaconColor(-0.15,- 30, RED);
         colorSensorDrive(RED);
         stoponBeaconColor(0.15,70, RED);
         colorSensorDrive(RED);
