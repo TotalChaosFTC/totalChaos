@@ -60,8 +60,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@Autonomous(name="TKO", group="Red")
-public class TKOred extends AutoMech {
+@Autonomous(name="TKO", group="blue")
+public class TKOblue extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -82,16 +82,16 @@ public class TKOred extends AutoMech {
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         encoderDrive(-0.30,-13);
-        encoderDiagonalLeft(-0.63,-100);
-        touchSensorDrive(RIGHT,0.25,8);
-        stoponBeaconColor(-0.25,- 30, RED);
-        colorSensorDrive(RED);
-        encoderLeft(0.25, 0.5);
+        encoderDiagonalRight(-0.63,-100);
+        touchSensorDrive(LEFT,0.25,8);
+        stoponBeaconColor(-0.25,- 30, BLUE);
+        colorSensorDrive(BLUE);
+        encoderRight(0.25, 0.5);
         encoderDrive(0.40, 25);
-        touchSensorDrive(RIGHT,0.5,2);
-        stoponBeaconColor(0.30,20, RED);
-        colorSensorDrive(RED);
-        encoderLeft(0.4,10);
+        touchSensorDrive(LEFT,0.5,2);
+        stoponBeaconColor(0.30,20, BLUE);
+        colorSensorDrive(BLUE);
+        encoderRight(0.4,10);
         encoderTurn(0.75,100);
         encoderDrive(-1,-60);
     }
