@@ -66,11 +66,12 @@ public class TriplePunchred extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
+
         robot.sweeper.setPower(1);
         sleep(1000);
         robot.sweeper.setPower(0);
         encoderTurn(0.25, 90);
-        encoderDrive(-0.25, -10);
+        encoderDrive(-0.40, -8);
         robot.popper.setPosition(0.5);
         sleep(500);
         robot.leftShooter.setPower(0.8);
@@ -82,20 +83,20 @@ public class TriplePunchred extends AutoMech {
         sleep(2000);
         robot.popper.setPosition(0);
         sleep(1000);
-        robot.popper.setPosition(0.5);
-        sleep(2000);
-        robot.popper.setPosition(0);
-        sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDrive(-0.25,-20);
-        encoderRight(0.25, 34);
-        encoderDrive(-0.25, -28);
+        encoderDrive(-0.35,-20);
+        encoderRight(0.30, 34);
+        encoderDrive(-0.35, -28);
         touchSensorDrive(RIGHT,0.25,30);
-        stoponBeaconColor(-0.15,30, RED);
+        stoponBeaconColor(-0.25,- 30, RED);
         colorSensorDrive(RED);
-        stoponBeaconColor(0.15,70, RED);
+        encoderDrive(0.40, 15);
+        touchSensorDrive(RIGHT,0.25,10);
+        stoponBeaconColor(0.30,20, RED);
         colorSensorDrive(RED);
-        encoderLeft(0.25, 50);
+        encoderLeft(0.35 , 50);
+        encoderTurn(0.75,100);
+        encoderDrive(-1,-6);
     }
 }
