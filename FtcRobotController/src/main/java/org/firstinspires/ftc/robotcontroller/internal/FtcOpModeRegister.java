@@ -100,7 +100,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("TKOred" , TKOred.class);
     manager.register("CornerTKO" , CornerTKO.class);
         manager.register("PunchRed" , PunchRed.class);
-        manager.register("JabbyRed" , JabbyRed.class);
+        manager.register("JabRed" , JabbyRed.class);
     //manager.register("AutoTestOp", AutoTestOp.class);
     //manager.register("FourMotorMeasureEncoder", FourMotorMeasureEncoder.class);
     //manager.register("League0MountainOp", League0AutoOp.class);
