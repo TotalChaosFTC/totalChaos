@@ -45,7 +45,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.AutoRed1;
 import org.firstinspires.ftc.robotcontroller.external.samples.AutoRed2;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 import org.firstinspires.ftc.robotcontroller.external.samples.CornerTKO;
+import org.firstinspires.ftc.robotcontroller.external.samples.JabbyBlue;
 import org.firstinspires.ftc.robotcontroller.external.samples.JabbyRed;
+import org.firstinspires.ftc.robotcontroller.external.samples.PunchBlue;
 import org.firstinspires.ftc.robotcontroller.external.samples.PunchRed;
 import org.firstinspires.ftc.robotcontroller.external.samples.TKOred;
 
@@ -101,6 +103,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("CornerTKO" , CornerTKO.class);
         manager.register("PunchRed" , PunchRed.class);
         manager.register("JabRed" , JabbyRed.class);
+        manager.register("PunchBlue" , PunchBlue.class);
+        manager.register("JabBlue" , JabbyBlue.class);
     //manager.register("AutoTestOp", AutoTestOp.class);
     //manager.register("FourMotorMeasureEncoder", FourMotorMeasureEncoder.class);
     //manager.register("League0MountainOp", League0AutoOp.class);
