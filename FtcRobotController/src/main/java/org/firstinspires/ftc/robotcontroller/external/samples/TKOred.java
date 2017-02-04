@@ -85,12 +85,13 @@ public class TKOred extends AutoMech {
         touchSensorDrive(RIGHT,0.25,8);
         stoponBeaconColor(-0.25,- 30, RED);
         colorSensorDrive(RED);
+        encoderLeft(0.25, 0.5);
         encoderDrive(0.40, 25);
         touchSensorDrive(RIGHT,0.5,2);
         stoponBeaconColor(0.30,20, RED);
         colorSensorDrive(RED);
         encoderLeft(0.4,10);
-        encoderTurn(0.75,100); 
+        encoderTurn(0.75,100);
         encoderDrive(-1,-60);
     }
 }
