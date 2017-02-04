@@ -61,7 +61,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="CornerTKO", group="Blue")
+@Autonomous(name="CornerTKOBlue", group="Blue")
 
 public class CornerTKOBlue extends AutoMech {
 
