@@ -60,8 +60,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-@Autonomous
+@Autonomous(name="ApolloRed", group = "ABLUE")
 public class AutoRed1 extends AutoBasewNavx {
 
     @Override
