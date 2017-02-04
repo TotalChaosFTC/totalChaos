@@ -435,6 +435,9 @@ public abstract class AutoMech extends LinearOpMode {
                 robot.backLeft.setTargetPosition(newNegativeTarget);
                 robot.frontRight.setTargetPosition(newNegativeTarget);
                 robot.backRight.setTargetPosition(newPostiveTarget);
+                while (robot.backLeft.isBusy() && robot.backRight.isBusy() && (!robot.rightFrontTouchSensor.isPressed() || !robot.rightBackTouchSensor.isPressed()) ){
+                    idle();
+                }
 
 
                 // Turn On RUN_TO_POSITION
@@ -443,11 +446,12 @@ public abstract class AutoMech extends LinearOpMode {
                 robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.setMechright(power,power);
+                while (robot.backLeft.isBusy() && robot.backRight.isBusy() && (!robot.leftFrontTouchSensor.isPressed() || !robot.leftBackTouchSensor.isPressed()) ){
+                    idle();
+                }
             }
 
-            while (robot.backLeft.isBusy() && robot.backRight.isBusy() && (!robot.frontTouchSensor.isPressed() || !robot.backTouchSensor.isPressed()) ){
-                idle();
-            }
+
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

@@ -35,8 +35,10 @@ public class MechBot
     public CRServo  pusherLeft   = null;
     public CRServo  pusherRight  = null;
     public ColorSensor beaconColorSensor = null;
-    public TouchSensor frontTouchSensor = null;
-    public TouchSensor backTouchSensor = null;
+    public TouchSensor rightFrontTouchSensor = null;
+    public TouchSensor rightBackTouchSensor = null;
+    public TouchSensor leftFrontTouchSensor = null;
+    public TouchSensor leftBackTouchSensor = null;
     public Servo popper = null;
     public DcMotor  sweeper  = null;
     public ColorSensor bottomColorSensor;
@@ -76,8 +78,10 @@ public class MechBot
         pusherLeft.setPower(0);
         pusherRight.setPower(0);
         beaconColorSensor = hwMap.colorSensor.get("beacon");
-        frontTouchSensor = hwMap.touchSensor.get("front");
-        backTouchSensor = hwMap.touchSensor.get("back");
+        leftFrontTouchSensor = hwMap.touchSensor.get("lFront");
+        leftBackTouchSensor = hwMap.touchSensor.get("lBack");
+        rightFrontTouchSensor = hwMap.touchSensor.get("rFront");
+        rightFrontTouchSensor = hwMap.touchSensor.get("rBack");
 
         //bottomColorSensor = hwMap.colorSensor.get("bottom");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
