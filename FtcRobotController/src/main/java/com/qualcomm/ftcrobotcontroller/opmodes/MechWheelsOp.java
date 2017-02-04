@@ -44,8 +44,8 @@ import com.qualcomm.robotcore.util.Range;
  *Enables control of the robot via the gamepad
  */
 public class MechWheelsOp extends OpMode {
-    double armDelta = 0.01;
 
+    double armDelta = 0.01;
     boolean iSawDpadUpAlready = false;
     boolean iSawDpadDownAlready = false;
     boolean iSawDpadUpAlreadyArm = false;

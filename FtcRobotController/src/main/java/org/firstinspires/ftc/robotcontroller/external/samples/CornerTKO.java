@@ -66,26 +66,28 @@ public class CornerTKO extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
+        encoderDrive(-0.30, -8);
         robot.popper.setPosition(0.5);
-        encoderDrive(-0.45, -10);
-        sleep(250);
+        sleep(500);
         robot.leftShooter.setPower(0.8);
         robot.rightShooter.setPower(0.8);
-        sleep(250);
+        sleep(750);
         robot.popper.setPosition(0);
-        sleep(250);
+        sleep(1000);
         robot.popper.setPosition(0.5);
-        sleep(250);
+        sleep(2000);
         robot.popper.setPosition(0);
-        sleep(250);
+        sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDiagonalLeft(-0.50,-90);
-        touchSensorDrive(RIGHT,0.45,30);
+        encoderDrive(-0.30,-13);
+        encoderDiagonalLeft(-0.63,-100);
+        touchSensorDrive(RIGHT,0.25,8);
         stoponBeaconColor(-0.25,- 30, RED);
         colorSensorDrive(RED);
-        encoderDrive(0.4, 25);
-        stoponBeaconColor(0.25,70, RED);
+        encoderDrive(0.40, 25);
+        touchSensorDrive(RIGHT,0.5,2);
+        stoponBeaconColor(0.30,20, RED);
         colorSensorDrive(RED);
         encoderLeft(0.5, 15);
         encoderDrive(0.5, 35);
