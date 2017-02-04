@@ -78,10 +78,10 @@ public class MechBot
         pusherLeft.setPower(0);
         pusherRight.setPower(0);
         beaconColorSensor = hwMap.colorSensor.get("beacon");
-        leftFrontTouchSensor = hwMap.touchSensor.get("lFront");
-        leftBackTouchSensor = hwMap.touchSensor.get("lBack");
-        rightFrontTouchSensor = hwMap.touchSensor.get("rFront");
-        rightFrontTouchSensor = hwMap.touchSensor.get("rBack");
+        leftFrontTouchSensor = hwMap.touchSensor.get("lfront");
+        leftBackTouchSensor = hwMap.touchSensor.get("lback");
+        rightFrontTouchSensor = hwMap.touchSensor.get("rfront");
+        rightFrontTouchSensor = hwMap.touchSensor.get("rback");
 
         //bottomColorSensor = hwMap.colorSensor.get("bottom");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

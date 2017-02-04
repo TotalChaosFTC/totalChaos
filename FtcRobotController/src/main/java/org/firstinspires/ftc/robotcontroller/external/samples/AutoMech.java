@@ -450,12 +450,12 @@ public abstract class AutoMech extends LinearOpMode {
                 }
             }
 
-
+            robot.stopMotors();
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.stopMotors();
+            idle();
         }
 
 
