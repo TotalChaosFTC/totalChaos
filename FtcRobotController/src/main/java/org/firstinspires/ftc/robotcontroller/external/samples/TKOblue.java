@@ -79,7 +79,7 @@ public class TKOblue extends AutoMech {
         robot.popper.setPosition(0);
         sleep(1000);
         robot.popper.setPosition(0.5);
-        sleep(1500);
+        sleep(1000);
         robot.popper.setPosition(0);
         sleep(1000);
         //stop ball shooter
