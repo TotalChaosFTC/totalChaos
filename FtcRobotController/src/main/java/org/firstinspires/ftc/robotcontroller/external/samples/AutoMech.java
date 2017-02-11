@@ -299,10 +299,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.frontLeft.setPower(0);
-            robot.backLeft.setPower(power);
-            robot.frontRight.setPower(power);
-            robot.backRight.setPower(0);
+            robot.setMechLeftDiagonal(power);
             while (robot.backLeft.isBusy() && robot.frontRight.isBusy()) {
                 idle();
             }
@@ -339,10 +336,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.frontLeft.setPower(power);
-            robot.backLeft.setPower(0);
-            robot.frontRight.setPower(0);
-            robot.backRight.setPower(power);
+            robot.setMechRightDiagonal(power);
             while (robot.frontLeft.isBusy() && robot.backRight.isBusy()) {
                 idle();
             }
@@ -427,7 +421,22 @@ public abstract class AutoMech extends LinearOpMode {
                 robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.setMechleft(power,power);
-                while (robot.backLeft.isBusy() && robot.backRight.isBusy() && (!robot.leftFrontTouchSensor.isPressed() || !robot.leftBackTouchSensor.isPressed()) ){
+                boolean frontButtonPressed = false;
+                boolean backButtonPressed = false;
+                while (robot.backLeft.isBusy() && robot.backRight.isBusy()) {
+                    try {
+                        if (robot.leftFrontTouchSensor.isPressed()){
+                            frontButtonPressed = true;
+                        }
+                        if (robot.leftBackTouchSensor.isPressed()){
+                            backButtonPressed = true;
+                        }
+                        if (backButtonPressed && frontButtonPressed) {
+                            break;
+                        }
+                    } catch (NullPointerException e) {
+
+                    }
                     idle();
                 }
             }
@@ -447,7 +456,22 @@ public abstract class AutoMech extends LinearOpMode {
                 robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.setMechright(power,power);
-                while (robot.backLeft.isBusy() && robot.backRight.isBusy() && (!robot.rightFrontTouchSensor.isPressed() || !robot.rightBackTouchSensor.isPressed()) ){
+                boolean frontButtonPressed = false;
+                boolean backButtonPressed = false;
+                while (robot.backLeft.isBusy() && robot.backRight.isBusy()) {
+                    try {
+                        if (robot.rightFrontTouchSensor.isPressed()){
+                            frontButtonPressed = true;
+                        }
+                        if (robot.rightBackTouchSensor.isPressed()){
+                            backButtonPressed = true;
+                        }
+                        if (backButtonPressed && frontButtonPressed) {
+                            break;
+                        }
+                    } catch (NullPointerException e) {
+
+                    }
                     idle();
                 }
             }
@@ -511,22 +535,12 @@ public abstract class AutoMech extends LinearOpMode {
         if (color == BLUE) {
 
             if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
-                robot.pusherRight.setPower(-1);
-                sleep(1000);
                 robot.pusherRight.setPower(1);
-                sleep(1000);
+                sleep(750);
+                robot.pusherRight.setPower(-1);
+                sleep(750);
                 robot.pusherRight.setPower(0);
                  telemetry.addData("YAY!","IT FOUND BLUE!");
-
-            }
-            else if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
-                robot.pusherLeft.setPower(-1);
-                sleep(1000);
-                robot.pusherLeft.setPower(1);
-                sleep(1000);
-                robot.pusherLeft.setPower(0);
-                telemetry.addData("YAY!","IT FOUND RED!");
-                telemetry.update();
 
             }
             else {
@@ -542,16 +556,6 @@ public abstract class AutoMech extends LinearOpMode {
                 sleep(1000);
                 robot.pusherLeft.setPower(0);
                 telemetry.addData("YAY!","IT FOUND RED!");
-                telemetry.update();
-
-            }
-            else if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
-                robot.pusherRight.setPower(-1);
-                sleep(1000);
-                robot.pusherRight.setPower(1);
-                sleep(1000);
-                robot.pusherRight.setPower(0);
-                telemetry.addData("YAY!","IT FOUND BLUE!");
                 telemetry.update();
 
             }

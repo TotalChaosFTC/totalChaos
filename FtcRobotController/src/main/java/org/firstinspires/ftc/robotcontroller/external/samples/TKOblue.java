@@ -71,7 +71,7 @@ public class TKOblue extends AutoMech {
         robot.popper.setPosition(0.5);
         robot.leftShooter.setPower(0.85);
         robot.rightShooter.setPower(0.85);
-        sleep(200);
+        //sleep(200);
         //drive forward to shooting position
         encoderDrive(-0.30, -12 );
         sleep(500);
@@ -89,26 +89,24 @@ public class TKOblue extends AutoMech {
         //move towards the beacon diagonally
         encoderDiagonalRight(-0.63,-100);
         //wall flush
-        touchSensorDrive(LEFT,0.35,25);
+        touchSensorDrive(LEFT,0.35,20);
         //come off the wall to avoid break in wall
         encoderRight(0.25,0.75);
         //look for beacon and push
         stoponBeaconColor(-0.25,-25, BLUE);
         colorSensorDrive(BLUE);
-        //re-align with wall to avoid tilted movement, and come off the wall
         //touchSensorDrive(RIGHT,0.35,2);
-        encoderRight(0.25,6);
+        encoderRight(0.25,8);
         //drive to second beacon
         encoderDrive(0.25, 5);
         encoderDrive(0.50 , 25);
         //correct with the wall because of drift
-        touchSensorDrive(LEFT,0.35,20 );
+        touchSensorDrive(LEFT,0.45,17 );
         //Sense and push other beacon
-        stoponBeaconColor(0.25,20, BLUE);
+        stoponBeaconColor(0.25,40, BLUE);
         colorSensorDrive(BLUE);
         //move to cap ball and park on center vortex
-        encoderRight(0.75,10);
-        encoderTurn(0.75,100);
-        encoderDrive(-1,-47);
+        encoderRight(1,57);
+        encoderTurn(-0.75,-100);
     }
 }

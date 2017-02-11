@@ -71,7 +71,7 @@ public class TKOred extends AutoMech {
         robot.popper.setPosition(0.5);
         robot.leftShooter.setPower(0.85);
         robot.rightShooter.setPower(0.85);
-        sleep(200);
+        //sleep(200);
         //drive forward to shooting position
         encoderDrive(-0.30, -12 );
         sleep(500);
@@ -95,20 +95,19 @@ public class TKOred extends AutoMech {
         //look for beacon and push
         stoponBeaconColor(-0.25,-25, RED);
         colorSensorDrive(RED);
-        //re-align with wall to avoid tilted movement, and come off the wall
         //touchSensorDrive(RIGHT,0.35,2);
-        encoderLeft(0.25,6);
+        encoderLeft(0.25,8);
         //drive to second beacon
         encoderDrive(0.25, 5);
         encoderDrive(0.50 , 25);
         //correct with the wall because of drift
-        touchSensorDrive(RIGHT,0.35,20 );
+        touchSensorDrive(RIGHT,0.45,17 );
         //Sense and push other beacon
         stoponBeaconColor(0.25,20, RED);
         colorSensorDrive(RED);
         //move to cap ball and park on center vortex
-        encoderLeft(0.75,10);
+        encoderLeft(1,57);
         encoderTurn(0.75,100);
-        encoderDrive(-1,-47);
+
     }
 }

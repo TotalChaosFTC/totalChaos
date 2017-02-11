@@ -161,6 +161,47 @@ public class MechBot
             }
         }
     }
+    public void setMechLeftDiagonalInternal (double power){
+        frontLeft.setPower(0);
+        backLeft.setPower(power);
+        frontRight.setPower(power);
+        backRight.setPower(0);
+
+    }
+
+    public void setMechLeftDiagonal (double power){
+        int counter = 0;
+        boolean nullFlag = true;
+        while (counter < 3 && nullFlag) {
+            try {
+                setMechLeftDiagonalInternal(power);
+                nullFlag = false;
+            } catch (NullPointerException e) {
+                counter++;
+            }
+        }
+    }
+    public void setMechRightDiagonalInternal (double power){
+        frontLeft.setPower(power);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(power);
+
+    }
+
+    public void setMechRightDiagonal (double power){
+        int counter = 0;
+        boolean nullFlag = true;
+        while (counter < 3 && nullFlag) {
+            try {
+                setMechRightDiagonalInternal(power);
+                nullFlag = false;
+            } catch (NullPointerException e) {
+                counter++;
+            }
+        }
+    }
+
     public void stopMotors() {
         setMotorPower(0,0);
     }

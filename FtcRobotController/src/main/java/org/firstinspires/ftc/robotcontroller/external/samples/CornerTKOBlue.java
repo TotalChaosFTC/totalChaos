@@ -73,7 +73,7 @@ public class CornerTKOBlue extends AutoMech {
         robot.popper.setPosition(0.5);
         robot.leftShooter.setPower(0.85);
         robot.rightShooter.setPower(0.85);
-        sleep(200);
+        //sleep(200);
         //drive forward to shooting position
         encoderDrive(-0.30, -12 );
         sleep(500);
@@ -88,28 +88,26 @@ public class CornerTKOBlue extends AutoMech {
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         //drive so we can get closer to the beacon after the diagonal
-        encoderDrive(-0.50,-8);
         //move towards the beacon diagonally
         encoderDiagonalRight(-0.63,-100);
         //wall flush
-        touchSensorDrive(LEFT,0.35,13);
+        touchSensorDrive(LEFT,0.35,20);
         //come off the wall to avoid break in wall
         encoderRight(0.25,0.75);
         //look for beacon and push
         stoponBeaconColor(-0.25,-25, BLUE);
         colorSensorDrive(BLUE);
-        //re-align with wall to avoid tilted movement, and come off the wall
-        touchSensorDrive(LEFT,0.35,2);
-        encoderRight(0.25,0.75);
+        //touchSensorDrive(RIGHT,0.35,2);
+        encoderRight(0.25,8);
         //drive to second beacon
-        encoderDrive(0.65 , 25);
+        encoderDrive(0.25, 5);
+        encoderDrive(0.50 , 25);
         //correct with the wall because of drift
-        touchSensorDrive(LEFT,0.35,2);
+        touchSensorDrive(LEFT,0.45,17 );
         //Sense and push other beacon
-        stoponBeaconColor(0.25,20, BLUE);
+        stoponBeaconColor(0.25,40, BLUE);
         colorSensorDrive(BLUE);
-        //move to cap ball and park on center vortex
-        encoderRight(0.5, 15);
-        encoderDrive(0.5, 35);
+        encoderRight(1, 15);
+        encoderDrive(1, 35);
     }
 }
