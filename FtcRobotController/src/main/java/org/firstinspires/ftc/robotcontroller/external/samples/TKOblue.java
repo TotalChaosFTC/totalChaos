@@ -105,7 +105,7 @@ public class TKOblue extends AutoMech {
         //Sense and push other beacon
         stoponBeaconColor(0.25,40, BLUE);
         colorSensorDrive(BLUE);
-        //move to cap ball and park on center vortex
+        //move to ca bp ball and park on center vortex
         encoderRight(1,57);
         encoderTurn(-0.75,-100);
     }
