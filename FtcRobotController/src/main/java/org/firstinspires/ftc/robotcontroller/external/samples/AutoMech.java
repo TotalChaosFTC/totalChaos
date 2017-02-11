@@ -178,6 +178,7 @@ public abstract class AutoMech extends LinearOpMode {
         robot.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        idle();
 
     }
 
@@ -224,6 +225,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.stopMotors();
+            idle();
         }
     }
     public void encoderLeft (double power, double inches) throws InterruptedException {
@@ -269,6 +271,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.stopMotors();
+            idle();
         }
     }
     public void encoderDiagonalLeft (double power, double inches) throws InterruptedException {
@@ -293,16 +296,14 @@ public abstract class AutoMech extends LinearOpMode {
 
 
             // Turn On RUN_TO_POSITION
-            robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.frontLeft.setPower(0);
             robot.backLeft.setPower(power);
             robot.frontRight.setPower(power);
             robot.backRight.setPower(0);
-            while (robot.frontLeft.isBusy() && robot.frontRight.isBusy()) {
+            while (robot.backLeft.isBusy() && robot.frontRight.isBusy()) {
                 idle();
             }
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -310,6 +311,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.stopMotors();
+            idle();
         }
     }
     public void encoderDiagonalRight (double power, double inches) throws InterruptedException {
@@ -335,8 +337,6 @@ public abstract class AutoMech extends LinearOpMode {
 
             // Turn On RUN_TO_POSITION
             robot.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             robot.frontLeft.setPower(power);
@@ -351,6 +351,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.stopMotors();
+            idle();
         }
     }
     public void encoderRight (double power, double inches) throws InterruptedException {
@@ -395,6 +396,7 @@ public abstract class AutoMech extends LinearOpMode {
             robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.stopMotors();
+            idle();
         }
     }
 
@@ -502,24 +504,25 @@ public abstract class AutoMech extends LinearOpMode {
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.stopMotors();
+        idle();
     }
     public void colorSensorDrive(int color) throws InterruptedException {
 
         if (color == BLUE) {
 
             if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
-                robot.pusherRight.setPower(1);
-                sleep(1000);
                 robot.pusherRight.setPower(-1);
+                sleep(1000);
+                robot.pusherRight.setPower(1);
                 sleep(1000);
                 robot.pusherRight.setPower(0);
                  telemetry.addData("YAY!","IT FOUND BLUE!");
 
             }
             else if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
-                robot.pusherLeft.setPower(1);
-                sleep(1000);
                 robot.pusherLeft.setPower(-1);
+                sleep(1000);
+                robot.pusherLeft.setPower(1);
                 sleep(1000);
                 robot.pusherLeft.setPower(0);
                 telemetry.addData("YAY!","IT FOUND RED!");

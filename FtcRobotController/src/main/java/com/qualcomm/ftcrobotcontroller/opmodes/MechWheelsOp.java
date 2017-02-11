@@ -63,6 +63,7 @@ public class MechWheelsOp extends OpMode {
     CRServo pusherLeft;
     CRServo pusherRight;
     Servo popper;
+    Servo roller;
     final static double FAST = 1.0;
     final static double MED_FAST = 0.75;
     final static double MEDIUM = 0.5;
@@ -87,6 +88,7 @@ public class MechWheelsOp extends OpMode {
         pusherLeft = hardwareMap.crservo.get("left");
         pusherRight = hardwareMap.crservo.get("right");
         popper = hardwareMap.servo.get("pop");
+        roller = hardwareMap.servo.get("roll");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -177,6 +179,12 @@ public class MechWheelsOp extends OpMode {
                  rightBack.setPower(0);
                 rightFront.setPower(0);
             }
+        }
+        if (gamepad1.x){
+            roller.setPosition(0.7 );
+        }
+        else if (gamepad1.b){
+            roller.setPosition(1);
         }
         if (gamepad1.right_trigger > 0){
             Sweeper.setPower(1);

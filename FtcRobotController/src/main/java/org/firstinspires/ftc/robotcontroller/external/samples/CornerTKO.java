@@ -69,30 +69,46 @@ public class CornerTKO extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(-0.30, -8);
+        //lowering popper and starting ball shooter
         robot.popper.setPosition(0.5);
+        robot.leftShooter.setPower(0.85);
+        robot.rightShooter.setPower(0.85);
+        sleep(200);
+        //drive forward to shooting position
+        encoderDrive(-0.30, -12 );
         sleep(500);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
-        sleep(750);
+        //ball shooting
         robot.popper.setPosition(0);
         sleep(1000);
         robot.popper.setPosition(0.5);
-        sleep(2000);
+        sleep(1500);
         robot.popper.setPosition(0);
         sleep(1000);
+        //stop ball shooter
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDrive(-0.30,-13);
+        //drive so we can get closer to the beacon after the diagonal
+        encoderDrive(-0.50,-8);
+        //move towards the beacon diagonally
         encoderDiagonalLeft(-0.63,-100);
-        touchSensorDrive(RIGHT,0.25,8);
-        stoponBeaconColor(-0.25,- 30, RED);
+        //wall flush
+        touchSensorDrive(RIGHT,0.35,8);
+        //come off the wall to avoid break in wall
+        encoderLeft(0.25,0.75);
+        //look for beacon and push
+        stoponBeaconColor(-0.25,-25, RED);
         colorSensorDrive(RED);
-        encoderLeft(-0.25, 1);
-        encoderDrive(0.40, 25);
-        touchSensorDrive(RIGHT,0.5,2);
-        stoponBeaconColor(0.30,20, RED);
+        //re-align with wall to avoid tilted movement, and come off the wall
+        touchSensorDrive(RIGHT,0.35,2);
+        encoderLeft(0.25,0.75);
+        //drive to second beacon
+        encoderDrive(0.65 , 25);
+        //correct with the wall because of drift
+        touchSensorDrive(RIGHT,0.35,2);
+        //Sense and push other beacon
+        stoponBeaconColor(0.25,20, RED);
         colorSensorDrive(RED);
+        //climb on ramp
         encoderLeft(0.5, 15);
         encoderDrive(0.5, 35);
     }
