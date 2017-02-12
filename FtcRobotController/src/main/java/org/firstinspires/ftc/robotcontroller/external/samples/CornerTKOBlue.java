@@ -81,7 +81,7 @@ public class CornerTKOBlue extends AutoMech {
         robot.popper.setPosition(0);
         sleep(1000);
         robot.popper.setPosition(0.5);
-        sleep(1500);
+        sleep(1000);
         robot.popper.setPosition(0);
         sleep(1000);
         //stop ball shooter
@@ -100,13 +100,13 @@ public class CornerTKOBlue extends AutoMech {
         //touchSensorDrive(RIGHT,0.35,2);
         encoderRight(0.25,8);
         //drive to second beacon
-        encoderDrive(0.25, 5);
-        encoderDrive(0.50 , 25);
+        encoderDrive(0.50 , 30);
         //correct with the wall because of drift
         touchSensorDrive(LEFT,0.45,17 );
         //Sense and push other beacon
         stoponBeaconColor(0.25,40, BLUE);
         colorSensorDrive(BLUE);
+        //move to ca bp ball and park on center vortex
         encoderRight(1, 15);
         encoderDrive(1, 35);
     }

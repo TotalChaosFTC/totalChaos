@@ -71,7 +71,7 @@ public class JabbyBlue extends AutoMech {
         initialize();
         robot.popper.setPosition(0.5);
         sleep(10000);
-        encoderDrive(-0.25, -28);
+        encoderDrive(-0.50, -28);
         robot.popper.setPosition(0.5);
         sleep(500);
         robot.leftShooter.setPower(0.8);
@@ -85,10 +85,10 @@ public class JabbyBlue extends AutoMech {
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
+        encoderDiagonalRight(0.5,40);
         encoderLeft(0.25, 15);
-        encoderDrive(-0.25, -20);
-        encoderLeft(0.25, 37);
         encoderTurn(-0.25, -50);
+        encoderDrive(0.5,-10);
 
     }
 }

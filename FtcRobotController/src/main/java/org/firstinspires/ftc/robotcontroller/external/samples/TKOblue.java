@@ -98,8 +98,7 @@ public class TKOblue extends AutoMech {
         //touchSensorDrive(RIGHT,0.35,2);
         encoderRight(0.25,8);
         //drive to second beacon
-        encoderDrive(0.25, 5);
-        encoderDrive(0.50 , 25);
+        encoderDrive(0.50 , 30);
         //correct with the wall because of drift
         touchSensorDrive(LEFT,0.45,17 );
         //Sense and push other beacon

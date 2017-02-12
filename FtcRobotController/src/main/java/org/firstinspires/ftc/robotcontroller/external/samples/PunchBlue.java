@@ -69,6 +69,7 @@ public class PunchBlue extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
+        sleep(10000);
         robot.popper.setPosition(0.5);
         encoderDrive(-0.25, -28);
         robot.popper.setPosition(0.5);
