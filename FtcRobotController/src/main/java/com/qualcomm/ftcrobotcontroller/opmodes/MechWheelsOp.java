@@ -223,8 +223,8 @@ public class MechWheelsOp extends OpMode {
         //Right and Left Pushers
         double pushLeftPower = gamepad2.left_stick_y;
         double pushRightPower = gamepad2.right_stick_y;
-        pusherLeft.setPower(-pushLeftPower);
-        pusherRight.setPower(pushRightPower);
+        pusherLeft.setPower(pushLeftPower);
+        pusherRight.setPower(-pushRightPower);
         telemetry.addData("speed" , armMode);
         telemetry.update();
     }

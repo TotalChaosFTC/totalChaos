@@ -553,7 +553,7 @@ public abstract class AutoMech extends LinearOpMode {
                 robot.pusherLeft.setPower(-1);
                 sleep(1250);
                 robot.pusherLeft.setPower(1);
-                sleep(11250);
+                sleep(1250);
                 robot.pusherLeft.setPower(0);
                 telemetry.addData("YAY!","IT FOUND RED!");
                 telemetry.update();

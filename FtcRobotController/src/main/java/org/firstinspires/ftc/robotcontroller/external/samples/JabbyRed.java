@@ -84,9 +84,8 @@ public class JabbyRed extends AutoMech {
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         encoderDiagonalLeft(0.5,40);
-        encoderRight(0.25, 15);
         encoderTurn(-0.25, -50);
-        encoderDrive(0.5,-10);
+        encoderDrive(0.5,-5);
 
     }
 }
