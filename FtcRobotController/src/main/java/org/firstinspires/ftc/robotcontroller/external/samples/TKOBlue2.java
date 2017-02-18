@@ -33,6 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -60,33 +61,31 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-@Autonomous(name="PunchBlue", group="Blue")
-
-public class PunchBlue extends AutoMech {
+@Autonomous(name="TKOBlue", group="Blue")
+@Disabled
+public class TKOBlue2 extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        sleep(10000);
-        robot.popper.setPosition(0.5);
-        encoderDrive(-0.25, -23);
-        robot.popper.setPosition(0.5);
-        sleep(500);
-        robot.leftShooter.setPower(0.6);
-        robot.rightShooter.setPower(0.6);
-        sleep(750);
-        robot.popper.setPosition(0);
-        sleep(1000);
-        robot.popper.setPosition(0.5);
-        sleep(2000);
-        robot.popper.setPosition(0);
-        sleep(1000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        encoderDrive(-0.45,-25);
-        encoderTurn(-0.45, -20);
-
+        encoderDrive(-0.30, 70 );
+        //drive so we can get closer to the beacon after the diagonal
+        //move towards the beacon diagonally
+        encoderTurn(-0.63,-45);
+        //wall flush
+        touchSensorDrive(RIGHT,0.35,10);
+        //come off the wall to avoid break in wall
+        encoderDrive(0.25,15);
+        stoponBeaconColor(0.25,25, BLUE);
+        colorSensorDrive(BLUE);
+        //touchSensorDrive(RIGHT,0.35,2);
+        //drive to second beacon
+        encoderDrive(0.50 ,-15);
+        touchSensorDrive(RIGHT,0.45, 19 );
+        stoponBeaconColor(-0.25,-35, BLUE);
+        colorSensorDrive(BLUE);
+        encoderLeft(1,5);
+        encoderTurn(-0.75,-90);
     }
 }

@@ -59,11 +59,10 @@ public class MechWheelsOp extends OpMode {
     DcMotor Sweeper;
     DcMotor leftShooter;
     DcMotor rightShooter;
-    DcMotor Vortex;
+    DcMotor ballPopper;
     CRServo pusherLeft;
     CRServo pusherRight;
-    Servo popper;
-    Servo roller;
+    CRServo sweep;
     final static double FAST = 1.0;
     final static double MED_FAST = 0.75;
     final static double MEDIUM = 0.5;
@@ -84,11 +83,10 @@ public class MechWheelsOp extends OpMode {
         Sweeper = hardwareMap.dcMotor.get("swp");
         rightShooter = hardwareMap.dcMotor.get("rs");
         leftShooter = hardwareMap.dcMotor.get("ls");
-        Vortex = hardwareMap.dcMotor.get("vtx");
         pusherLeft = hardwareMap.crservo.get("left");
         pusherRight = hardwareMap.crservo.get("right");
-        popper = hardwareMap.servo.get("pop");
-        roller = hardwareMap.servo.get("roll");
+        ballPopper = hardwareMap.dcMotor.get("bp");
+        sweep = hardwareMap.crservo.get("sp");
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -149,17 +147,41 @@ public class MechWheelsOp extends OpMode {
         double turn = gamepad1.right_stick_x;
 
         if (side == 0 || forward == 0 || turn == 0) {
-            if (Math.abs(forward) > Math.abs(side)) {
+            if (Math.abs(forward) > Math.abs(2*side)) {
                 leftFront.setPower(forward);
                 leftBack.setPower(forward);
                 rightFront.setPower(forward);
                 rightBack.setPower(forward);
             }
-            else if (Math.abs(side) > Math.abs(forward)) {
+            else if (Math.abs(side) > Math.abs(2*forward)) {
                 rightFront.setPower(side);
                 leftFront.setPower(-side);
                 rightBack.setPower(-side);
                 leftBack.setPower(side);
+            }
+            else if (forward >= 0.25 && forward <= 0.75 && side >= 0.25 && side <= 0.75){
+                leftFront.setPower(0.75);
+                leftBack.setPower(0);
+                rightBack.setPower(0.75);
+                rightFront.setPower(0);
+            }
+            else if (forward <= -0.25 && forward >= -0.75 && side <= -0.25 && side >= -0.75){
+                leftFront.setPower(-0.75);
+                leftBack.setPower(0);
+                rightBack.setPower(-0.75);
+                rightFront.setPower(0);
+            }
+            else if (forward <= -0.25 && forward >= -0.75 && side >= 0.25 && side <= 0.75){
+                leftFront.setPower(0);
+                leftBack.setPower(0.-75);
+                rightBack.setPower(0);
+                rightFront.setPower(0.-75);
+            }
+            else if (forward >= 0.25 && forward <= 0.75 && side <= -0.25 && side >= -0.75){
+                leftFront.setPower(0);
+                leftBack.setPower(0.75);
+                rightBack.setPower(0);
+                rightFront.setPower(0.75);
             }
             if (turn > 0) {
                 leftFront.setPower(-turn);
@@ -180,12 +202,6 @@ public class MechWheelsOp extends OpMode {
                 rightFront.setPower(0);
             }
         }
-        if (gamepad1.x){
-            roller.setPosition(0.7 );
-        }
-        else if (gamepad1.b){
-            roller.setPosition(1);
-        }
         if (gamepad1.right_trigger > 0){
             Sweeper.setPower(1);
         }
@@ -203,21 +219,18 @@ public class MechWheelsOp extends OpMode {
             rightShooter.setPower(0);
             leftShooter.setPower(0);
         }
-        //popper
-        if (gamepad2.a){
-            popper.setPosition(0.5);
+
+        if (gamepad2.right_bumper){
+            ballPopper.setPower(0.75);
+            sweep.setPower(1);
         }
-        else if (gamepad2.y){
-            popper.setPosition(0);
-        }
-        if (gamepad2.x){
-            Vortex.setPower(100);
-        }
-        else if (gamepad2.b){
-            Vortex.setPower(0);
+        else if (gamepad2.left_bumper){
+            ballPopper.setPower(-0.75);
+            sweep.setPower(-1);
         }
         else{
-            Vortex.setPower(0);
+            ballPopper.setPower(0);
+            sweep.setPower(0);
         }
 
         //Right and Left Pushers

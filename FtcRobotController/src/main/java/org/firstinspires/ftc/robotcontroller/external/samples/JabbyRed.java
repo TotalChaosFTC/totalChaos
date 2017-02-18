@@ -69,11 +69,11 @@ public class JabbyRed extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         sleep(10000);
-        encoderDrive(-0.50, -28);
+        encoderDrive(-0.50, -23);
         robot.popper.setPosition(0.5);
         sleep(500);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
+        robot.leftShooter.setPower(0.6);
+        robot.rightShooter.setPower(0.6);
         sleep(750);
         robot.popper.setPosition(0);
         sleep(1000);
@@ -83,9 +83,10 @@ public class JabbyRed extends AutoMech {
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        encoderDiagonalLeft(0.5,40);
-        encoderTurn(-0.25, -50);
-        encoderDrive(0.5,-5);
+        encoderRight(0.50, 30);
+        encoderDrive(-0.5,-25);
+        encoderRight(0.50, 30);
+        encoderTurn(0.5, 45);
 
     }
 }

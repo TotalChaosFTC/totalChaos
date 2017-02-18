@@ -71,11 +71,11 @@ public class PunchRed extends AutoMech {
         initialize();
         sleep(10000);
         robot.popper.setPosition(0.5);
-        encoderDrive(-0.25, -28);
+        encoderDrive(-0.25, -23);
         robot.popper.setPosition(0.5);
         sleep(500);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
+        robot.leftShooter.setPower(0.7);
+        robot.rightShooter.setPower(0.7);
         sleep(750);
         robot.popper.setPosition(0);
         sleep(1000);
