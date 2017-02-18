@@ -535,9 +535,9 @@ public abstract class AutoMech extends LinearOpMode {
         if (color == BLUE) {
 
             if (robot.beaconColorSensor.blue() > robot.beaconColorSensor.red()) {
-                robot.pusherRight.setPower(1);
-                sleep(1250);
                 robot.pusherRight.setPower(-1);
+                sleep(1250);
+                robot.pusherRight.setPower(1);
                 sleep(1250);
                 robot.pusherRight.setPower(0);
                  telemetry.addData("YAY!","IT FOUND BLUE!");
@@ -550,9 +550,9 @@ public abstract class AutoMech extends LinearOpMode {
         }
         else if (color == RED){
             if (robot.beaconColorSensor.red() > robot.beaconColorSensor.blue()) {
-                robot.pusherLeft.setPower(-1);
-                sleep(1250);
                 robot.pusherLeft.setPower(1);
+                sleep(1250);
+                robot.pusherLeft.setPower(-1);
                 sleep(1250);
                 robot.pusherLeft.setPower(0);
                 telemetry.addData("YAY!","IT FOUND RED!");

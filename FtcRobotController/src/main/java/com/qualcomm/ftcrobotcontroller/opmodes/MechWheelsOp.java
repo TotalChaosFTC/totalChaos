@@ -221,12 +221,12 @@ public class MechWheelsOp extends OpMode {
         }
 
         if (gamepad2.right_bumper){
-            ballPopper.setPower(0.75);
-            sweep.setPower(1);
+            ballPopper.setPower(0.5);
+            sweep.setPower(-1);
         }
         else if (gamepad2.left_bumper){
-            ballPopper.setPower(-0.75);
-            sweep.setPower(-1);
+            ballPopper.setPower(-0.5 );
+            sweep.setPower(1);
         }
         else{
             ballPopper.setPower(0);
@@ -246,7 +246,7 @@ public class MechWheelsOp extends OpMode {
 
         /*
         //q1
-        if (side > 0 && forward > 0) {
+        if (side > 0 && forward >  0) {
             leftFront.setPower(
                     (Math.sqrt(
                             (gamepad1.left_stick_x * gamepad1.left_stick_x

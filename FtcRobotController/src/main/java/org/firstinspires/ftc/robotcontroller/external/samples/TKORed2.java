@@ -60,27 +60,42 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-@Autonomous(name="PunchBlue", group="Blue")
-
-public class PunchBlue extends AutoMech {
+@Autonomous(name="TKORed2", group="Red")
+public class TKORed2 extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
         initialize();
-        sleep(10000);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
+
+        encoderDrive(0.50,45);
+        //drive so we can get closer to the beacon after the diagonal
+        //move towards the beacon diagonally
+        encoderTurn(0.5, 45);
+        //wall flush
+        touchSensorDrive(LEFT,0.35,10);
+        //come off the wall to avoid break in wall
+        stoponBeaconColor(0.25,25, RED);
+        colorSensorDrive(RED);
+        encoderRight(0.25,2);
+        encoderDrive(0.25,30);
+        touchSensorDrive(LEFT,0.45, 8);
+        //touchSensorDrive(RIGHT,0.35,2);
+        //drive to second beacon
+        stoponBeaconColor(0.25,20, RED);
+        colorSensorDrive(RED);
+        encoderRight(0.5,10);
+        encoderTurn(-0.75,-60);
+        encoderDrive(-0.5, -10);
+        robot.leftShooter.setPower(0.5);
+        robot.rightShooter.setPower(0.5);
         sleep(750);
-        robot.ballPopper.setPower(0.5);
-        sleep(1000);
+        robot.ballPopper.setPower(-0.5);
+        sleep(2000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        encoderDrive(-0.45,-25);
-        encoderTurn(-0.45, -20);
+        robot.ballPopper.setPower(0);
+        encoderDrive(-0.5, -30);
+
 
     }
 }

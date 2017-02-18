@@ -72,16 +72,10 @@ public class TriplePunchred extends AutoMech {
         robot.sweeper.setPower(0);
         encoderTurn(0.25, 90);
         encoderDrive(-0.40, -8);
-        robot.popper.setPosition(0.5);
-        sleep(500);
         robot.leftShooter.setPower(0.8);
         robot.rightShooter.setPower(0.8);
         sleep(750);
-        robot.popper.setPosition(0);
-        sleep(1000);
-        robot.popper.setPosition(0.5);
-        sleep(2000);
-        robot.popper.setPosition(0);
+        robot.ballPopper.setPower(0.5);
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);

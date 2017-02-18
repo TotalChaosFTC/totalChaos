@@ -67,7 +67,7 @@ public class AutoBlue2 extends AutoBasewNavx {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        sleep(10000);
+        sleep(10000); 
         encoderDrive(0.35, 45);
         robot.shotControl.setPosition(0.42);
         robot.leftShooter.setPower(0.15);

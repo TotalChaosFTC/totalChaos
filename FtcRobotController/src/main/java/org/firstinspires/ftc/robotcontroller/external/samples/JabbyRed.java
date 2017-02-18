@@ -70,16 +70,10 @@ public class JabbyRed extends AutoMech {
 
         sleep(10000);
         encoderDrive(-0.50, -23);
-        robot.popper.setPosition(0.5);
-        sleep(500);
-        robot.leftShooter.setPower(0.6);
-        robot.rightShooter.setPower(0.6);
+        robot.leftShooter.setPower(0.8);
+        robot.rightShooter.setPower(0.8);
         sleep(750);
-        robot.popper.setPosition(0);
-        sleep(1000);
-        robot.popper.setPosition(0.5);
-        sleep(2000);
-        robot.popper.setPosition(0);
+        robot.ballPopper.setPower(0.5);
         sleep(1000);
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);

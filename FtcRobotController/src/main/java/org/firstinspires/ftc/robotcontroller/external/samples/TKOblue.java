@@ -68,21 +68,11 @@ public class TKOblue extends AutoMech {
 
         initialize();
         //lowering popper and starting ball shooter
-        robot.popper.setPosition(0.5);
-        robot.leftShooter.setPower(0.6);
-        robot.rightShooter.setPower(0.6);
-        //sleep(200);
-        //drive forward to shooting position
-        encoderDrive(-0.30, -9 );
-        sleep(500);
-        //ball shooting
-        robot.popper.setPosition(0);
+        robot.leftShooter.setPower(0.8);
+        robot.rightShooter.setPower(0.8);
+        sleep(750);
+        robot.ballPopper.setPower(0.5);
         sleep(1000);
-        robot.popper.setPosition(0.5);
-        sleep(1250);
-        robot.popper.setPosition(0);
-        sleep(1000);
-        //stop ball shooter
         robot.leftShooter.setPower(0);
         robot.rightShooter.setPower(0);
         //drive so we can get closer to the beacon after the diagonal
