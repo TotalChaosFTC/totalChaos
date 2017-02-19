@@ -122,7 +122,7 @@ public class MechWheelsOp extends OpMode {
         if (gamepad2.dpad_up) {
             if(!iSawDpadUpAlreadyArm) {
                 iSawDpadUpAlreadyArm = true;
-                armMode = armMode + 0.05;
+                armMode = armMode + 0.025;
             }
         }
         else {
@@ -132,7 +132,7 @@ public class MechWheelsOp extends OpMode {
         if (gamepad2.dpad_down) {
             if(!iSawDpadDownAlreadyArm) {
                 iSawDpadDownAlreadyArm = true;
-                armMode = armMode - 0.05;
+                armMode = armMode - 0.025;
             }
         }
         else {
@@ -222,11 +222,11 @@ public class MechWheelsOp extends OpMode {
 
         if (gamepad2.right_bumper){
             ballPopper.setPower(0.5);
-            sweep.setPower(-1);
+            sweep.setPower(1);
         }
         else if (gamepad2.left_bumper){
             ballPopper.setPower(-0.5 );
-            sweep.setPower(1);
+            sweep.setPower(-1);
         }
         else{
             ballPopper.setPower(0);

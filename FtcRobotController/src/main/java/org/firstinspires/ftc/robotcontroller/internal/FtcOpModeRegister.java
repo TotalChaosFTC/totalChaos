@@ -91,7 +91,7 @@ public class FtcOpModeRegister implements OpModeRegister {
         /**
          * Any manual OpMode class registrations should go here.
          */
-     //manager.register("IceTeleOp", TankRobotOp.class);
+    manager.register("IceTeleOp", TankRobotOp.class);
     //manager.register("ServoTestOp", ServoTestOp.class);
     //manager.register("TankServoOp", TankServoOp.class);
     //manager.register("TestEncoderOp", TestEncoder.class);
