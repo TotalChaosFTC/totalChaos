@@ -84,8 +84,9 @@ public class TKORed2 extends AutoMech {
         stoponBeaconColor(0.25,20, RED);
         colorSensorDrive(RED);
         encoderRight(0.5,10);
-        encoderTurn(-0.75,-60);
-        encoderDrive(-0.5, -10);
+        encoderDrive(0.75, 30);
+        encoderTurn(0.25, 60);
+        //encoderDrive(-0.5, -12);
         robot.leftShooter.setPower(0.5);
         robot.rightShooter.setPower(0.5);
         sleep(750);
