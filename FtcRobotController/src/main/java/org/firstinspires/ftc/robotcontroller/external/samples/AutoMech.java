@@ -528,6 +528,8 @@ public abstract class AutoMech extends LinearOpMode {
         robot.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.stopMotors();
+        telemetry.addData("encoder count" , robot.frontLeft.getCurrentPosition());
+        telemetry.update();
         idle();
     }
     public void colorSensorDrive(int color) throws InterruptedException {

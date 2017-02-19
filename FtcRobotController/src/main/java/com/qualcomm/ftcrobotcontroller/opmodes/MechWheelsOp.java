@@ -159,25 +159,25 @@ public class MechWheelsOp extends OpMode {
                 rightBack.setPower(-side);
                 leftBack.setPower(side);
             }
-            else if (forward >= 0.25 && forward <= 0.75 && side >= 0.25 && side <= 0.75){
+            else if (forward >= 0.1 && forward <= 0.9 && side >= 0.1 && side <= 0.9){
                 leftFront.setPower(0.75);
                 leftBack.setPower(0);
                 rightBack.setPower(0.75);
                 rightFront.setPower(0);
             }
-            else if (forward <= -0.25 && forward >= -0.75 && side <= -0.25 && side >= -0.75){
+            else if (forward <= -0.1 && forward >= -0.9 && side <= -0.1 && side >= -0.9){
                 leftFront.setPower(-0.75);
                 leftBack.setPower(0);
                 rightBack.setPower(-0.75);
                 rightFront.setPower(0);
             }
-            else if (forward <= -0.25 && forward >= -0.75 && side >= 0.25 && side <= 0.75){
+            else if (forward <= -0.1 && forward >= -0.9 && side >= 0.1 && side <= 0.9){
                 leftFront.setPower(0);
                 leftBack.setPower(0.-75);
                 rightBack.setPower(0);
                 rightFront.setPower(0.-75);
             }
-            else if (forward >= 0.25 && forward <= 0.75 && side <= -0.25 && side >= -0.75){
+            else if (forward >= 0.1 && forward <= 0.9 && side <= -0.1 && side >= -0.9){
                 leftFront.setPower(0);
                 leftBack.setPower(0.75);
                 rightBack.setPower(0);
