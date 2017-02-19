@@ -1,4 +1,4 @@
-o/*
+/*
 Copyright (c) 2016 Robert Atkinson
 
 All rights reserved.
