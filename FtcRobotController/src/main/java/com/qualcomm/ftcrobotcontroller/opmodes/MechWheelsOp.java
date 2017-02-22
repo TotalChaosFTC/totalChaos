@@ -147,19 +147,21 @@ public class MechWheelsOp extends OpMode {
         double turn = gamepad1.right_stick_x;
 
         if (side == 0 || forward == 0 || turn == 0) {
-            if (Math.abs(forward) > Math.abs(2*side)) {
+            if (Math.abs(forward) > Math.abs(side)) {
                 leftFront.setPower(forward);
                 leftBack.setPower(forward);
                 rightFront.setPower(forward);
                 rightBack.setPower(forward);
             }
-            else if (Math.abs(side) > Math.abs(2*forward)) {
+            else if (Math.abs(side) > Math.abs(forward)) {
                 rightFront.setPower(side);
                 leftFront.setPower(-side);
                 rightBack.setPower(-side);
                 leftBack.setPower(side);
             }
+            /*
             else if (forward >= 0.1 && forward <= 0.9 && side >= 0.1 && side <= 0.9){
+
                 leftFront.setPower(0.75);
                 leftBack.setPower(0);
                 rightBack.setPower(0.75);
@@ -183,6 +185,8 @@ public class MechWheelsOp extends OpMode {
                 rightBack.setPower(0);
                 rightFront.setPower(0.75);
             }
+            */
+
             if (turn > 0) {
                 leftFront.setPower(-turn);
                 leftBack.setPower(-turn);
@@ -221,11 +225,15 @@ public class MechWheelsOp extends OpMode {
         }
 
         if (gamepad2.right_bumper){
-            ballPopper.setPower(0.5);
+            ballPopper.setPower(mode);
+            ballPopper.setPower(-mode);
+            ballPopper.setPower(mode);
             sweep.setPower(1);
         }
         else if (gamepad2.left_bumper){
-            ballPopper.setPower(-0.5 );
+            ballPopper.setPower(-mode);
+            ballPopper.setPower(mode);
+            ballPopper.setPower(-mode);
             sweep.setPower(-1);
         }
         else{

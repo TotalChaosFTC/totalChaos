@@ -82,29 +82,21 @@ public class TKORed2 extends AutoMech {
         touchSensorDrive(LEFT,0.45, 24);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
-        stoponBeaconColor(0.25,30, RED);
+        boolean otherColor = stoponBeaconColor(0.25,30, RED);
         colorSensorDrive(RED);
         encoderRight(0.5,15);
-        encoderDrive(-0.5, -10);
+        if(otherColor){
+            encoderDrive(-0.5, -10);
+        }
+        else{
+            encoderDrive(-0.5, -8);
+        }
         robot.sweeper.setPower(-1);
-        robot.sweep.setPower(-1);
-        encoderTurn(-0.25, -75);
+        encoderTurn(-0.35, -75);
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
-        sleep(750);
-        robot.ballPopper.setPower(-0.5);
-        sleep(1000);
-        encoderDrive(0.75,2);
-        encoderDrive(-0.75,-2);
-        robot.ballPopper.setPower(-0.5);
-        sleep(1000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        robot.ballPopper.setPower(0);
-        robot.sweep.setPower(0);
-        encoderDrive(-0.5, -30);
+        ballShooting();
+        encoderDrive(-0.5, -40);
 
 
     }

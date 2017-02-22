@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 /**
  * This file illusttes the concept of driving a path based on encoder counts.
@@ -486,9 +487,10 @@ public abstract class AutoMech extends LinearOpMode {
 
 
 
-    public void stoponBeaconColor (double power, double inches, int color) throws InterruptedException {
+    public boolean stoponBeaconColor (double power, double inches, int color) throws InterruptedException {
         int newLeftTarget;
         int newRightTarget;
+        boolean otherColor =  false;
 
         robot.frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -510,14 +512,21 @@ public abstract class AutoMech extends LinearOpMode {
 
         if (color == RED) {
             while ((robot.backLeft.isBusy() && robot.backRight.isBusy())) {
-                if (robot.beaconColorSensor.red() >= 4 )
+                if (robot.beaconColorSensor.blue() >= 4 ){
+                    otherColor = true;
+                }
+                if (robot.beaconColorSensor.red() >= 4 ) {
                     break;
+                }
                 idle();
             }
         }
 
         if (color == BLUE) {
             while ((robot.backLeft.isBusy() && robot.backRight.isBusy())) {
+                if (robot.beaconColorSensor.red() >= 4 ){
+                    otherColor = true;
+                }
                 if (robot.beaconColorSensor.blue() >= 4  )
                     break;
                 idle();
@@ -531,6 +540,52 @@ public abstract class AutoMech extends LinearOpMode {
         telemetry.addData("encoder count" , robot.frontLeft.getCurrentPosition());
         telemetry.update();
         idle();
+        return otherColor;
+    }
+    double getBatteryVoltage() {
+        double result = Double.POSITIVE_INFINITY;
+        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage > 0) {
+                result = Math.min(result, voltage);
+            }
+        }
+        return result;
+    }
+    public void ballShooting() throws InterruptedException{
+        double battery = getBatteryVoltage();
+        telemetry.addData("battery", battery);
+        telemetry.update();
+        double power = 1;
+        if (battery >= 11 && battery<= 12){
+            power = 1;
+        }
+        else if (battery >= 12 && battery<= 13){
+            power = 0.8;
+        }
+        else if (battery >= 13){
+            power = 0.6;
+        }
+        robot.sweep.setPower(-1);
+        robot.leftShooter.setPower(power);
+        robot.rightShooter.setPower(power);
+        sleep(750);
+        robot.ballPopper.setPower(0.5);
+        sleep(250);
+        robot.ballPopper.setPower(-1);
+        sleep(1000);
+        robot.sweeper.setPower(-1);
+        sleep(500);
+        robot.ballPopper.setPower(0.5);
+        sleep(250);
+        robot.ballPopper.setPower(-1);
+        sleep(1000);
+        robot.leftShooter.setPower(0);
+        robot.rightShooter.setPower(0);
+        robot.ballPopper.setPower(0);
+        robot.sweep.setPower(0);
+        robot.sweeper.setPower(0);
+
     }
     public void colorSensorDrive(int color) throws InterruptedException {
 
