@@ -573,7 +573,7 @@ public abstract class AutoMech extends LinearOpMode {
         robot.ballPopper.setPower(0.5);
         sleep(250);
         robot.ballPopper.setPower(-1);
-        sleep(1000);
+        sleep(1500);
         robot.sweeper.setPower(-1);
         sleep(500);
         robot.ballPopper.setPower(0.5);

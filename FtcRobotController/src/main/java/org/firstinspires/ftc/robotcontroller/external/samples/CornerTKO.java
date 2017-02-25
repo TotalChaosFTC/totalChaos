@@ -75,30 +75,31 @@ public class CornerTKO extends AutoMech {
         //move towards the beacon diagonally
         encoderTurn(0.5, 45);
         //wall flush
-        touchSensorDrive(LEFT,0.35,10);
+        touchSensorDrive(LEFT,0.35,20);
         //come off the wall to avoid break in wall
         stoponBeaconColor(0.25,25, RED);
         colorSensorDrive(RED);
+
         encoderRight(0.25,2);
-        encoderDrive(0.25,30);
-        touchSensorDrive(LEFT,0.45, 8);
+        encoderDrive(0.25,28);
+        touchSensorDrive(LEFT,0.45, 24);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
-        stoponBeaconColor(0.25,20, RED);
+        boolean otherColor = stoponBeaconColor(0.25,30, RED);
         colorSensorDrive(RED);
-        encoderRight(0.5,10);
-        encoderTurn(-0.75,-60);
-        encoderDrive(-0.5, -10);
-        robot.leftShooter.setPower(0.6);
-        robot.rightShooter.setPower(0.6);
-        sleep(750);
-        robot.ballPopper.setPower(-0.5);
-        sleep(2000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        robot.ballPopper.setPower(0);
-        encoderDrive(-1, -15);
-        encoderTurn(0.5,65);
-        encoderDrive(-1, -45);
+        encoderRight(0.5,15);
+        if(otherColor){
+            encoderDrive(-0.5, -10);
+        }
+        else{
+            encoderDrive(-0.5, -8);
+        }
+        robot.sweeper.setPower(-1);
+        encoderTurn(-0.35, -75);
+        //encoderDrive(-0.5, -12);
+        robot.sweeper.setPower(0);
+        ballShooting();
+        encoderTurn(0.5,62.5);
+        encoderDrive(-1, -50);
     }
 }

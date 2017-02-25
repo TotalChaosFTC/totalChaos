@@ -67,16 +67,11 @@ public class JabbyRed extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
+        initialize();
         sleep(10000);
-        encoderDrive(-0.50, -23);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
-        sleep(750);
-        robot.ballPopper.setPower(0.5);
-        sleep(1000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
+        encoderDrive(-0.35, -14);
+        sleep(250);
+        ballShooting();
         encoderRight(0.50, 30);
         encoderDrive(-0.5,-25);
         encoderRight(0.50, 30);

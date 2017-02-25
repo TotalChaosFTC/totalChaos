@@ -69,38 +69,35 @@ public class CornerTKOBlue extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-
-        encoderDrive(-0.30, -9 );
-        sleep(500);
-        //ball shooting
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
-        sleep(750);
-        robot.ballPopper.setPower(0.5);
-        sleep(1000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
+        encoderDrive(0.50,45);
         //drive so we can get closer to the beacon after the diagonal
         //move towards the beacon diagonally
-        encoderDiagonalRight(-0.63,-107);
+        encoderTurn(-0.5, -45);
         //wall flush
-        touchSensorDrive(LEFT,0.35,25);
+        touchSensorDrive(RIGHT,0.35,20);
         //come off the wall to avoid break in wall
-        encoderRight(0.25,0.75);
-        //look for beacon and push
-        stoponBeaconColor(-0.25,-25, BLUE);
+        stoponBeaconColor(0.25,25, BLUE);
         colorSensorDrive(BLUE);
+        encoderLeft(0.25,2);
+        encoderDrive(0.25,28);
+        touchSensorDrive(RIGHT,0.45, 24);
         //touchSensorDrive(RIGHT,0.35,2);
-        encoderRight(0.25,8);
         //drive to second beacon
-        encoderDrive(0.50 , 30);
-        //correct with the wall because of drift
-        touchSensorDrive(LEFT,0.45,17 );
-        //Sense and push other beacon
-        stoponBeaconColor(0.25,40, BLUE);
+        boolean otherColor = stoponBeaconColor(0.25,30, BLUE);
         colorSensorDrive(BLUE);
-        //move to ca bp ball and park on center vortex
-        encoderRight(1, 15);
-        encoderDrive(1, 35);
+        encoderLeft(0.5,15);
+        if(otherColor){
+            encoderDrive(-0.5, -10);
+        }
+        else{
+            encoderDrive(-0.5, -8);
+        }
+        robot.sweeper.setPower(-1);
+        encoderTurn(0.35, 70);
+        //encoderDrive(-0.5, -12);
+        robot.sweeper.setPower(0);
+        ballShooting();
+        encoderTurn(-0.5,-55);
+        encoderDrive(-1, -50);
     }
 }

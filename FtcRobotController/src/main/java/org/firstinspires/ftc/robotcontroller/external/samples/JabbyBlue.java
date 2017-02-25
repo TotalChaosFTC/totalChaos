@@ -69,19 +69,13 @@ public class JabbyBlue extends AutoMech {
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
-        sleep(750);
-        robot.ballPopper.setPower(0.5);
-        sleep(1000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
+        sleep(10000);
+        encoderDrive(-0.35, -14);
+        sleep(250);
+        ballShooting();
         encoderLeft(0.50, 30);
         encoderDrive(-0.5,-25);
         encoderLeft(0.50, 30);
         encoderTurn(0.5, 45);
-
     }
 }

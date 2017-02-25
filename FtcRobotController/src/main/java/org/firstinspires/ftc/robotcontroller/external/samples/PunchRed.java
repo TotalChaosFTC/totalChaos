@@ -70,15 +70,10 @@ public class PunchRed extends AutoMech {
 
         initialize();
         sleep(10000);
-        robot.leftShooter.setPower(0.8);
-        robot.rightShooter.setPower(0.8);
-        sleep(750);
-        robot.ballPopper.setPower(0.5);
-        sleep(1000);
-        robot.leftShooter.setPower(0);
-        robot.rightShooter.setPower(0);
-        encoderDrive(-0.45,-25);
-        encoderTurn(-0.45, -20);
+        encoderDrive(-0.35, -14);
+        sleep(250);
+        ballShooting();
+        encoderDrive(-0.45,-47);
 
     }
 }

@@ -226,13 +226,9 @@ public class MechWheelsOp extends OpMode {
 
         if (gamepad2.right_bumper){
             ballPopper.setPower(mode);
-            ballPopper.setPower(-mode);
-            ballPopper.setPower(mode);
             sweep.setPower(1);
         }
         else if (gamepad2.left_bumper){
-            ballPopper.setPower(-mode);
-            ballPopper.setPower(mode);
             ballPopper.setPower(-mode);
             sweep.setPower(-1);
         }

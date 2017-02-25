@@ -62,30 +62,40 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 @Autonomous(name="TKOBlue", group="Blue")
-@Disabled
 public class TKOBlue2 extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(-0.30, 70 );
+        encoderDrive(0.50,45);
         //drive so we can get closer to the beacon after the diagonal
         //move towards the beacon diagonally
-        encoderTurn(-0.63,-45);
+        encoderTurn(-0.5, -45);
         //wall flush
-        touchSensorDrive(RIGHT,0.35,10);
+        touchSensorDrive(RIGHT,0.35,20);
         //come off the wall to avoid break in wall
-        encoderDrive(0.25,15);
         stoponBeaconColor(0.25,25, BLUE);
         colorSensorDrive(BLUE);
+        encoderLeft(0.25,2);
+        encoderDrive(0.25,28);
+        touchSensorDrive(RIGHT,0.45, 24);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
-        encoderDrive(0.50 ,-15);
-        touchSensorDrive(RIGHT,0.45, 19 );
-        stoponBeaconColor(-0.25,-35, BLUE);
+        boolean otherColor = stoponBeaconColor(0.25,30, BLUE);
         colorSensorDrive(BLUE);
-        encoderLeft(1,5);
-        encoderTurn(-0.75,-90);
+        encoderLeft(0.5,15);
+        if(otherColor){
+            encoderDrive(-0.5, -10);
+        }
+        else{
+            encoderDrive(-0.5, -8);
+        }
+        robot.sweeper.setPower(-1);
+        encoderTurn(0.35, 70);
+        //encoderDrive(-0.5, -12);
+        robot.sweeper.setPower(0);
+        ballShooting();
+        encoderDrive(-0.5, -40);
     }
 }
