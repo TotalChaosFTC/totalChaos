@@ -73,12 +73,12 @@ public class TKOBlue2 extends AutoMech {
         //move towards the beacon diagonally
         encoderTurn(-0.5, -45);
         //wall flush
-        touchSensorDrive(RIGHT,0.35,20);
+        touchSensorDrive(RIGHT,0.35,15);
         //come off the wall to avoid break in wall
         stoponBeaconColor(0.25,25, BLUE);
         colorSensorDrive(BLUE);
-        encoderLeft(0.25,2);
-        encoderDrive(0.25,28);
+        encoderLeft(0.25,8);
+        encoderDrive(0.5,28);
         touchSensorDrive(RIGHT,0.45, 24);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
@@ -92,7 +92,7 @@ public class TKOBlue2 extends AutoMech {
             encoderDrive(-0.5, -8);
         }
         robot.sweeper.setPower(-1);
-        encoderTurn(0.35, 70);
+        encoderTurn(0.5, 55);
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0);
         ballShooting();

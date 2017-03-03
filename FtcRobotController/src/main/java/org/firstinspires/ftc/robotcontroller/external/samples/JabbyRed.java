@@ -69,13 +69,12 @@ public class JabbyRed extends AutoMech {
     public void runOpMode() throws InterruptedException {
         initialize();
         sleep(10000);
-        encoderDrive(-0.35, -14);
+        encoderDrive(-0.4, -14);
         sleep(250);
         ballShooting();
-        encoderRight(0.50, 30);
-        encoderDrive(-0.5,-25);
-        encoderRight(0.50, 30);
-        encoderTurn(0.5, 45);
+        encoderDrive(-0.4, -8);
+        encoderTurn(-0.4, -60);
+        encoderDrive(-0.4, -60);
 
     }
 }

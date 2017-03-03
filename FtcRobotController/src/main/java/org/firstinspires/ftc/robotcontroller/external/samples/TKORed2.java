@@ -65,20 +65,19 @@ public class TKORed2 extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        initialize();
 
+        initialize();
         encoderDrive(0.50,45);
         //drive so we can get closer to the beacon after the diagonal
         //move towards the beacon diagonally
-        encoderTurn(0.5, 45);
+        encoderTurn(0.35, 45);
         //wall flush
         touchSensorDrive(LEFT,0.35,20);
         //come off the wall to avoid break in wall
         stoponBeaconColor(0.25,25, RED);
         colorSensorDrive(RED);
-
         encoderRight(0.25,2);
-        encoderDrive(0.25,28);
+        encoderDrive(0.45,28);
         touchSensorDrive(LEFT,0.45, 24);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
@@ -92,7 +91,7 @@ public class TKORed2 extends AutoMech {
             encoderDrive(-0.5, -8);
         }
         robot.sweeper.setPower(-1);
-        encoderTurn(-0.35, -75);
+        encoderTurn(-0.35, -76);
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0);
         ballShooting();
