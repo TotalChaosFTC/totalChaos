@@ -72,8 +72,8 @@ public class TKORed2 extends AutoMech {
         //move towards the beacon diagonally
         encoderTurn(0.35, 45);
         //wall flush
-        touchSensorDrive(LEFT,0.35,20);
-        //come off the wall to avoid break in wall
+        touchSensorDrive(LEFT,0.5,20);
+
         stoponBeaconColor(0.25,25, RED);
         colorSensorDrive(RED);
         encoderRight(0.25,2);
@@ -83,19 +83,19 @@ public class TKORed2 extends AutoMech {
         //drive to second beacon
         boolean otherColor = stoponBeaconColor(0.25,30, RED);
         colorSensorDrive(RED);
-        encoderRight(0.5,15);
+        encoderRight(0.5,20);
         if(otherColor){
-            encoderDrive(-0.5, -10);
+            encoderDrive(-0.5, -17);
         }
         else{
-            encoderDrive(-0.5, -8);
+            encoderDrive(-0.5, -15);
         }
         robot.sweeper.setPower(-1);
-        encoderTurn(-0.35, -76);
+        navXTurn(-0.35, -65);
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0);
         ballShooting();
-        encoderDrive(-0.5, -40);
+        encoderDrive(-1, -30);
 
 
     }
