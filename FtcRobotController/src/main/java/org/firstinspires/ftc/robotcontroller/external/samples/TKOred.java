@@ -81,7 +81,7 @@ public class TKOred extends AutoMech {
         //move towards the beacon diagonally
         encoderDiagonalLeft(-0.63,-105);
         //wall flush
-        touchSensorDrive(RIGHT,0.35,25);
+        touchSensorDrive(RIGHT,1,25);
         //come off the wall to avoid break in wall
         encoderLeft(0.25,0.75);
         //look for beacon and push

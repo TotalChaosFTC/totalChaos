@@ -67,12 +67,12 @@ public class PunchBlue extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
+        initialize();
         sleep(10000);
-        encoderDrive(-0.35, -14);
+        encoderDrive(-0.35, -25);
         sleep(250);
         ballShooting();
-        encoderDrive(-0.45,-47);
+        encoderDrive(-0.45,-31);
 
     }
 }

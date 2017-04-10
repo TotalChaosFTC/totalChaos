@@ -60,44 +60,46 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
-@Autonomous(name="CornerTKORed", group="Red")
-
-public class CornerTKO extends AutoMech {
+@Autonomous(name="TouchSensorLeft", group="Red")
+public class TouchSensorTest extends AutoMech {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         initialize();
-        encoderDrive(0.50,42);
-        //drive so we can get closer to the beacon after the diagonal
+        touchSensorDrive(LEFT,0.2,50);
+        //move to the center vortex to shoot the particles
+        //encoderRight(0.5,24);
+        //drive so we can get closer to the beracon after the diagonal
         //move towards the beacon diagonally
-        encoderTurn(0.35, 45);
-        //wall flush
-        touchSensorDrive(LEFT,0.5,10);
+        /*navXTurn(0.4, 60);
+        //drive towards the wall
+        encoderDrive(0.5, 50);
+        navXTurn(0.5, 30);
 
         stoponBeaconColor(0.25,25, RED);
         colorSensorDrive(RED);
         encoderRight(0.25,2);
         encoderDrive(0.45,28);
-        touchSensorDrive(LEFT,0.45, 24);
+        touchSensorDrive(LEFT,0.45, 10);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
         boolean otherColor = stoponBeaconColor(0.25,30, RED);
         colorSensorDrive(RED);
-        encoderRight(0.5,4);
-        navXTurn(-0.35, -39);
+        encoderRight(0.5,6);
+        navXTurn(-0.35, -42);
         robot.sweeper.setPower(-1);
         if(otherColor){
-            encoderDrive(-0.5, -35);
+            encoderDrive(-0.5, -33);
         }
         else{
-            encoderDrive(-0.5, -33);
+            encoderDrive(-0.5, -31);
         }
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0)   ;
         ballShooting();
-        encoderTurn(0.5,62.5);
-        encoderDrive(-1, -46);
+        encoderDrive(-1, -10);
+        */
+
     }
 }

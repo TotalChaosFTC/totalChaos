@@ -70,10 +70,10 @@ public class PunchRed extends AutoMech {
 
         initialize();
         sleep(10000);
-        encoderDrive(-0.35, -14);
+        encoderDrive(-0.35, -27);
         sleep(250);
         ballShooting();
-        encoderDrive(-0.45,-47);
+        encoderDrive(-0.45,-29);
 
     }
 }

@@ -33,6 +33,7 @@ package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.google.blocks.ftcrobotcontroller.runtime.BlocksOpMode;
 import com.qualcomm.ftcrobotcontroller.opmodes.MechWheelsOp;
+import com.qualcomm.ftcrobotcontroller.opmodes.MechWheelsTankOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.TankRobotOp;
 import com.qualcomm.ftcrobotcontroller.opmodes.TankRoverOp;
 import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
@@ -98,13 +99,13 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("LinearTestOp", LinearTestOp.class);
     //manager.register("PulleyArmOp", PulleyArmOp.class);
     //manager.register("ContinuousServoOp", ContinuousServoOp.class);
-    manager.register("RockyBot", MechWheelsOp.class);
+    manager.register("RockyBot", MechWheelsTankOp.class);
     //manager.register("TKOred" , TKOred.class);
     //manager.register("CornerTKO" , CornerTKO.class);
-        //manager.register("PunchRed" , PunchRed.class);
-        //manager.register("JabRed" , JabbyRed.class);
-        //manager.register("PunchBlue" , PunchBlue.class);
-        //manager.register("JabBlue" , JabbyBlue.class);
+    //manager.register("PunchRed" , PunchRed.class);
+    //manager.register("JabRed" , JabbyRed.class);
+    //manager.register("PunchBlue" , PunchBlue.class);
+    //manager.register("JabBlue" , JabbyBlue.class);
     //manager.register("AutoTestOp", AutoTestOp.class);
     //manager.register("FourMotorMeasureEncoder", FourMotorMeasureEncoder.class);
     //manager.register("League0MountainOp", League0AutoOp.class);

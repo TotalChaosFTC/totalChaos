@@ -35,7 +35,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -43,7 +42,7 @@ import com.qualcomm.robotcore.util.Range;
  * <p>
  *Enables control of the robot via the gamepad
  */
-public class MechWheelsOp extends OpMode {
+public class MechWheelsTankOp extends OpMode {
 
     double armDelta = 0.01;
     boolean iSawDpadUpAlready = false;
@@ -142,42 +141,117 @@ public class MechWheelsOp extends OpMode {
 
 
 
-        double forward = gamepad1.left_stick_y;
-        double side = gamepad1.left_stick_x;
-        double turn = gamepad1.right_stick_x;
-
-        if (side == 0 || forward == 0 || turn == 0) {
-            if (Math.abs(forward) > Math.abs(side)) {
-                leftFront.setPower(forward);
-                leftBack.setPower(forward);
-                rightFront.setPower(forward);
-                rightBack.setPower(forward);
-            }
-            else if (Math.abs(side) > Math.abs(forward)) {
-                rightFront.setPower(side);
-                leftFront.setPower(-side);
-                rightBack.setPower(-side);
-                leftBack.setPower(side);
-            }
-            if (turn > 0) {
-                leftFront.setPower(-turn);
-                leftBack.setPower(-turn);
-                rightBack.setPower(turn);
-                rightFront.setPower(turn);
-            }
-            else if (turn < 0){
-                leftFront.setPower(- turn);
-                leftBack.setPower(-turn);
-                rightBack.setPower(turn);
-                rightFront.setPower(turn);
-            }
-            else if (side == 0 && forward == 0 && turn == 0) {
-                leftBack.setPower(0);
-                leftFront.setPower(0);
-                 rightBack.setPower(0);
-                rightFront.setPower(0);
-            }
+        double leftY = gamepad1.left_stick_y;
+        double leftX = gamepad1.left_stick_x;
+        double rightY = gamepad1.right_stick_y;
+        double rightX = gamepad1.right_stick_x;
+        double yOverxLeft = 0;
+        if (leftX != 0.0){
+            yOverxLeft = Math.abs(leftY)/Math.abs(leftX);
         }
+        double yOverxRight = 0;
+        if (rightX != 0.0){
+            yOverxRight = Math.abs(rightY)/Math.abs(rightX);
+        }
+        double leftFrontPower = 0;
+        double leftBackPower = 0;
+        double rightFrontPower = 0;
+        double rightBackPower = 0;
+        double tan1 = Math.tan(Math.PI/8);
+        double tan2 = Math.tan((3 * Math.PI)/8);
+        if(leftX > 0 && yOverxLeft <= tan1){
+            //robot go right
+            leftFrontPower = -mode;
+            leftBackPower = mode;
+        }
+        else if(leftX > 0 && leftY > 0 && yOverxLeft >= tan1 && yOverxLeft <= tan2){
+            //right up diagonal
+            leftFrontPower = 0;
+            leftBackPower = mode;
+        }
+        else if(leftY > 0 && (leftX == 0.0 || yOverxLeft >= tan2)){
+            //go forward
+            leftFrontPower = mode;
+            leftBackPower = mode;
+        }
+        else if(leftX < 0 && leftY > 0 && yOverxLeft >= tan1 && yOverxLeft <= tan2){
+            //left up diagonal
+            leftFrontPower = mode;
+            leftBackPower = 0;
+        }
+        else if(leftX < 0 && yOverxLeft <= tan1){
+            //robot go left
+            leftFrontPower = mode;
+            leftBackPower = -mode;
+        }
+        else if(leftX < 0 && leftY < 0 && yOverxLeft >= tan1 && yOverxLeft <= tan2){
+            //left back diagonal
+            leftFrontPower = 0;
+            leftBackPower = -mode;
+        }
+        else if(leftY < 0 && (leftX == 0.0 || yOverxLeft >= tan2)){
+            //go backwards
+            leftFrontPower = -mode;
+            leftBackPower = -mode;
+        }
+        else if(leftX > 0 && leftY < 0 && yOverxLeft >= tan1 && yOverxLeft <= tan2){
+            //right back diagonal
+            leftFrontPower = -mode;
+            leftBackPower = 0;
+        }
+        else{
+            leftFrontPower = 0;
+            leftBackPower = 0;
+        }
+        if(rightX > 0 && yOverxRight <= tan1){
+            //robot go right
+            rightFrontPower = mode;
+            rightBackPower = -mode;
+        }
+        else if(rightX > 0 && rightY > 0 && yOverxRight >= tan1 && yOverxRight <= tan2){
+            //right up diagonal
+            rightFrontPower = mode;
+            rightBackPower = 0;
+        }
+        else if(rightY > 0 && (rightX == 0.0 || yOverxRight >= tan2)){
+            //go forward
+            rightFrontPower = mode;
+            rightBackPower = mode;
+        }
+        else if(rightX < 0 && rightY > 0 && yOverxRight >= tan1 && yOverxRight <= tan2){
+            //left up diagonal
+            rightFrontPower = 0;
+            rightBackPower = mode;
+        }
+        else if(rightX < 0 && yOverxRight <= tan1){
+            //robot go left
+            rightFrontPower = -mode;
+            rightBackPower = mode;
+        }
+        else if(rightX < 0 && rightY < 0 && yOverxRight >= tan1 && yOverxRight <= tan2){
+            //left back diagonal
+            rightFrontPower = -mode;
+            rightBackPower = 0;
+        }
+        else if(rightY < 0 && (rightX == 0.0 || yOverxRight >= tan2)){
+            //go backwards
+            rightFrontPower = -mode;
+            rightBackPower = -mode;
+        }
+        else if(rightX > 0 && rightY < 0 && yOverxRight >= tan1 && yOverxRight <= tan2){
+            //right back diagonal
+            rightFrontPower = 0;
+            rightBackPower = -mode;
+        }
+        else{
+            rightFrontPower = 0;
+            rightBackPower = 0;
+        }
+        leftFront.setPower(leftFrontPower);
+        leftBack.setPower(leftBackPower);
+        rightBack.setPower(rightBackPower);
+        rightFront.setPower(rightFrontPower);
+
         if (gamepad1.right_trigger > 0){
             Sweeper.setPower(1);
         }
@@ -198,11 +272,11 @@ public class MechWheelsOp extends OpMode {
 
         if (gamepad2.right_bumper){
             ballPopper.setPower(mode);
-            sweep.setPower(-1);
+            sweep.setPower(0.75);
         }
         else if (gamepad2.left_bumper){
             ballPopper.setPower(-mode);
-            sweep.setPower(1);
+            sweep.setPower(-0.75);
         }
         else{
             ballPopper.setPower(0);

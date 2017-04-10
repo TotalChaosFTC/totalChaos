@@ -72,7 +72,7 @@ public class CornerTKOBlue extends AutoMech {
         encoderDrive(0.50,45);
         //drive so we can get closer to the beacon after the diagonal
         //move towards the beacon diagonally
-        encoderTurn(-0.5, -45);
+        navXTurn(-0.5, -35);
         //wall flush
         touchSensorDrive(RIGHT,0.35,15);
         //come off the wall to avoid break in wall
@@ -80,20 +80,21 @@ public class CornerTKOBlue extends AutoMech {
         colorSensorDrive(BLUE);
         encoderLeft(0.25,8);
         encoderDrive(0.5,28);
-        touchSensorDrive(RIGHT,0.45, 24);
+        touchSensorDrive(RIGHT,0.45, 13);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
         boolean otherColor = stoponBeaconColor(0.25,30, BLUE);
         colorSensorDrive(BLUE);
-        encoderLeft(0.5,15);
+        encoderLeft(0.5,8);
+        navXTurn(0.35, 39);
+        robot.sweeper.setPower(-1);
+
         if(otherColor){
-            encoderDrive(-0.5, -10);
+            encoderDrive(-0.5, -35);
         }
         else{
-            encoderDrive(-0.5, -8);
+            encoderDrive(-0.5, -33);
         }
-        robot.sweeper.setPower(-1);
-        encoderTurn(0.5, 55);
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0);
         ballShooting();

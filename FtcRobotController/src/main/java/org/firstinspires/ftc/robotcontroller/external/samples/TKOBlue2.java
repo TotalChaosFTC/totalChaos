@@ -79,24 +79,24 @@ public class TKOBlue2 extends AutoMech {
         colorSensorDrive(BLUE);
         encoderLeft(0.25,8);
         encoderDrive(0.5,28);
-        touchSensorDrive(RIGHT,0.45, 24);
+        touchSensorDrive(RIGHT,0.45, 18);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
         boolean otherColor = stoponBeaconColor(0.25,30, BLUE);
         colorSensorDrive(BLUE);
-        encoderLeft(0.5,20);
+        encoderLeft(0.5,8);
+        navXTurn(0.35, 41);
+        robot.sweeper.setPower(-1);
         if(otherColor){
-            encoderDrive(-0.5, -17);
+            encoderDrive(-0.5, -33);
         }
         else{
-            encoderDrive(-0.5, -15);
+            encoderDrive(-0.5, -31);
         }
-        robot.sweeper.setPower(-1);
-        navXTurn(0.35, 40);
         //encoderDrive(-0.5, -12);
         robot.sweeper.setPower(0);
         ballShooting();
-        encoderDrive(-1, -30);
+        encoderDrive(-1, -10);
 
     }
 }

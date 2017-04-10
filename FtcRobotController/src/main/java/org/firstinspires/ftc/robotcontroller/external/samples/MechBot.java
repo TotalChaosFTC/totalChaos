@@ -83,7 +83,7 @@ public class MechBot
         leftFrontTouchSensor = hwMap.touchSensor.get("lfront");
         leftBackTouchSensor = hwMap.touchSensor.get("lback");
         rightFrontTouchSensor = hwMap.touchSensor.get("rfront");
-        rightFrontTouchSensor = hwMap.touchSensor.get("rback");
+        rightBackTouchSensor = hwMap.touchSensor.get("rback");
 
 
         //bottomColorSensor = hwMap.colorSensor.get("bottom");

@@ -695,13 +695,13 @@ public abstract class AutoMech extends LinearOpMode {
         telemetry.update();
         double power = 1;
         if (battery >= 11 && battery<= 12){
-            power = 0.75;
+            power = 0.95;
         }
         else if (battery >= 12 && battery<= 13){
-            power = 0.55;
+            power = 0.85;
         }
         else if (battery >= 13){
-            power = 0.5;
+            power = 0.75;
         }
         robot.sweep.setPower(-1);
         robot.leftShooter.setPower(power);
