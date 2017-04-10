@@ -83,7 +83,7 @@ public class TKOred extends AutoMech {
         //wall flush
         touchSensorDrive(RIGHT,1,25);
         //come off the wall to avoid break in wall
-        encoderLeft(0.25,0.75);
+        //encoderLeft(0.25,0.75);
         //look for beacon and push
         stoponBeaconColor(-0.25,-25, RED);
         colorSensorDrive(RED);

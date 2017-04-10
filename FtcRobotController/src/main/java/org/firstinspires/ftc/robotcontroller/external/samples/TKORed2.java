@@ -72,12 +72,12 @@ public class TKORed2 extends AutoMech {
         //move towards the beacon diagonally
         encoderTurn(0.35, 45);
         //wall flush
-        touchSensorDrive(LEFT,0.5,10);
+        touchSensorDrive(LEFT,0.5,25);
         stoponBeaconColor(0.25,25, RED);
         colorSensorDrive(RED);
-        encoderRight(0.25,2);
+        //encoderRight(0.25,2);
         encoderDrive(0.45,28);
-        touchSensorDrive(LEFT,0.45, 10);
+        touchSensorDrive(LEFT,0.45, 25);
         //touchSensorDrive(RIGHT,0.35,2);
         //drive to second beacon
         boolean otherColor = stoponBeaconColor(0.25,30, RED);
